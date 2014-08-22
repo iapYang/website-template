@@ -1,11 +1,23 @@
 {
   "name": "website-template",
   "version": "0.0.1",
+  "homepage": "https://github.com/JoshuaYang/website-template",
+  "authors": [
+    "ヨシュア <yss901025@gmail.com>"
+  ],
+  "description": "website",
   "dependencies": {
-    "jquery": "~1.10.2",
+    "jquery": "latest",
     "requirejs": "latest",
     "modernizr": "~2.6.2",
     "requirejs-domready": "latest",
-    "greensock": "latest"
+    "greensock": "latest",
+    "iscroll": "~5.1.2",
+    "backbone": "~1.1.2",
+    "Backbone.localStorage": "~1.1.13",
+    "underscore": "~1.6.0",
+    "joshua.js": "*",
+    "font-awesome": "~4.1.0",
+    "bootstrap": "~3.2.0"
   }
 }

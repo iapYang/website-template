@@ -37,4 +37,3 @@ require.config({
 require(['scripts/pages/index.js', 'domReady!'], function (index) {
     
 });
-
