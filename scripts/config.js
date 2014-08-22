@@ -24,13 +24,16 @@ require.config({
     baseUrl: './',
     waitSeconds: 0,
     paths: {
-        "jquery": "vendors/jquery/jquery",
+        "jquery": "vendors/jquery/dist/jquery",
         'domReady': 'vendors/requirejs-domready/domReady',
-        'modernizr': 'vendors/modernizr/modernizr'
+        'modernizr': 'vendors/modernizr/modernizr',
+        'backbone': 'vendors/backbone/backbone',
+        'underscore': 'vendors/underscore/underscore',
+        'backbone.localstorage': 'vendors/Backbone.localStorage/backbone.localStorage'
     },
     packages: [
         { name: 'greensock', main: '', location: 'vendors/greensock/src/uncompressed' },
-        { name: 'joshua', main: '', location: 'vendors/joshua.js' }
+        { name: 'joshua', main: '', location: 'vendors/joshua.js/dev' }
     ]
 });
 
