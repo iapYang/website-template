@@ -3,6 +3,7 @@ define(['jquery',
 		'joshua/ui/Picture', 
 		'joshua/interact/smooth_mousewheel',
 		'greensock/TweenMax',
+		'bootstrap',
 		'domReady!'], 
 	function($, Sprite, Picture, SmoothMouseWheel){
 

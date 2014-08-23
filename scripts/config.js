@@ -20,6 +20,9 @@ window.requestAnimFrame = (function() {
     };
 })();
 
+
+
+
 require.config({
     baseUrl: './',
     waitSeconds: 0,
@@ -29,7 +32,13 @@ require.config({
         'modernizr': 'vendors/modernizr/modernizr',
         'backbone': 'vendors/backbone/backbone',
         'underscore': 'vendors/underscore/underscore',
-        'backbone.localstorage': 'vendors/Backbone.localStorage/backbone.localStorage'
+        'backbone.localstorage': 'vendors/Backbone.localStorage/backbone.localStorage',
+        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min'
+    },
+    shim: {
+        'bootstrap': {
+            deps: ['jquery']
+        }
     },
     packages: [
         { name: 'greensock', main: '', location: 'vendors/greensock/src/uncompressed' },
@@ -40,3 +49,5 @@ require.config({
 require(['scripts/pages/index.js', 'domReady!'], function (index) {
     
 });
+
+
