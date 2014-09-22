@@ -27,13 +27,14 @@ require.config({
     baseUrl: metaData.baseUrl ? metaData.baseUrl : './',
     waitSeconds: 0,
     paths: {
-        "jquery": "vendors/jquery/dist/jquery",
+        "jquery": "vendors/jquery/dist/jquery", // export: $
         'domReady': 'vendors/requirejs-domready/domReady',
         'modernizr': 'vendors/modernizr/modernizr',
         'backbone': 'vendors/backbone/backbone',
         'underscore': 'vendors/underscore/underscore',
         'backbone.localstorage': 'vendors/Backbone.localStorage/backbone.localStorage',
-        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min'
+        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min',
+        'chartjs': 'vendors/chartjs/Chart.min' // export: null
     },
     shim: {
         'bootstrap': {
