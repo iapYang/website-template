@@ -24,7 +24,7 @@ window.requestAnimFrame = (function() {
 
 
 require.config({
-    baseUrl: './',
+    baseUrl: metaData.baseUrl ? metaData.baseUrl : './',
     waitSeconds: 0,
     paths: {
         "jquery": "vendors/jquery/dist/jquery",
