@@ -34,10 +34,14 @@ require.config({
         'underscore': 'vendors/underscore/underscore',
         'backbone.localstorage': 'vendors/Backbone.localStorage/backbone.localStorage',
         'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min',
-        'chartjs': 'vendors/chartjs/Chart.min' // export: null
+        'chartjs': 'vendors/chartjs/Chart.min', // export: null
+        'onepage-scroll': 'vendors/onepage-scroll/jquery.onepage-scroll.min' // export: null, need css
     },
     shim: {
         'bootstrap': {
+            deps: ['jquery']
+        },
+        'onepage-scroll': {
             deps: ['jquery']
         }
     },
