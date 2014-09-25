@@ -35,7 +35,8 @@ require.config({
         'backbone.localstorage': 'vendors/Backbone.localStorage/backbone.localStorage',
         'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min',
         'chartjs': 'vendors/chartjs/Chart.min', // export: null
-        'onepage-scroll': 'vendors/onepage-scroll/jquery.onepage-scroll.min' // export: null, need css
+        'onepage-scroll': 'vendors/onepage-scroll/jquery.onepage-scroll.min', // export: null, need css
+        'scrollReveal': 'vendors/scrollReveal.js/dist/scrollReveal.min' // export: null
     },
     shim: {
         'bootstrap': {
