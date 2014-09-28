@@ -1,4 +1,6 @@
 node_modules
+dist
+archive.zip
 *.log
 
 dev/vendors
