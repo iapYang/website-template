@@ -2,20 +2,6 @@ module.exports = (grunt) ->
 	grunt.initConfig
 		pkg: grunt.file.readJSON('package.json')
 
-		open:
-			dev:
-				options: null
-				path: 'http://0.0.0.0:8000'
-				app: 'Google Chrome'
-
-		connect:
-			dev:
-				options:
-					hostname: '0.0.0.0'
-					port: 8000
-					base: './dev'
-					keepalive: true
-
 		less: 
 			dev:
 				options:
@@ -116,19 +102,22 @@ module.exports = (grunt) ->
 				]
 
 
-	grunt.loadNpmTasks 'grunt-contrib-htmlmin'
 	grunt.loadNpmTasks 'grunt-contrib-less'
+	grunt.loadNpmTasks 'grunt-contrib-coffee'
 	grunt.loadNpmTasks 'grunt-contrib-watch'
 	grunt.loadNpmTasks 'grunt-contrib-clean'
+	grunt.loadNpmTasks 'grunt-contrib-htmlmin'
 	grunt.loadNpmTasks 'grunt-contrib-uglify'
-	grunt.loadNpmTasks 'grunt-contrib-copy'
-	grunt.loadNpmTasks 'grunt-contrib-connect'
 	grunt.loadNpmTasks 'grunt-contrib-imagemin'
-	grunt.loadNpmTasks 'grunt-contrib-coffee'
-	grunt.loadNpmTasks 'grunt-open'
+	grunt.loadNpmTasks 'grunt-contrib-copy'
 	grunt.loadNpmTasks 'grunt-contrib-compress'
 	
 
 	grunt.registerTask 'default', ['watch:dev']
-	# grunt.registerTask 'dev', ['open:dev', 'connect:dev']
 	grunt.registerTask 'build', ['clean:build', 'less:build', 'coffee:dev', 'uglify:build', 'htmlmin:build', 'imagemin:build', 'copy:build', 'compress:build']
+
+
+
+
+
+
