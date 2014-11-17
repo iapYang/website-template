@@ -18,7 +18,6 @@
   "homepage": "https://github.com/JoshuaYang/website-template",
   "dependencies": {
     "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-coffee": "^0.11.1",
     "grunt-contrib-compress": "^0.12.0",
     "grunt-contrib-copy": "^0.6.0",
     "grunt-contrib-htmlmin": "^0.3.0",

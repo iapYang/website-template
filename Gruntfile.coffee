@@ -18,31 +18,18 @@ module.exports = (grunt) ->
 					compress: true
 				files: [
 					expand: true
-					cwd: 'dev'
+					cwd: 'output'
 					src: ['**/*.less', '!vendors/**']
 					dest: 'dist'
 					ext: '.css'
-				]
-
-		coffee: 
-			dev:
-				options:
-					sourceMap: true
-					bare: true
-				files: [
-					expand: true
-					cwd: 'dev'
-					src: ['**/*.coffee', '!vendors/**']
-					dest: 'dev'
-					ext: '.js'
 				]
 
 		watch: 
 			dev:
 				options: 
 					livereload: true
-				files: ['**/*.less', '**/*.coffee', '!vendors/**']
-				tasks: ['less:dev', 'coffee:dev']
+				files: ['**/*.less', '!vendors/**']
+				tasks: ['less:dev']
 
 		clean:
 			build:
@@ -55,7 +42,7 @@ module.exports = (grunt) ->
 					collapseWhitespace: true
 				files: [
 					expand: true
-					cwd: 'dev'
+					cwd: 'output'
 					src: ['**/*.html', '!vendors/**']
 					dest: 'dist'
 					ext: '.html'
@@ -66,7 +53,7 @@ module.exports = (grunt) ->
 				options: null
 				files: [
 					expand: true
-					cwd: 'dev'
+					cwd: 'output'
 					src: ['**/*.js', '!vendors/**']
 					dest: 'dist'
 					ext: '.js'
@@ -78,7 +65,7 @@ module.exports = (grunt) ->
 					optimizationLevel: 3
 				files: [
 					expand: true
-					cwd: 'dev'
+					cwd: 'output'
 					src: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg', '!vendors/**']
 					dest: 'dist'
 				]
@@ -88,7 +75,7 @@ module.exports = (grunt) ->
 				options: null
 				files: [
 					expand: true
-					cwd: 'dev'
+					cwd: 'output'
 					src: ['**/*', '!images/**', '!scripts/**', '!styles/**', '!*']
 					dest: 'dist'
 				]
@@ -103,7 +90,6 @@ module.exports = (grunt) ->
 
 
 	grunt.loadNpmTasks 'grunt-contrib-less'
-	grunt.loadNpmTasks 'grunt-contrib-coffee'
 	grunt.loadNpmTasks 'grunt-contrib-watch'
 	grunt.loadNpmTasks 'grunt-contrib-clean'
 	grunt.loadNpmTasks 'grunt-contrib-htmlmin'
@@ -114,7 +100,7 @@ module.exports = (grunt) ->
 	
 
 	grunt.registerTask 'default', ['watch:dev']
-	grunt.registerTask 'build', ['clean:build', 'less:build', 'coffee:dev', 'uglify:build', 'htmlmin:build', 'imagemin:build', 'copy:build', 'compress:build']
+	grunt.registerTask 'build', ['clean:build', 'less:build', 'uglify:build', 'htmlmin:build', 'imagemin:build', 'copy:build', 'compress:build']
 
 
 

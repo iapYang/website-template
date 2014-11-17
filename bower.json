@@ -12,6 +12,7 @@
     "modernizr": "~2.6.2",
     "requirejs-domready": "latest",
     "joshua.js": "*",
-    "bootstrap": "~3.2.0"
+    "bootstrap": "~3.2.0",
+    "lesshat": "~3.0.2"
   }
 }

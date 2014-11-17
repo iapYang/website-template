@@ -1,5 +1,29 @@
-@import "../vendors/joshua.js/dev/less/all.less";
+@import "../vendors/lesshat/build/lesshat.less";
 @import "../vendors/bootstrap/less/bootstrap.less";
 
-//.normalize(); 
-//.reset();
+.wrap{
+	height: 500px;
+	.border-radius(10px);
+	background: gray;
+	.display(flex);
+	.justify-content(center);
+	.align-items(center);
+
+	.dv1{
+		width: 100px;
+		height: 50px;
+		background-color: red;
+	}
+
+	.dv2{
+		width: 200px;
+		height: 200px;
+		background-color: yellow;
+	}
+
+	.dv3{
+		width: 500px;
+		height: 100px;
+		background-color: green;
+	}
+}
