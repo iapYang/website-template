@@ -28,7 +28,12 @@ require.config({
 
 
 require(['jquery',
+        'greensock/TweenMax',
         'domReady!'], 
     function($){
+
+        TweenMax.to('#dv', 2, {
+            rotation: '720deg'
+        });
 });
 
