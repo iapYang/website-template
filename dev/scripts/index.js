@@ -11,10 +11,14 @@ require.config({
         'jquery': 'vendors/jquery/dist/jquery',
         'domReady': 'vendors/requirejs-domready/domReady',
         'modernizr': 'vendors/modernizr/modernizr',
-        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min'
+        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min',
+        'parallax': 'vendors/parallax/deploy/jquery.parallax.min'
     },
     shim: {
         'bootstrap': {
+            deps: ['jquery']
+        },
+        'parallax': {
             deps: ['jquery']
         }
     },
@@ -28,12 +32,21 @@ require.config({
 
 
 require(['jquery',
+        'joshua/ui/Rain',
         'greensock/TweenMax',
+        'parallax',
         'domReady!'], 
-    function($){
+    function($, Rain){
 
-        TweenMax.to('#dv', 2, {
-            rotation: '720deg'
-        });
+    new Rain($('.falldown'), {
+        source: ['images/yellow.png', 'images/blue.png', 'images/pink.png'],
+        count: 15,
+        minSpeed: 6,
+        maxSpeed: 10,
+        minDelay: 2,
+        maxDelay: 10
+    });
+
+    $('#scene').parallax();
 });
 

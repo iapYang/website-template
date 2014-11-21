@@ -1,0 +1,1 @@
+define(["jquery","joshua/util/Class"],function(e,t){});
