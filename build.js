@@ -37,14 +37,10 @@
         'jquery': 'vendors/jquery/dist/jquery',
         'domReady': 'vendors/requirejs-domready/domReady',
         'modernizr': 'vendors/modernizr/modernizr',
-        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min',
-        'parallax': 'vendors/parallax/deploy/jquery.parallax.min'
+        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min'
     },
     shim: {
         'bootstrap': {
-            deps: ['jquery']
-        },
-        'parallax': {
             deps: ['jquery']
         }
     },

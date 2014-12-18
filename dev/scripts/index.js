@@ -11,14 +11,10 @@ require.config({
         'jquery': 'vendors/jquery/dist/jquery',
         'domReady': 'vendors/requirejs-domready/domReady',
         'modernizr': 'vendors/modernizr/modernizr',
-        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min',
-        'parallax': 'vendors/parallax/deploy/jquery.parallax.min'
+        'bootstrap': 'vendors/bootstrap/dist/js/bootstrap.min'
     },
     shim: {
         'bootstrap': {
-            deps: ['jquery']
-        },
-        'parallax': {
             deps: ['jquery']
         }
     },
@@ -32,21 +28,14 @@ require.config({
 
 
 require(['jquery',
-        'joshua/ui/Rain',
+        'joshua/ui/Picture',
         'greensock/TweenMax',
-        'parallax',
         'domReady!'], 
-    function($, Rain){
+    function($, Picture){
 
-    new Rain($('.falldown'), {
-        source: ['images/yellow.png', 'images/blue.png', 'images/pink.png'],
-        count: 15,
-        minSpeed: 6,
-        maxSpeed: 10,
-        minDelay: 2,
-        maxDelay: 10
+    Picture.preload({
+        onLoad: function(loadCount, totalCount){},
+        onComplete: function(){}
     });
-
-    $('#scene').parallax();
 });
 
