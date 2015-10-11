@@ -1,18 +1,22 @@
 {
-  "name": "website-template",
-  "version": "0.0.1",
-  "homepage": "https://github.com/JoshuaYang/website-template",
+  "name": "template",
+  "version": "0.0.0",
   "authors": [
     "ヨシュア <yss901025@gmail.com>"
   ],
-  "description": "website",
-  "dependencies": {
-    "jquery": "latest",
-    "requirejs": "latest",
-    "modernizr": "~2.6.2",
-    "requirejs-domready": "latest",
-    "joshua.js": "*",
-    "bootstrap": "~3.2.0",
-    "lesshat": "~3.0.2"
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "dev/vendors",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
   }
 }
