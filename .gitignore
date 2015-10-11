@@ -1,6 +1,5 @@
 node_modules
-dist
-archive.zip
+release
 *.log
 
 dev/vendors
