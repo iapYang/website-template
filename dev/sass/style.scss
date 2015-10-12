@@ -1,7 +1,9 @@
 @import "compass/reset";
+@import "compass/css3";
 
 div{
     width: 100px;
     height: 100px;
     background-color: red;
+    @include border-radius(5px);
 }
