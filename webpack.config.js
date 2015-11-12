@@ -7,10 +7,10 @@ var bowerDirectoryPlugin = new webpack.ResolverPlugin(
 
 module.exports = {
     entry: {
-        main: './dev/js/app.js'
+        main: './dev/build/app.js'
     },
     output: {
-        path: './dev/build',
+        path: './dev/js',
         filename: '[name].js'
     },
     resolve: {
