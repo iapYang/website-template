@@ -1,26 +1,4 @@
 * {
   margin: 0;
   padding: 0;
-  border: 0;
   font-size: 0; }
-
-body {
-  text-align: justify; }
-  body:after {
-    content: '';
-    width: 100%;
-    display: inline-block; }
-
-.dv {
-  display: inline-block;
-  vertical-align: top; }
-
-.dv1 {
-  width: 100px;
-  height: 100px;
-  background-color: blue; }
-
-.dv2 {
-  width: 200px;
-  height: 200px;
-  background-color: red; }

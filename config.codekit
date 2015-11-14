@@ -22,12 +22,12 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/dev\/build\/main.js": {
+	"\/dev\/build\/app.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/dev\/build\/main.js",
-		"outputAbbreviatedPath": "\/dev\/build\/main-min.js",
+		"inputAbbreviatedPath": "\/dev\/build\/app.js",
+		"outputAbbreviatedPath": "\/dev\/build\/app-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -42,6 +42,39 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/dev\/img\/bg04M.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 146688,
+		"inputAbbreviatedPath": "\/dev\/img\/bg04M.jpg",
+		"outputAbbreviatedPath": "\/dev\/img\/bg04M.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/dev\/img\/logo.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 12002,
+		"inputAbbreviatedPath": "\/dev\/img\/logo.png",
+		"outputAbbreviatedPath": "\/dev\/img\/logo.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/dev\/img\/test\/logo.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 12002,
+		"inputAbbreviatedPath": "\/dev\/img\/test\/logo.png",
+		"outputAbbreviatedPath": "\/dev\/img\/test\/logo.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/dev\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -51,12 +84,12 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/dev\/js\/app.js": {
+	"\/dev\/js\/main.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/dev\/js\/app.js",
-		"outputAbbreviatedPath": "\/dev\/js\/app-min.js",
+		"inputAbbreviatedPath": "\/dev\/js\/main.js",
+		"outputAbbreviatedPath": "\/dev\/js\/main-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
