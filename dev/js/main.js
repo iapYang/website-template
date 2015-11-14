@@ -47,6 +47,7 @@
 	var $ = __webpack_require__(1);
 
 	console.log('==========');
+	alert('123');
 
 
 /***/ },
