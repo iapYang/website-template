@@ -82,10 +82,6 @@ gulp.task('clean', function(){
 
 gulp.task('compress', function(){
     return gulp.src(distPath + fullPath)
-    // .pipe(tar('archive.tar'))
-    // .pipe(gzip({
-    //     extension: 'zip'
-    // }))
     .pipe(zip('archive.zip'))
     .pipe(gulp.dest('.'));
 });
