@@ -47,7 +47,8 @@
 	var $ = __webpack_require__(1);
 	var iScroll = __webpack_require__(2);
 
-	console.log('==========', iScroll);
+	// console.log('==========', iScroll);
+	console.log('==========');
 
 
 /***/ },
