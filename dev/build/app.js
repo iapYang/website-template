@@ -1,4 +1,4 @@
 var $ = require('jquery');
+var iScroll = require('iscroll');
 
-console.log('==========');
-alert('123');
+console.log('==========', iScroll);
