@@ -3,6 +3,7 @@ node_modules
 release
 .sass-cache
 archive.zip
+tmp
 *.log
 
 dev/vendors
