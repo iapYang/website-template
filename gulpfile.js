@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
 var minifyCss = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
-var stripDebug = require('gulp-strip-debug');
 var imagemin = require('gulp-imagemin');
 var copy = require('gulp-copy');
 var clean = require('gulp-clean');
@@ -16,20 +15,10 @@ var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 
 
-// gulp.task('html', function(){
-//     return gulp.src('dev/*.html')
-//     .pipe(htmlmin({
-//         removeComments: true,
-//         collapseWhitespace: true
-//     }))
-//     .pipe(gulp.dest('dist'))
-//     .pipe(reload({stream: true}));;
-// });
-
 
 
 gulp.task('sass', function(){
-    return gulp.src('dev/styles/*.scss')
+    return gulp.src('dev/styles/**/*.scss')
     .pipe(compass({
         sassDir: 'dev/styles',
         cssDir: 'tmp/styles'
@@ -38,7 +27,7 @@ gulp.task('sass', function(){
 });
 
 gulp.task('es6', function(){
-    return gulp.src('dev/scripts/*.ts')
+    return gulp.src('dev/scripts/**/*.ts')
     .pipe(babel({
         presets: ['es2015']
     }))
@@ -46,10 +35,48 @@ gulp.task('es6', function(){
     .pipe(reload({stream: true}));;
 });
 
+gulp.task('html', function(){
+    return gulp.src('dev/**/*.html')
+    .pipe(htmlmin({
+        removeComments: true,
+        collapseWhitespace: true
+    }))
+    .pipe(gulp.dest('dist'));
+});
 
-gulp.task('generate', ['sass', 'es6']);
+gulp.task('css', function(){
+    return gulp.src('tmp/styles/**/*.css')
+    .pipe(minifyCss())
+    .pipe(gulp.dest('dist/styles'));
+});
 
-gulp.task('default', ['generate'], function(){
+gulp.task('js', function(){
+    return gulp.src('tmp/scripts/**/*.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/scripts'));
+});
+
+gulp.task('img', function(){
+    return gulp.src('dev/images/**/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('dist/images'));
+});
+
+gulp.task('clean', function(){
+    return gulp.src(['tmp', 'dist'])
+    .pipe(clean());
+});
+
+gulp.task('compress', function(){
+    return gulp.src('dist/**')
+    .pipe(zip('archive.zip'))
+    .pipe(gulp.dest('./'));
+});
+
+
+gulp.task('compile', ['sass', 'es6']);
+
+gulp.task('default', ['compile'], function(){
     browserSync.init({
         port: 9000,
         server: {
@@ -60,7 +87,6 @@ gulp.task('default', ['generate'], function(){
     gulp.watch('dev/styles/*.scss', ['sass']);
     gulp.watch('dev/scripts/*.js', ['es6']);
 
-
     gulp.watch([
         'dev/*.html',
         'dev/images/**/*',
@@ -68,55 +94,14 @@ gulp.task('default', ['generate'], function(){
     ]).on('change', reload);
 });
 
+gulp.task('build', function(cb){
+    sequence('clean', 'compile', ['html', 'css', 'js', 'img'], 'compress', cb);
+});
 
 
-// gulp.task('minify-html', function(){
-//     return gulp.src(sourceHtmlPath)
-//     .pipe(htmlmin({
-//         removeComments: true,
-//         collapseWhitespace: true
-//     }))
-//     .pipe(gulp.dest(distHtmlPath));
-// });
-//
-// gulp.task('minify-css', function(){
-//     return gulp.src(sourceStylePath)
-//     .pipe(minifyCss())
-//     .pipe(gulp.dest(distStylePath));
-// });
-//
-// gulp.task('minify-js', function () {
-//     return gulp.src(sourceScriptPath)
-//     .pipe(uglify())
-//     .pipe(stripDebug())
-//     .pipe(gulp.dest(distScriptPath));
-// });
-//
-// gulp.task('minify-img', function(){
-//     return gulp.src(sourceImagePath)
-//     .pipe(imagemin())
-//     .pipe(gulp.dest(distImagePath));
-// });
-//
 // gulp.task('copy', function(){
 //     return gulp.src(sourceAllPath)
 //     .pipe(copy(distPath, {
 //         prefix: 1
 //     }));
-// });
-//
-// gulp.task('clean', function(){
-//     return gulp.src([distPath, archiveName, archivePath.concat(archiveName, archiveExt)])
-//     .pipe(clean());
-// });
-//
-// gulp.task('compress', function(){
-//     return gulp.src(distAllPath)
-//     .pipe(zip(archiveName.concat(archiveExt)))
-//     .pipe(gulp.dest(archivePath));
-// });
-//
-//
-// gulp.task('build', function(cb){
-//     sequence('clean', ['minify-html', 'minify-css', 'minify-js', 'minify-img'], 'copy', 'compress', cb);
 // });

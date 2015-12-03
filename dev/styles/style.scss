@@ -4,6 +4,6 @@
 .box{
     width: 100px;
     height: 100px;
-    background-color: red;
+    background-color: yellow;
     @include border-radius(50%);
 }
