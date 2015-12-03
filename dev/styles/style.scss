@@ -2,7 +2,7 @@
 @import "compass/css3";
 
 .box{
-    width: 100px;
+    width: 200px;
     height: 100px;
     background-color: yellow;
     @include border-radius(50%);

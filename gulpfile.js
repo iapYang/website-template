@@ -14,14 +14,11 @@ var babel = require('gulp-babel');
 var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 
-
-
-
 gulp.task('sass', function(){
     return gulp.src('dev/styles/**/*.scss')
     .pipe(compass({
         sassDir: 'dev/styles',
-        cssDir: 'tmp/styles'
+        cssDir: '.tmp/styles'
     }))
     .pipe(reload({stream: true}));;
 });
@@ -31,7 +28,7 @@ gulp.task('es6', function(){
     .pipe(babel({
         presets: ['es2015']
     }))
-    .pipe(gulp.dest('tmp/scripts'))
+    .pipe(gulp.dest('.tmp/scripts'))
     .pipe(reload({stream: true}));;
 });
 
@@ -45,13 +42,13 @@ gulp.task('html', function(){
 });
 
 gulp.task('css', function(){
-    return gulp.src('tmp/styles/**/*.css')
+    return gulp.src('.tmp/styles/**/*.css')
     .pipe(minifyCss())
     .pipe(gulp.dest('dist/styles'));
 });
 
 gulp.task('js', function(){
-    return gulp.src('tmp/scripts/**/*.js')
+    return gulp.src('.tmp/scripts/**/*.js')
     .pipe(uglify())
     .pipe(gulp.dest('dist/scripts'));
 });
@@ -63,8 +60,22 @@ gulp.task('img', function(){
 });
 
 gulp.task('clean', function(){
-    return gulp.src(['tmp', 'dist'])
+    return gulp.src(['.tmp', 'dist'])
     .pipe(clean());
+});
+
+gulp.task('copy', function(){
+    return gulp.src([
+        'dev/**/*',
+        '!dev/**/*.html',
+        '!dev/styles/**/*',
+        '!dev/scripts/**/*',
+        '!dev/images/**/*',
+        '!dev/vendors/**/*',
+    ])
+    .pipe(copy('dist/', {
+        prefix: 1
+    }));
 });
 
 gulp.task('compress', function(){
@@ -80,7 +91,7 @@ gulp.task('default', ['compile'], function(){
     browserSync.init({
         port: 9000,
         server: {
-            baseDir: ['dev', 'tmp']
+            baseDir: ['dev', '.tmp']
         }
     });
 
@@ -95,13 +106,5 @@ gulp.task('default', ['compile'], function(){
 });
 
 gulp.task('build', function(cb){
-    sequence('clean', 'compile', ['html', 'css', 'js', 'img'], 'compress', cb);
+    sequence('clean', 'compile', ['html', 'css', 'js', 'img'], 'copy', 'compress', cb);
 });
-
-
-// gulp.task('copy', function(){
-//     return gulp.src(sourceAllPath)
-//     .pipe(copy(distPath, {
-//         prefix: 1
-//     }));
-// });
