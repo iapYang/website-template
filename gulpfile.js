@@ -19,7 +19,7 @@ gulp.task('sass', function(){
         sassDir: 'dev/style',
         cssDir: '.tmp/css'
     }))
-    .pipe(reload({stream: true}));;
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('es6', function(){
@@ -28,7 +28,7 @@ gulp.task('es6', function(){
         presets: ['es2015']
     }))
     .pipe(gulp.dest('.tmp/js'))
-    .pipe(reload({stream: true}));;
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('html', function(){
