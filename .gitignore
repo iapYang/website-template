@@ -1,9 +1,9 @@
 .sass-cache
 .tmp
-dist
 node_modules
-archive.zip
 tmp
+dist
+archive.zip
 *.log
 
 dev/vendors
