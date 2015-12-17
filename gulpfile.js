@@ -64,6 +64,50 @@ var util = {
     ]
 };
 
+
+
+
+
+
+
+
+var ts = require('gulp-typescript');
+
+gulp.task('ts', function(){
+    return gulp.src('dev/script/**/*.ts')
+    .pipe(ts({
+        noImplicitAny: true,
+        removeComments: true
+    }))
+    .pipe(gulp.dest('dist/'));
+});
+
+
+
+
+var tsify = require('tsify');
+var debowerify = require('debowerify');
+
+gulp.task('ts-bs', function(){
+    browserify()
+    .add('dev/script/app.ts')
+    .plugin(tsify, {
+        noImplicitAny: true,
+        removeComments: true
+    })
+    .transform(debowerify)
+    .bundle()
+    .pipe(source(tmpPath.jsTargetName))// gives streaming vinyl file object
+    .pipe(gulp.dest('dist/'));
+});
+
+
+
+
+
+
+
+
 gulp.task('sass', function(){
     return gulp.src(devPath.sass)
     .pipe(compass({
