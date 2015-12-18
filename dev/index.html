@@ -1,22 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'template/layout.html' %}
 
-    <title>Document</title>
-    <link rel="stylesheet" href="style/style.css">
-</head>
-<body>
-    <h1>{{title}}</h1>
-    <h1>22ee3</h1>
-    <div class="container"></div>
-    <ul>
-        {% for item in items %}
-            <li>{{ item.name }}</li>
-        {% endfor %}
-    </ul>
+{% block title %}
+Page
+{% endblock%}
 
-	<script src="script/app.js"></script>
-</body>
-</html>
+{% block content %}
+<h1>{{ title|upper }}</h1>
+<div class="container">test</div>
+<ul>
+    {% for item in items %}
+        <li>
+            {% if item.sex == "1" %}
+                man
+            {% endif %}
+            {{ item.name }}==={{ loop.index0 }}
+        </li>
+    {% endfor %}
+</ul>
+<hr>
+{{ seq|reverse }}
+<hr>
+{{ obj|json }}
+
+<!-- {% for i in seq -%}
+    ~{{i}}
+{%- endfor %} -->
+
+<script src="script/app.js"></script>
+{% endblock %}
