@@ -8,21 +8,14 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    1 2 3
+    <h1>{{title}}</h1>
+    <h1>22ee3</h1>
     <div class="container"></div>
-    <ul class="list">
+    <ul>
+        {% for item in items %}
+            <li>{{ item.name }}</li>
+        {% endfor %}
     </ul>
-
-
-
-    <script id="entry-template" type="text/x-handlebars-template">
-        <li>
-            <span>name: {{name}}</span>
-            <span>age: {{age}}</span>
-            <span>sex: {{sex}}</span>
-        </li>
-
-    </script>
 
 	<script src="script/app.js"></script>
 </body>
