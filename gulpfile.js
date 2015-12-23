@@ -6,6 +6,7 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var babel = require('gulp-babel');
+var inject = require('gulp-inject');
 var htmlmin = require('gulp-htmlmin');
 var minifyCss = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
@@ -55,6 +56,7 @@ var util = {
         '!dev/style/**/*',
         '!dev/script/**/*',
         '!dev/image/**/*',
+        '!dev/template/**/*',
         '!dev/vendors/**/*',
     ],
     zipFile: 'archive.zip',
@@ -101,6 +103,28 @@ gulp.task('browserify-es6', function(){
     }))
     .pipe(gulp.dest(tmpPath.jsDir))
     .pipe(reload({stream: true}));
+});
+
+gulp.task('inject', function () {
+    var cssSource = gulp.src(tmpPath.css).pipe(minifyCss());
+    var jsSource = gulp.src(tmpPath.js).pipe(uglify());
+
+    return gulp.src(tmpPath.html)
+    .pipe(inject(cssSource, {
+        transform: function (filePath, file) {
+          return '<style>' + file.contents.toString('utf8') + '</style>';
+        }
+    }))
+    .pipe(inject(jsSource, {
+        transform: function (filePath, file) {
+          return '<script>' + file.contents.toString('utf8') + '</script>';
+        }
+    }))
+    .pipe(htmlmin({
+        removeComments: true,
+        collapseWhitespace: true
+    }))
+    .pipe(gulp.dest(destPath.htmlDir));
 });
 
 gulp.task('html', function(){
@@ -168,5 +192,6 @@ gulp.task('default', ['compile'], function(){
 });
 
 gulp.task('build', function(cb){
-    sequence('compile', ['html', 'css', 'js', 'img'], 'copy', 'compress', cb);
+    // sequence('compile', ['html', 'css', 'js', 'img'], 'copy', 'compress', cb);
+    sequence('compile', ['inject', 'img'], 'copy', 'compress', cb);
 });
