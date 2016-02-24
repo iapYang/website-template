@@ -18,6 +18,7 @@ var clean = require('gulp-clean');
 var sequence = require('gulp-sequence');
 var zip = require('gulp-zip');
 var watchify = require('watchify');
+var exit = require('gulp-exit');
 
 
 var devPath = {
@@ -161,6 +162,11 @@ gulp.task('compress', function(){
     .pipe(gulp.dest(util.compressDir));
 });
 
+gulp.task('exit', function(){
+    gulp.src('')
+    .pipe(exit());
+})
+
 gulp.task('compile', function(cb){
     sequence('clean', ['swig', 'sass', 'browserify-es6'], cb);
 });
@@ -181,5 +187,5 @@ gulp.task('default', ['compile'], function(){
 });
 
 gulp.task('build', function(cb){
-    sequence('compile', ['inject', 'img'], 'copy', 'compress', cb);
+    sequence('compile', ['inject', 'img'], ['copy', 'compress'], 'exit', cb);
 });

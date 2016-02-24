@@ -17,6 +17,7 @@
     "gulp-clean": "^0.3.1",
     "gulp-copy": "0.0.2",
     "gulp-data": "^1.2.1",
+    "gulp-exit": "0.0.2",
     "gulp-for-compass": "0.0.2",
     "gulp-htmlmin": "^1.2.0",
     "gulp-imagemin": "^2.4.0",
