@@ -17,12 +17,7 @@ var copy = require('gulp-copy');
 var clean = require('gulp-clean');
 var sequence = require('gulp-sequence');
 var zip = require('gulp-zip');
-
-
-
-
-
-
+var watchify = require('watchify');
 
 
 var devPath = {
@@ -64,7 +59,7 @@ var util = {
         '!dev/script/**/*',
         '!dev/image/**/*',
         '!dev/template/**/*',
-        '!dev/vendors/**/*',
+        '!dev/data/**/*',
     ],
     zipFile: 'archive.zip',
     compressFile: 'dist/**',
@@ -75,6 +70,12 @@ var util = {
         devPath.font
     ]
 };
+
+var b = watchify(browserify({
+    entries: [devPath.browserifyFile],
+    debug: true
+}));
+b.on('update', bundleJs);
 
 
 function getJsonData() {
@@ -100,40 +101,18 @@ gulp.task('sass', function(){
     .pipe(reload({stream: true}));
 });
 
+gulp.task('browserify-es6', bundleJs);
 
-
-
-
-
-var watchify = require('watchify');
-var b = watchify(browserify({
-    entries: [devPath.browserifyFile],
-    debug: true
-}));
-
-gulp.task('xxx', xxx);
-b.on('update', xxx);
-
-function xxx(){
+function bundleJs(){
     return b.bundle()
-    .pipe(source('app.js'))
-    .pipe(gulp.dest('./dist'))
-    .pipe(reload({stream: true}));
-}
-
-
-
-gulp.task('browserify-es6', function(){
-    browserify(devPath.browserifyFile)
-    .bundle()
-    .pipe(source(tmpPath.jsTargetName))// gives streaming vinyl file object
+    .pipe(source(tmpPath.jsTargetName))
     .pipe(buffer())// convert from streaming to buffered vinyl file object
-    .pipe(babel({
-        presets: ['es2015']
-    }))
+    // .pipe(babel({
+    //     presets: ['es2015']
+    // }))
     .pipe(gulp.dest(tmpPath.jsDir))
     .pipe(reload({stream: true}));
-});
+}
 
 gulp.task('inject', function () {
     var cssSource = gulp.src(tmpPath.css).pipe(minifyCss());
@@ -152,7 +131,8 @@ gulp.task('inject', function () {
     }))
     .pipe(htmlmin({
         removeComments: true,
-        collapseWhitespace: true
+        collapseWhitespace: true,
+        conservativeCollapse: true
     }))
     .pipe(gulp.dest(destPath.htmlDir));
 });
@@ -195,7 +175,7 @@ gulp.task('default', ['compile'], function(){
 
     gulp.watch([devPath.html, devPath.configFile], ['swig']);
     gulp.watch(devPath.sass, ['sass']);
-    gulp.watch(devPath.js, ['browserify-es6']);
+    // gulp.watch(devPath.js, ['browserify-es6']);
 
     gulp.watch(util.devReloadSource).on('change', reload);
 });
