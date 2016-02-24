@@ -76,7 +76,6 @@ var b = watchify(browserify({
     entries: [devPath.browserifyFile],
     debug: true
 }));
-b.on('update', bundleJs);
 
 
 function getJsonData() {
@@ -181,6 +180,7 @@ gulp.task('default', ['compile'], function(){
 
     gulp.watch([devPath.html, devPath.configFile], ['swig']);
     gulp.watch(devPath.sass, ['sass']);
+    b.on('update', bundleJs);
     // gulp.watch(devPath.js, ['browserify-es6']);
 
     gulp.watch(util.devReloadSource).on('change', reload);
