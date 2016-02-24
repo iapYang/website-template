@@ -11,26 +11,8 @@
     <!-- endinject -->
 </head>
 <body>
-    <h1>{{ title|upper }}</h1>
     <div class="container">test</div>
-    <ul>
-        {% for item in items %}
-            <li>
-                {% if item.sex == "1" %}
-                    man
-                {% endif %}
-                {{ item.name }}==={{ loop.index0 }}
-            </li>
-        {% endfor %}
-    </ul>
-    <hr>
-    {{ seq|reverse }}
-    <hr>
     {{ obj|json }}
-
-    <!-- {% for i in seq -%}
-        ~{{i}}
-    {%- endfor %} -->
 
     <!-- inject:js -->
     <script src="script/app.js"></script>

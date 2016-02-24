@@ -18,6 +18,13 @@ var clean = require('gulp-clean');
 var sequence = require('gulp-sequence');
 var zip = require('gulp-zip');
 
+
+
+
+
+
+
+
 var devPath = {
     html: 'dev/*.html',
     sass: 'dev/style/**/*.{scss,sass}',
@@ -93,6 +100,29 @@ gulp.task('sass', function(){
     .pipe(reload({stream: true}));
 });
 
+
+
+
+
+
+var watchify = require('watchify');
+var b = watchify(browserify({
+    entries: [devPath.browserifyFile],
+    debug: true
+}));
+
+gulp.task('xxx', xxx);
+b.on('update', xxx);
+
+function xxx(){
+    return b.bundle()
+    .pipe(source('app.js'))
+    .pipe(gulp.dest('./dist'))
+    .pipe(reload({stream: true}));
+}
+
+
+
 gulp.task('browserify-es6', function(){
     browserify(devPath.browserifyFile)
     .bundle()
@@ -125,27 +155,6 @@ gulp.task('inject', function () {
         collapseWhitespace: true
     }))
     .pipe(gulp.dest(destPath.htmlDir));
-});
-
-gulp.task('html', function(){
-    return gulp.src(tmpPath.html)
-    .pipe(htmlmin({
-        removeComments: true,
-        collapseWhitespace: true
-    }))
-    .pipe(gulp.dest(destPath.htmlDir));
-});
-
-gulp.task('css', function(){
-    return gulp.src(tmpPath.css)
-    .pipe(minifyCss())
-    .pipe(gulp.dest(destPath.cssDir));
-});
-
-gulp.task('js', function(){
-    return gulp.src(tmpPath.js)
-    .pipe(uglify())
-    .pipe(gulp.dest(destPath.jsDir));
 });
 
 gulp.task('img', function(){
@@ -192,6 +201,5 @@ gulp.task('default', ['compile'], function(){
 });
 
 gulp.task('build', function(cb){
-    // sequence('compile', ['html', 'css', 'js', 'img'], 'copy', 'compress', cb);
     sequence('compile', ['inject', 'img'], 'copy', 'compress', cb);
 });
