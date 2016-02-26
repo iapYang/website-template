@@ -1,6 +1,5 @@
 {
-    "title": "Hello World!",
-    "items": [
+    "students": [
         {
             "name": "apple",
             "sex": "1",
@@ -17,7 +16,6 @@
             "age": 23
         }
     ],
-    "seq": [1, 2, 3, 4, 5],
     "obj": {
         "name": "tom",
         "age": 12
