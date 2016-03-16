@@ -106,6 +106,10 @@ gulp.task('browserify-es6', bundleJs);
 
 function bundleJs(){
     return b.bundle()
+    .on('error', function (err) {
+        console.log(err.toString());
+        this.emit("end");
+    })
     .pipe(source(tmpPath.jsTargetName))
     .pipe(buffer())// convert from streaming to buffered vinyl file object
     // .pipe(babel({
