@@ -78,7 +78,6 @@ var b = watchify(browserify({
     debug: true
 }));
 
-
 function getJsonData() {
     var jsonData = require(devPath.configFile);
     delete require.cache[require.resolve(devPath.configFile)];
