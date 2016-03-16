@@ -1,7 +1,8 @@
-var $ = require('jquery');
-var TweenMax = require('gsap');
-var Picture = require('./util/picture.js');
-var Platform = require('./util/platform.js');
+$ = require('jquery');
+TweenMax = require('gsap');
+Picture = require('./util/picture.js');
+Platform = require('./util/platform.js');
+Slider = require('./util/slider.js');
 
 
 Picture.preload({
@@ -12,3 +13,10 @@ Picture.preload({
         // console.log('==========end');
     }
 });
+
+
+var slider = new Slider({
+    container: document.getElementsByClassName('slider')[0],//dom
+
+});
+console.log(slider);

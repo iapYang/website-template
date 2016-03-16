@@ -1,9 +1,9 @@
 (function(factory){
     if ( typeof module === 'object' && typeof module.exports === 'object' ){
-            console.log('load with commonJS');
+            console.log('Picture load with commonJS');
             module.exports = factory();
     }else{
-        console.log('load with normal');
+        console.log('Picture load with normal');
         factory();
     }
 }(function(){
