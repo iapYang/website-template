@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var TweenMax = require('gsap');
 var Picture = require('./util/picture.js');
+var Platform = require('./util/platform.js');
 
 
 Picture.preload({
