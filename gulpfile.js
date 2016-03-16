@@ -28,6 +28,7 @@ var devPath = {
     img: 'dev/image/**/*',
     font: 'dev/font/**/*',
     data: 'dev/data/**/*',
+    template: 'dev/template/**/*',
     cssDir: 'dev/style',
     browserifyFile: 'dev/script/app.es6',
     configFile: './dev/data/config.json'
@@ -35,11 +36,11 @@ var devPath = {
 
 var tmpPath = {
     html: '.tmp/*.html',
-    css: '.tmp/style/**/*.css',
-    js: '.tmp/script/**/*.js',
+    css: '.tmp/**/*.css',
+    js: '.tmp/**/*.js',
     htmlDir: '.tmp',
-    cssDir: '.tmp/style',
-    jsDir: '.tmp/script',
+    cssDir: '.tmp',
+    jsDir: '.tmp',
     jsTargetName: 'app.js'
 };
 
@@ -58,9 +59,7 @@ var util = {
         '!dev/*.html',
         '!dev/style/**/*',
         '!dev/script/**/*',
-        '!dev/image/**/*',
-        '!dev/template/**/*',
-        '!dev/data/**/*',
+        '!dev/image/**/*'
     ],
     zipFile: 'archive.zip',
     compressFile: 'dist/**',
@@ -68,7 +67,9 @@ var util = {
     browserSyncDir: ['.tmp', 'dev'],
     devReloadSource: [
         devPath.img,
-        devPath.font
+        devPath.font,
+        devPath.data,
+        devPath.template
     ]
 };
 
@@ -187,5 +188,5 @@ gulp.task('default', ['compile'], function(){
 });
 
 gulp.task('build', function(cb){
-    sequence('compile', ['inject', 'img'], ['copy', 'compress'], 'exit', cb);
+    sequence('compile', ['inject', 'img'], 'copy', 'compress', 'exit', cb);
 });
