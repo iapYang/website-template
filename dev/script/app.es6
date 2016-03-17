@@ -16,6 +16,7 @@ Picture.preload({
 
 var slider = new Slider({
     container: document.getElementsByClassName('slider')[0],//dom
+    currentIndex: 0
 });
 console.log(slider);
 

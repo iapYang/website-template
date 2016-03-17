@@ -7,6 +7,25 @@
         factory();
     }
 }(function(){
+    function merge(){
+        var obj = {},
+            i = 0,
+            il = arguments.length,
+            key;
+
+        for (; i < il; ++i) {
+            for (key in arguments[i]) {
+                if (arguments[i].hasOwnProperty(key)) {
+                    obj[key] = arguments[i][key];
+                }
+            }
+        }
+
+        return obj;
+    }
+
+
+
 
     var defaultOptions = {
         currentIndex: 0
@@ -47,28 +66,19 @@
     }
 
     function calcOrder(slider){
-
+        console.log(getPrevIndex(slider));
     }
 
-
-
-
-    function merge(){
-        var obj = {},
-            i = 0,
-            il = arguments.length,
-            key;
-
-        for (; i < il; ++i) {
-            for (key in arguments[i]) {
-                if (arguments[i].hasOwnProperty(key)) {
-                    obj[key] = arguments[i][key];
-                }
-            }
-        }
-
-        return obj;
+    function getNextIndex(slider){
+        return (slider.currentIndex + 1) % slider.items.length;
     }
+
+    function getPrevIndex(slider){
+        var length = slider.items.length;
+
+        return (length + slider.currentIndex - 1) % length;
+    }
+
 
 
 
