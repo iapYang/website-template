@@ -9,13 +9,14 @@
 }(function(){
 
     var defaultOptions = {
-        
+        currentIndex: 0
     }
 
     var Slider = function(opts){
-        var options = Object.assign({}, defaultOptions, opts);
+        var options = merge({}, defaultOptions, opts);
 
         this.container = options.container;
+        this.currentIndex = options.currentIndex;
 
 
         // check
