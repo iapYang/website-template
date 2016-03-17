@@ -18,6 +18,7 @@
         this.container = options.container;
 
 
+        // check
         if(!this.container){
             throw new Error('the slider need a initialize element');
         }
@@ -26,9 +27,15 @@
         }
 
 
-
+        // init vars
         this.wrapper = this.container.querySelectorAll('ul')[0];
         this.items = this.wrapper.querySelectorAll('li');
+
+        initStyle(this);
+    }
+
+    function initStyle(slider){
+        slider.items[0].style.position = 'relative';
     }
 
 

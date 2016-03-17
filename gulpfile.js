@@ -3,9 +3,9 @@ var swig = require('gulp-swig');
 var data = require('gulp-data');
 var compass = require( 'gulp-for-compass' );
 var browserify = require('browserify');
+var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var babel = require('gulp-babel');
 var inject = require('gulp-inject');
 var htmlmin = require('gulp-htmlmin');
 var minifyCss = require('gulp-minify-css');
@@ -73,10 +73,10 @@ var util = {
     ]
 };
 
-var b = watchify(browserify({
+var browserify_instance = watchify(browserify({
     entries: [devPath.browserifyFile],
     debug: true
-}));
+}).transform(babelify, {presets: ['es2015']}));
 
 function getJsonData() {
     var jsonData = require(devPath.configFile);
@@ -104,16 +104,14 @@ gulp.task('sass', function(){
 gulp.task('browserify-es6', bundleJs);
 
 function bundleJs(){
-    return b.bundle()
+    return browserify_instance
+    .bundle()
     .on('error', function (err) {
         console.log(err.toString());
         this.emit("end");
     })
     .pipe(source(tmpPath.jsTargetName))
     .pipe(buffer())// convert from streaming to buffered vinyl file object
-    // .pipe(babel({
-    //     presets: ['es2015']
-    // }))
     .pipe(gulp.dest(tmpPath.jsDir))
     .pipe(reload({stream: true}));
 }
@@ -184,7 +182,7 @@ gulp.task('default', ['compile'], function(){
 
     gulp.watch([devPath.html, devPath.configFile], ['swig']);
     gulp.watch(devPath.sass, ['sass']);
-    b.on('update', bundleJs);
+    browserify_instance.on('update', bundleJs);
     // gulp.watch(devPath.js, ['browserify-es6']);
 
     gulp.watch(util.devReloadSource).on('change', reload);
