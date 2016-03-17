@@ -1,8 +1,7 @@
-window.$ = require('jquery');
-window.TweenMax = require('gsap');
 window.Picture = require('./util/picture.js');
 window.Platform = require('./util/platform.js');
 window.Slider = require('./util/slider.js');
+window.Util = require('./util/util.js');
 
 
 Picture.preload({

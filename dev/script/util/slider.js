@@ -9,7 +9,7 @@
 }(function(){
 
     var defaultOptions = {
-
+        
     }
 
     var Slider = function(opts){
@@ -32,10 +32,41 @@
         this.items = this.wrapper.querySelectorAll('li');
 
         initStyle(this);
+        calcOrder(this);
     }
 
     function initStyle(slider){
+        slider.wrapper.style.position = 'relative';
+
         slider.items[0].style.position = 'relative';
+        for(var i = 1, length = slider.items.length; i < length; ++i){
+            slider.items[i].style.position = 'absolute';
+            slider.items[i].style.top = 0;
+        }
+    }
+
+    function calcOrder(slider){
+
+    }
+
+
+
+
+    function merge(){
+        var obj = {},
+            i = 0,
+            il = arguments.length,
+            key;
+
+        for (; i < il; ++i) {
+            for (key in arguments[i]) {
+                if (arguments[i].hasOwnProperty(key)) {
+                    obj[key] = arguments[i][key];
+                }
+            }
+        }
+
+        return obj;
     }
 
 
