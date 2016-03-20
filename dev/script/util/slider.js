@@ -24,22 +24,37 @@
         return obj;
     }
 
+    function isNumeric(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
 
 
 
     var defaultOptions = {
         currentIndex: 0,
-        speed: 1000
+        speed: 1000,
+        interactiveSpeed: 200,
+        interactiveDistance: 100,
+        ease: 'ease-in-out',
+        onChangeStart: function(i, next){},
+        onChangeEnd: function(i, prev){}
     }
 
     var Slider = function(opts){
         var options = merge({}, defaultOptions, opts);
 
+        // options which user can config
         this.container = options.container;
-        this.currentIndex = options.currentIndex;
-        this.speed = options.speed;
         this.prevBtn = options.prevBtn;
         this.nextBtn = options.nextBtn;
+        this.currentIndex = options.currentIndex;
+        this.speed = options.speed;
+        this.interactiveSpeed = options.interactiveSpeed;
+        this.interactiveDistance = options.interactiveDistance;
+        this.ease = options.ease;
+        this.onChangeStart = options.onChangeStart;
+        this.onChangeEnd = options.onChangeEnd;
 
 
 
@@ -57,43 +72,78 @@
         this.items = this.wrapper.querySelectorAll('li');
         this.animating = false;
         this.length = this.items.length;
+        this.wrapper.style.transitionTimingFunction = this.ease;
 
-        initStyle(this);
-        calcOrder(this);
-        registerEvent(this);
+        initStyle.call(this);
+        calcOrder.call(this);
+        registerEvent.call(this);
     }
 
-    Slider.prototype.slidePrev = function(){
-        if(this.animating) return;
-        this.animating = true;
+    Slider.prototype.slidePrev = function(speed){
+        var targetIndex = getPrevIndex.call(this);
+        var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
-        this.wrapper.style.transitionDuration = this.speed + 'ms';
-        this.wrapper.style.transform = 'translateX(100%)';
-
-        var that = this;
-        setTimeout(function(){
-            that.currentIndex = getPrevIndex(that);
-
-            slideEnd(that);
-        }, this.speed)
+        slideFunc.call(this, targetIndex, 'prev', calcSpeed);
     }
 
-    Slider.prototype.slideNext = function(){
-        if(this.animating) return;
-        this.animating = true;
+    Slider.prototype.slideNext = function(speed){
+        var targetIndex = getNextIndex.call(this)
+        var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
-        this.wrapper.style.transitionDuration = this.speed + 'ms';
-        this.wrapper.style.transform = 'translateX(-100%)';
-
-        var that = this;
-        setTimeout(function(){
-            that.currentIndex = getNextIndex(that);
-
-            slideEnd(that);
-        }, this.speed)
+        slideFunc.call(this, targetIndex, 'next', calcSpeed);
     }
 
-    Slider.prototype.slideTo = function(targetIndex){
+    Slider.prototype.slideTo = function(targetIndex, speed){
+        var calcSpeed = isNumeric(speed) ? speed : this.speed;
+
+        slideFunc.call(this, targetIndex, null, calcSpeed);
+    }
+
+    function initStyle(){
+        this.container.style.overflow = 'hidden';
+
+        this.wrapper.style.position = 'relative';
+
+        this.items[0].style.position = 'relative';
+        for(var i = 1, length = this.items.length; i < length; ++i){
+            this.items[i].style.position = 'absolute';
+            this.items[i].style.top = 0;
+        }
+    }
+
+    function calcOrder(){
+        var currentIndex = this.currentIndex;
+        var prevIndex = getPrevIndex.call(this);
+        var nextIndex = getNextIndex.call(this);
+
+        hideItemsExcept.call(this, [currentIndex, prevIndex, nextIndex]);
+
+        this.items[currentIndex].style.left = '0%';
+        this.items[prevIndex].style.left = '-100%';
+        this.items[nextIndex].style.left = '100%';
+    }
+
+    function hideItemsExcept(exceptArr){
+        for(var i = 0, length = this.items.length; i < length; ++i){
+            if(exceptArr.indexOf(i) == -1){
+                this.items[i].style.visibility = 'hidden';
+            }else{
+                this.items[i].style.visibility = 'visible';
+            }
+        }
+    }
+
+    function getPrevIndex(){
+        var length = this.items.length;
+
+        return (length + this.currentIndex - 1) % length;
+    }
+
+    function getNextIndex(){
+        return (this.currentIndex + 1) % this.items.length;
+    }
+
+    function slideFunc(targetIndex, direct, speed){
         targetIndex = parseInt(targetIndex);
 
         if(targetIndex == this.currentIndex) return;
@@ -103,88 +153,98 @@
         if(this.animating) return;
         this.animating = true;
 
+        this.onChangeStart(this.currentIndex, targetIndex);
+        hideItemsExcept.call(this, [this.currentIndex, targetIndex]);
 
-        hideItemsExcept(this, [this.currentIndex, targetIndex]);
-
-        if(targetIndex < this.currentIndex){
-            this.items[targetIndex].style.left = '-100%';
-            // this.slidePrev();
-            this.wrapper.style.transitionDuration = this.speed + 'ms';
-            this.wrapper.style.transform = 'translateX(100%)';
+        if(direct == null){
+            direct = this.currentIndex > targetIndex ? 'prev' : 'next';
         }
 
-        if(targetIndex > this.currentIndex){
+        this.wrapper.style.transitionDuration = speed + 'ms';
+
+        if(direct == 'prev'){
+            this.items[targetIndex].style.left = '-100%';
+            this.wrapper.style.transform = 'translateX(100%)';
+        }else{
             this.items[targetIndex].style.left = '100%';
-            // this.slideNext();
-            this.wrapper.style.transitionDuration = this.speed + 'ms';
             this.wrapper.style.transform = 'translateX(-100%)';
         }
 
         var that = this;
         setTimeout(function(){
-            that.currentIndex = targetIndex;
-
-            slideEnd(that);
-        }, this.speed)
+            slideEnd.call(that, targetIndex);
+        }, speed);
     }
 
+    function slideEnd(endIndex){
+        this.onChangeEnd(endIndex, this.currentIndex);
 
-    function initStyle(slider){
-        slider.container.style.overflow = 'hidden';
+        this.currentIndex = endIndex;
 
-        slider.wrapper.style.position = 'relative';
+        this.wrapper.style.transitionDuration = '0ms';
+        this.wrapper.style.transform = 'translateX(0%)';
 
-        slider.items[0].style.position = 'relative';
-        for(var i = 1, length = slider.items.length; i < length; ++i){
-            slider.items[i].style.position = 'absolute';
-            slider.items[i].style.top = 0;
-        }
+        this.animating = false;
+
+        calcOrder.call(this);
     }
 
-    function calcOrder(slider){
-        var currentIndex = slider.currentIndex;
-        var prevIndex = getPrevIndex(slider);
-        var nextIndex = getNextIndex(slider);
+    function registerEvent(){
+        if(this.prevBtn) this.prevBtn.addEventListener('click', this.slidePrev.bind(this), false);
+        if(this.nextBtn) this.nextBtn.addEventListener('click', this.slideNext.bind(this), false);
 
-        hideItemsExcept(slider, [currentIndex, prevIndex, nextIndex]);
-
-        slider.items[currentIndex].style.left = '0%';
-        slider.items[prevIndex].style.left = '-100%';
-        slider.items[nextIndex].style.left = '100%';
+        this.container.addEventListener('mousedown', startMove.bind(this), false);
+        this.container.addEventListener('mousemove', duringMove.bind(this), false);
+        this.container.addEventListener('mouseup', endMove.bind(this), false);
+        this.container.addEventListener('mouseleave', endMove.bind(this), false);
     }
 
-    function hideItemsExcept(slider, exceptArr){
-        for(var i = 0, length = slider.items.length; i < length; ++i){
-            if(exceptArr.indexOf(i) == -1){
-                slider.items[i].style.visibility = 'hidden';
+    function startMove(e){
+        if(this.animating) return;
+        if(this.interactived) return;
+
+        this.interactived = true;
+        this.startOffsetX = e.screenX;
+        this.wrapper.style.transitionDuration ='0ms';
+    }
+
+    function duringMove(e){
+        if(!this.interactived) return;
+
+        var moveX = e.screenX - this.startOffsetX;
+
+        this.wrapper.style.transform = 'translateX(' + moveX + 'px)';
+    }
+
+    function endMove(e){
+        if(!this.interactived) return;
+        this.interactived = false;
+
+        var moveX = e.screenX - this.startOffsetX;
+        var finalIndex;
+
+        this.wrapper.style.transitionDuration = this.interactiveSpeed + 'ms';
+        this.animating = true;
+
+        if(Math.abs(moveX) > this.interactiveDistance){
+            if(moveX > 0){
+                this.wrapper.style.transform = 'translateX(100%)';
+                finalIndex = getPrevIndex.call(this);
             }else{
-                slider.items[i].style.visibility = 'visible';
+                this.wrapper.style.transform = 'translateX(-100%)';
+                finalIndex = getNextIndex.call(this);
             }
+
+            this.onChangeStart(this.currentIndex, finalIndex);
+        }else{
+            this.wrapper.style.transform = 'translateX(0px)';
+            finalIndex = this.currentIndex;
         }
-    }
 
-    function getPrevIndex(slider){
-        var length = slider.items.length;
-
-        return (length + slider.currentIndex - 1) % length;
-    }
-
-    function getNextIndex(slider){
-        return (slider.currentIndex + 1) % slider.items.length;
-    }
-
-    function registerEvent(slider){
-        if(slider.prevBtn) slider.prevBtn.addEventListener('click', slider.slidePrev.bind(slider), false);
-        if(slider.nextBtn) slider.nextBtn.addEventListener('click', slider.slideNext.bind(slider), false);
-    }
-
-    function slideEnd(slider){
-        slider.wrapper.style.transitionDuration = 0 + 'ms';
-        slider.wrapper.style.transform = 'translateX(0%)';
-
-        slider.animating = false;
-
-        calcOrder(slider);
+        var that = this;
+        setTimeout(function(){
+            slideEnd.call(that, finalIndex);
+        }, that.interactiveSpeed);
     }
 
 
