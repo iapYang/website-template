@@ -29,6 +29,7 @@ var devPath = {
     font: 'dev/font/**/*',
     data: 'dev/data/**/*',
     template: 'dev/template/**/*',
+    worker: 'dev/worker/**/*',
     cssDir: 'dev/style',
     browserifyFile: 'dev/script/app.es6',
     configFile: './dev/data/config.json'
@@ -69,7 +70,8 @@ var util = {
         devPath.img,
         devPath.font,
         devPath.data,
-        devPath.template
+        devPath.template,
+        devPath.worker
     ]
 };
 

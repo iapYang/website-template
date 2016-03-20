@@ -3,7 +3,6 @@ window.Platform = require('./util/platform.js');
 window.Slider = require('./util/slider.js');
 window.Util = require('./util/util.js');
 
-
 Picture.preload({
     load: function(count, total){
         // console.log('==========', (count / total * 100) + '%');
@@ -13,15 +12,17 @@ Picture.preload({
     }
 });
 
-
 var slider = new Slider({
     container: document.getElementsByClassName('slider')[0],//dom
-    currentIndex: 0
+    currentIndex: 0,
+    speed: 500,//ms
+    prevBtn: document.getElementsByClassName('btn-prev')[0],//dom
+    nextBtn: document.getElementsByClassName('btn-next')[0]//dom
 });
-console.log(slider);
 
 
+document.getElementsByClassName('btn-go')[0].addEventListener('click', () => {
+    var value = document.getElementById('page').value;
 
-// let [a, b, c] = [1, 2, 3];
-//
-// console.log(a, b, c);
+    slider.slideTo(value);
+}, false);

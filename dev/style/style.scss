@@ -1,9 +1,15 @@
 @import "compass/reset";
 @import "compass/css3";
+@import "reset";
 @import "mixin";
+
 
 html{
     font-size: 1vw;
+}
+
+body{
+    text-align: center;
 }
 
 .container{
@@ -12,10 +18,10 @@ html{
     background-color: blue;
 }
 
-$colors: red, yellow, blue, green, orange;
+$colors: red, yellow, blue, green, purple;
 .slider{
     display: inline-block;
-    
+
 
     .slider-item{
         width: 20rem;
