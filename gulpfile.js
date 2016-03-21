@@ -19,6 +19,7 @@ var sequence = require('gulp-sequence');
 var zip = require('gulp-zip');
 var watchify = require('watchify');
 var exit = require('gulp-exit');
+var notify = require("gulp-notify");
 
 
 var devPath = {
@@ -110,7 +111,7 @@ function bundleJs(){
     .bundle()
     .on('error', function (err) {
         console.log(err.toString());
-        this.emit("end");
+        this.emit('end');
     })
     .pipe(source(tmpPath.jsTargetName))
     .pipe(buffer())// convert from streaming to buffered vinyl file object
@@ -165,8 +166,11 @@ gulp.task('compress', function(){
     .pipe(gulp.dest(util.compressDir));
 });
 
-gulp.task('exit', function(){
+gulp.task('complete', function(){
     gulp.src('')
+    .pipe(notify({
+        message: 'build complete',
+    }))
     .pipe(exit());
 })
 
@@ -191,5 +195,5 @@ gulp.task('default', ['compile'], function(){
 });
 
 gulp.task('build', function(cb){
-    sequence('compile', ['inject', 'img'], 'copy', 'compress', 'exit', cb);
+    sequence('compile', ['inject', 'img'], 'copy', 'compress', 'complete', cb);
 });

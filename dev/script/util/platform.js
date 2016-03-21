@@ -57,6 +57,7 @@
 	if (Platform.isTablet) html.classList.add('tablet');
 	if (Platform.isDesktop) html.classList.add('desktop');
 	if (Platform.isIOS) html.classList.add('ios');
+    if (Platform.isSafari) html.classList.add('safari');
 
     return window.Platform;
 }));

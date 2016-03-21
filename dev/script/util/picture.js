@@ -7,13 +7,30 @@
         factory();
     }
 }(function(){
+    function merge(){
+        var obj = {},
+            i = 0,
+            il = arguments.length,
+            key;
+
+        for (; i < il; ++i) {
+            for (key in arguments[i]) {
+                if (arguments[i].hasOwnProperty(key)) {
+                    obj[key] = arguments[i][key];
+                }
+            }
+        }
+
+        return obj;
+    }
+
+
+
     var className = 'preload';
     var dataName = 'data-source';
 
-    var items;
+    var items, totalCount, options;
     var loadCount = 0;
-    var totalCount;
-    var options;
 
     var defaultOptions = {
         load: function(){},
@@ -25,7 +42,7 @@
     }
 
     Picture.preload = function(opts){
-        options = Object.assign({}, defaultOptions, opts);
+        options = merge({}, defaultOptions, opts);
 
         items = document.getElementsByClassName(className);
         totalCount = items.length;
