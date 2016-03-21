@@ -1,7 +1,7 @@
-window.Picture = require('./util/picture.js');
-window.Platform = require('./util/platform.js');
-window.Slider = require('./util/slider.js');
-window.Util = require('./util/util.js');
+import Picture from './util/picture.js';
+import Platform from './util/platform.js';
+import Slider from './util/slider.js';
+import Util from './util/util.js';
 
 Picture.preload({
     load: function(count, total){
@@ -12,7 +12,7 @@ Picture.preload({
     }
 });
 
-window.slider = new Slider({
+let slider = new Slider({
     container: document.getElementsByClassName('slider')[0],//dom
     prevBtn: document.getElementsByClassName('btn-prev')[0],//dom
     nextBtn: document.getElementsByClassName('btn-next')[0],//dom

@@ -29,6 +29,13 @@
         return obj;
     }
 
+    Util.parseDom = function(str){
+        var div = document.createElement('div');
+        div.innerHTML = str;
+
+        return div.childNodes[0];
+    }
+
 
 
 
