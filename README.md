@@ -11,9 +11,19 @@
 
 > picture：图片加载库
 
+```html
+<!-- 图片加载的容器统一设置.preload, 图片路径设置为data-source -->
+<div class="preload" data-source="image/logo.png"></div>
+```
+
 ```javascript
 Picture.preload({
+  	// 每张图片加载完后的回调
+  	// *参数1：已加载完成的图片数
+  	// *参数2：图片总数
     load: function(count, total){},
+  
+  	// 全部图片加载完后的回调
     end: function(){}
 });
 ```
@@ -22,3 +32,58 @@ Picture.preload({
 
 
 > slider：内容轮播库
+
+```javascript
+var slider = new Slider({
+  	// 容器元素，dom
+    container: document.getElementsById('slider'),
+  
+  	// 上一项元素，dom
+    prevBtn: document.getElementsById('btn-prev'),
+  
+  	// 下一项元素，dom
+    nextBtn: document.getElementsById('btn-next'),
+  
+  	// 初始化后的显示项下标，默认为0
+    currentIndex: 0,
+  
+  	// 动画速度，单位ms，默认为1000
+    speed: 800,
+  
+  	// 人为交互后的动画速度，单位ms，默认200
+    interactiveSpeed: 300,
+  	
+  	// 人为交互后进行跳转的最短距离，单位px，默认100
+    interactiveDistance: 200,
+  
+  	// 缓动动画，css字符串，默认ease-in-out
+    ease: 'cubic-bezier(0.215, 0.61, 0.355, 1)',
+  
+  	// 动画开始时的回调
+  	// *参数1：当前下标
+  	// *参数2：下一项下标
+    onChangeStart: function(i, next){
+        console.log('==========', i, next);
+    },
+  
+  	// 动画结束后的回调
+  	// *参数1：当前下标
+  	// *参数2：上一项下标
+    onChangeEnd: function(i, prev){
+        console.log('==========', i, prev);
+    }
+});
+
+// 跳转到上一项
+// *参数1：动画时间，默认为初始化速度
+slider.slidePrev(t)
+
+// 跳转到下一项
+// *参数1：动画时间，默认为初始化速度
+slider.slidePrev(t)
+
+// 跳转到指定项
+// *参数1：目标项下标
+// *参数2：动画时间，默认为初始化速度
+slider.slideTo(i, t)
+```
