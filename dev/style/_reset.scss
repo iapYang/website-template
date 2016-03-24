@@ -9,3 +9,9 @@ figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, t
     @include box-sizing(border-box);
     @include user-select(none);
 }
+
+.preload{
+    img{
+        width: 100%;
+    }
+}

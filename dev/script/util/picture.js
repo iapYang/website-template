@@ -34,7 +34,7 @@
 
     var defaultOptions = {
         load: function(){},
-        end: function(){}
+        end: function(){},
     }
 
     var Picture = function(){
@@ -62,19 +62,19 @@
 
         image.onload = function(){
             item.appendChild(this);
-            doLoad();
+            doLoad(image);
         };
         image.onerror = function(){
-            doLoad();
+            doLoad(image);
         }
 
         image.src = src;
     }
 
-    function doLoad(){
+    function doLoad(image){
         ++loadCount;
 
-        options.load(loadCount, totalCount);
+        options.load(image, loadCount, totalCount);
 
         if(loadCount == totalCount){
             doEnd();
