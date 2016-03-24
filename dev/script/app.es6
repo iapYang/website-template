@@ -4,6 +4,8 @@ import Slider from './util/slider.js';
 import Util from './util/util.js';
 
 
+const body = document.body;
+
 
 function init(){
     generateStruct();
@@ -43,6 +45,10 @@ function generateStruct(){
 }
 
 function registerEvents(){
+    body.addEventListener('touchmove', () => {
+        event.preventDefault();
+    });
+
     document.getElementsByClassName('btn-go')[0].addEventListener('click', () => {
         var value = document.getElementById('page').value;
 

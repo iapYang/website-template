@@ -76,10 +76,13 @@ var util = {
     ]
 };
 
-var browserify_instance = watchify(browserify({
+var browserify_instance = browserify({
     entries: [devPath.browserifyFile],
-    debug: true
-}).transform(babelify, {presets: ['es2015']}));
+    cache: {},
+    packageCache: {},
+    fullPaths: true,
+    plugin: [watchify]
+}).transform(babelify, {presets: ['es2015']});
 
 function getJsonData() {
     var jsonData = require(devPath.configFile);
