@@ -4,7 +4,23 @@
 
 
 
-## **gulp**
+## 目录结构
+
+- data：临时/动态数据
+- font：字体
+- image：图片
+- script：脚本
+  - util：工具库
+- style：样式
+- template：模板
+- worker：线程
+
+
+## gulp
+> 使用swig模板引擎，sass预编译，es6语法，browserify模块管理
+>
+> 模板引擎的数据来源默认路径为 dev/data/config.json
+
 `default`  开发时运行，自动编译sass，js，并打开本地服务器实时预览
 
 `build`  发布时运行，整合相关文件，并生成压缩包
@@ -15,7 +31,9 @@
 
 遵循commonJS规范，也可以单独引入使用
 
-> picture：图片加载库
+### picture.js
+
+> 图片加载库
 
 ```html
 <!-- 图片加载的容器统一设置.preload, 图片路径设置为data-source -->
@@ -25,19 +43,24 @@
 ```javascript
 Picture.preload({
   	// 每张图片加载完后的回调
-  	// *参数1：已加载完成的图片数
-  	// *参数2：图片总数
-    load: function(count, total){},
+	// *参数1：加载完成的图片dom对象
+  	// *参数2：已加载完成的图片数
+  	// *参数3：图片总数
+    load: function(image, count, total){},
 
   	// 全部图片加载完后的回调
     end: function(){}
 });
 ```
 
-> platform：平台检测库
+## platform.js
+
+> 平台检测库
 
 
-> slider：内容轮播库
+## slider.js
+
+> 内容轮播库
 
 ```javascript
 var slider = new Slider({
