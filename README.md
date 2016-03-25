@@ -4,7 +4,7 @@
 
 
 
-## 目录结构
+## 1. 目录结构
 
 - data：临时/动态数据
 - font：字体
@@ -16,7 +16,7 @@
 - worker：线程
 
 
-## gulp
+## 2. gulp
 > 使用swig模板引擎，sass预编译，es6语法，browserify模块管理
 >
 > 模板引擎的数据来源默认路径为 dev/data/config.json
@@ -27,11 +27,11 @@
 
 
 
-## util
+## 3. util
 
 遵循commonJS规范，也可以单独引入使用
 
-### picture.js
+### 3.1 picture.js
 
 > 图片加载库
 
@@ -53,12 +53,12 @@ Picture.preload({
 });
 ```
 
-## platform.js
+## 3.2 platform.js
 
 > 平台检测库
 
 
-## slider.js
+## 3.3 slider.js
 
 > 内容轮播库
 
