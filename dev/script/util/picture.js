@@ -25,7 +25,6 @@
     }
 
 
-
     var className = 'preload';
     var dataName = 'data-source';
 

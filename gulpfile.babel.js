@@ -1,28 +1,28 @@
-var gulp = require('gulp');
-var swig = require('gulp-swig');
-var data = require('gulp-data');
-var compass = require( 'gulp-for-compass' );
-var browserify = require('browserify');
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var inject = require('gulp-inject');
-var htmlmin = require('gulp-htmlmin');
-var minifyCss = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var imagemin = require('gulp-imagemin');
-var browserSync = require('browser-sync').create();
-var reload = browserSync.reload;
-var copy = require('gulp-copy');
-var clean = require('gulp-clean');
-var sequence = require('gulp-sequence');
-var zip = require('gulp-zip');
-var watchify = require('watchify');
-var exit = require('gulp-exit');
-var notify = require("gulp-notify");
+import gulp from 'gulp';
+import swig from 'gulp-swig';
+import data from 'gulp-data';
+import compass from  'gulp-for-compass' ;
+import browserify from 'browserify';
+import babelify from 'babelify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import inject from 'gulp-inject';
+import htmlmin from 'gulp-htmlmin';
+import minifyCss from 'gulp-minify-css';
+import uglify from 'gulp-uglify';
+import imagemin from 'gulp-imagemin';
+import copy from 'gulp-copy';
+import clean from 'gulp-clean';
+import sequence from 'gulp-sequence';
+import zip from 'gulp-zip';
+import watchify from 'watchify';
+import exit from 'gulp-exit';
+import notify from 'gulp-notify';
+import browserSync from 'browser-sync';
 
+const reload = browserSync.reload;
 
-var devPath = {
+const devPath = {
     html: 'dev/*.html',
     sass: 'dev/style/**/*.{scss,sass}',
     js: 'dev/script/**/*',
@@ -33,35 +33,35 @@ var devPath = {
     worker: 'dev/worker/**/*',
     cssDir: 'dev/style',
     browserifyFile: 'dev/script/app.es6',
-    configFile: './dev/data/config.json'
+    configFile: './dev/data/config.json',
 };
 
-var tmpPath = {
+const tmpPath = {
     html: '.tmp/*.html',
     css: '.tmp/**/*.css',
     js: '.tmp/**/*.js',
     htmlDir: '.tmp',
     cssDir: '.tmp',
     jsDir: '.tmp',
-    jsTargetName: 'app.js'
+    jsTargetName: 'app.js',
 };
 
-var destPath = {
+const destPath = {
     root: 'dist/',
     htmlDir: 'dist/',
     cssDir: 'dist/style',
     jsDir: 'dist/script',
-    imgDir: 'dist/image'
+    imgDir: 'dist/image',
 };
 
-var util = {
+const util = {
     cleanSource: ['.tmp', 'dist', 'archive.zip'],
     copySource: [
         'dev/**/*',
         '!dev/*.html',
         '!dev/style/**/*',
         '!dev/script/**/*',
-        '!dev/image/**/*'
+        '!dev/image/**/*',
     ],
     zipFile: 'archive.zip',
     compressFile: 'dist/**',
@@ -72,25 +72,26 @@ var util = {
         devPath.font,
         devPath.data,
         devPath.template,
-        devPath.worker
+        devPath.worker,
     ]
 };
 
-var browserify_instance = browserify({
+const browserify_instance = browserify({
     entries: [devPath.browserifyFile],
     cache: {},
     packageCache: {},
     fullPaths: true,
-    plugin: [watchify]
+    plugin: [watchify],
 }).transform(babelify, {presets: ['es2015']});
 
 function getJsonData() {
     var jsonData = require(devPath.configFile);
     delete require.cache[require.resolve(devPath.configFile)];
+
     return jsonData;
 };
 
-gulp.task('swig', function() {
+gulp.task('swig', () => {
     return gulp.src(devPath.html)
     .pipe(data(getJsonData))
     .pipe(swig({defaults: { cache: false }}))
@@ -98,7 +99,7 @@ gulp.task('swig', function() {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('sass', function(){
+gulp.task('sass', () => {
     return gulp.src(devPath.sass)
     .pipe(compass({
         sassDir: devPath.cssDir,
@@ -112,64 +113,64 @@ gulp.task('browserify-es6', bundleJs);
 function bundleJs(){
     return browserify_instance
     .bundle()
-    .on('error', function (err) {
+    .on('error', (err) => {
         console.log(err.toString());
         this.emit('end');
     })
     .pipe(source(tmpPath.jsTargetName))
-    .pipe(buffer())// convert from streaming to buffered vinyl file object
+    .pipe(buffer())
     .pipe(gulp.dest(tmpPath.jsDir))
     .pipe(reload({stream: true}));
 }
 
-gulp.task('inject', function () {
+gulp.task('inject', () => {
     var cssSource = gulp.src(tmpPath.css).pipe(minifyCss());
     var jsSource = gulp.src(tmpPath.js).pipe(uglify());
 
     return gulp.src(tmpPath.html)
     .pipe(inject(cssSource, {
         transform: function (filePath, file) {
-          return '<style>' + file.contents.toString('utf8') + '</style>';
+          return `<style>${file.contents.toString('utf8')}</style>`;
         }
     }))
     .pipe(inject(jsSource, {
         transform: function (filePath, file) {
-          return '<script>' + file.contents.toString('utf8') + '</script>';
+          return `<script>${file.contents.toString('utf8')}</script>`;
         }
     }))
     .pipe(htmlmin({
         removeComments: true,
         collapseWhitespace: true,
-        conservativeCollapse: true
+        conservativeCollapse: true,
     }))
     .pipe(gulp.dest(destPath.htmlDir));
 });
 
-gulp.task('img', function(){
+gulp.task('img', () => {
     return gulp.src(devPath.img)
     .pipe(imagemin())
     .pipe(gulp.dest(destPath.imgDir));
 });
 
-gulp.task('clean', function(){
+gulp.task('clean', () => {
     return gulp.src(util.cleanSource)
     .pipe(clean());
 });
 
-gulp.task('copy', function(){
+gulp.task('copy', () => {
     return gulp.src(util.copySource)
     .pipe(copy(destPath.root, {
         prefix: 1
     }));
 });
 
-gulp.task('compress', function(){
+gulp.task('compress', () => {
     return gulp.src(util.compressFile)
     .pipe(zip(util.zipFile))
     .pipe(gulp.dest(util.compressDir));
 });
 
-gulp.task('complete', function(){
+gulp.task('complete', () => {
     gulp.src('')
     .pipe(notify({
         message: 'build complete',
@@ -177,16 +178,16 @@ gulp.task('complete', function(){
     .pipe(exit());
 })
 
-gulp.task('compile', function(cb){
+gulp.task('compile', (cb) => {
     sequence('clean', ['swig', 'sass', 'browserify-es6'], cb);
 });
 
-gulp.task('default', ['compile'], function(){
+gulp.task('default', ['compile'], () => {
     browserSync.init({
         port: 9000,
         server: {
-            baseDir: util.browserSyncDir
-        }
+            baseDir: util.browserSyncDir,
+        },
     });
 
     gulp.watch([devPath.html, devPath.configFile], ['swig']);
@@ -197,6 +198,6 @@ gulp.task('default', ['compile'], function(){
     gulp.watch(util.devReloadSource).on('change', reload);
 });
 
-gulp.task('build', function(cb){
+gulp.task('build', (cb) => {
     sequence('compile', ['inject', 'img'], 'copy', 'compress', 'complete', cb);
 });

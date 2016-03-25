@@ -3,8 +3,8 @@ import Platform from './util/platform.js';
 import Slider from './util/slider.js';
 import Util from './util/util.js';
 
-
 const body = document.body;
+let slider;
 
 
 function init(){
@@ -22,7 +22,7 @@ function init(){
 }
 
 function generateStruct(){
-    let slider = new Slider({
+    slider = new Slider({
         container: document.getElementsByClassName('slider')[0],//dom
         prevBtn: document.getElementsByClassName('btn-prev')[0],//dom
         nextBtn: document.getElementsByClassName('btn-next')[0],//dom
