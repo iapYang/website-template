@@ -7,44 +7,52 @@ const body = document.body;
 let slider;
 
 
-function init(){
+function init() {
     generateStruct();
     registerEvents();
 
     Picture.preload({
-        load: function(image, count, total){
-            console.log('==========', (count / total * 100) + '%', image);
+        load: function(image, count, total) {
+            console.log('==========', image, (count / total * 100) + '%');
+
+            if (Platform.isIE) {
+                setTimeout(() => {
+                    image.removeAttribute('width', '');
+                    image.removeAttribute('height', '');
+                }, 10);
+            }
         },
-        end: function(){
+        end: function() {
             // console.log('==========end');
         }
     });
 }
 
-function generateStruct(){
+function generateStruct() {
     slider = new Slider({
-        container: document.getElementsByClassName('slider')[0],//dom
-        prevBtn: document.getElementsByClassName('btn-prev')[0],//dom
-        nextBtn: document.getElementsByClassName('btn-next')[0],//dom
+        container: document.getElementsByClassName('slider')[0], //dom
+        prevBtn: document.getElementsByClassName('btn-prev')[0], //dom
+        nextBtn: document.getElementsByClassName('btn-next')[0], //dom
         currentIndex: 0,
-        speed: 800,//ms
-        interactiveSpeed: 300,//ms
-        interactiveDistance: 200,//px
-        ease: 'cubic-bezier(0.215, 0.61, 0.355, 1)',//string
-        onChangeStart: function(i, next){
+        speed: 800, //ms
+        interactiveSpeed: 300, //ms
+        interactiveDistance: 200, //px
+        ease: 'cubic-bezier(0.215, 0.61, 0.355, 1)', //string
+        onChangeStart: function(i, next) {
             console.log('==========', i, next);
         },
-        onChangeEnd: function(i, prev){
+        onChangeEnd: function(i, prev) {
             console.log('==========', i, prev);
         }
     });
 
+    // slider.currentIndex
     //slider.slidePrev(t)
     //slider.slideNext(t)
     //slider.slideTo(i, t)
 }
 
-function registerEvents(){
+function registerEvents() {
     body.addEventListener('touchmove', () => {
         event.preventDefault();
     });

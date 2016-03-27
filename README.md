@@ -7,13 +7,14 @@
 ## 1. 目录结构
 
 - data：临时/动态数据
-- font：字体
+- font：字体（使用方式：https://github.com/JoshuaYang/webFonts）
 - image：图片
 - script：脚本
   - util：工具库
 - style：样式
 - template：模板
 - worker：线程
+- vendor：不参与合并输出的文件
 
 
 ## 2. gulp
@@ -102,6 +103,9 @@ var slider = new Slider({
         console.log('==========', i, prev);
     }
 });
+
+// 获取当前项的下标
+slider.currentIndex
 
 // 跳转到上一项
 // *参数1：动画时间，默认为初始化速度
