@@ -89,7 +89,7 @@ function getJsonData() {
     delete require.cache[require.resolve(devPath.configFile)];
 
     return jsonData;
-};
+}
 
 gulp.task('swig', () => {
     return gulp.src(devPath.html)
@@ -176,7 +176,7 @@ gulp.task('complete', () => {
         message: 'build complete',
     }))
     .pipe(exit());
-})
+});
 
 gulp.task('compile', (cb) => {
     sequence('clean', ['swig', 'sass', 'browserify-es6'], cb);
