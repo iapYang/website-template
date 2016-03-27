@@ -7,7 +7,7 @@
 ## 1. 目录结构
 
 - data：临时/动态数据
-- font：字体（使用方式：https://github.com/JoshuaYang/webFonts）
+- font：字体，见[使用方式](https://github.com/JoshuaYang/webFonts)
 - image：图片
 - script：脚本
   - util：工具库
