@@ -17,6 +17,7 @@
 - vendor：不参与合并输出的文件
 
 
+
 ## 2. gulp
 > 使用swig模板引擎，sass预编译，es6语法，browserify模块管理
 >
@@ -31,6 +32,8 @@
 ## 3. util
 
 遵循commonJS规范，也可以单独引入使用
+
+
 
 ### 3.1 picture.js
 
@@ -54,6 +57,8 @@ Picture.preload({
 });
 ```
 
+
+
 ## 3.2 platform.js
 
 > 平台检测库
@@ -62,6 +67,8 @@ Picture.preload({
 ## 3.3 slider.js
 
 > 内容轮播库
+
+### 3.3.1 初始化
 
 ```javascript
 var slider = new Slider({
@@ -103,10 +110,18 @@ var slider = new Slider({
         console.log('==========', i, prev);
     }
 });
+```
 
-// 获取当前项的下标
+### 3.3.2 实例属性
+
+```javascript
+// 当前项的下标
 slider.currentIndex
+```
 
+### 3.3.3 实例方法
+
+```javascript
 // 跳转到上一项
 // *参数1：动画时间，默认为初始化速度
 slider.slidePrev(t)
@@ -120,3 +135,24 @@ slider.slidePrev(t)
 // *参数2：动画时间，默认为初始化速度
 slider.slideTo(i, t)
 ```
+
+
+
+## 3.4 util.js
+
+### 3.4.1 静态方法
+
+```javascript
+// 合并对象，同jquery的extend方法
+Util.merge(...obj)
+
+// 将字符串转换为dom元素
+Util.parseDom(str)
+
+// 获取元素的祖先节点，不存在则为null，同jquery的closest方法
+Util.closest(el, selector)
+
+// 将字符串转换为json对象，字符串必须完全符合json规范
+Util.strToJson(str)
+```
+

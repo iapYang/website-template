@@ -33,10 +33,25 @@
         var div = document.createElement('div');
         div.innerHTML = str;
 
-        return div.childNodes[0];
+        return div.children[0];
     };
 
+    Util.closest = function(el, selector) {
+        var matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
 
+        while (el) {
+            if (matchesSelector.call(el, selector)) {
+                return el;
+            } else {
+                el = el.parentElement;
+            }
+        }
+        return null;
+    };
+
+    Util.strToJson = function(str){
+        return JSON.parse(str);
+    };
 
 
 
