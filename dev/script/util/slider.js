@@ -156,7 +156,7 @@
         this.onChangeStart(this.currentIndex, targetIndex);
         hideItemsExcept.call(this, [this.currentIndex, targetIndex]);
 
-        if (direct == null) {
+        if (direct === null) {
             direct = this.currentIndex > targetIndex ? 'prev' : 'next';
         }
 

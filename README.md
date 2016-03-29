@@ -38,6 +38,7 @@
 ### 3.1 picture.js
 
 > 图片加载库
+>
 > tip：加载完成后，会添加标志类done
 
 ```html
@@ -46,7 +47,7 @@
 ```
 
 ```javascript
-Picture.load({
+new Picture({
   	// 需要加载的图片标志类，默认为preload
   	className: 'preload',
   
@@ -58,7 +59,7 @@ Picture.load({
 
   	// 全部图片加载完后的回调
     end: function(){}
-});
+}).load();
 ```
 
 

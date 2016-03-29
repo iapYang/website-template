@@ -27,65 +27,70 @@
 
     var dataName = 'data-source';
 
-    var items, totalCount, options;
-    var loadCount = 0;
-
     var defaultOptions = {
         className: 'preload',
         done: function() {},
         end: function() {},
     };
 
-    var Picture = function() {
+    var Picture = function(opts) {
+        var options = merge({}, defaultOptions, opts);
 
+        this.className = options.className;
+        this.done = options.done;
+        this.end = options.end;
+
+        /************/
+
+        this.items = document.getElementsByClassName(this.className);
+        this.totalCount = this.items.length;
+        this.loadCount = 0;
     };
 
-    Picture.load = function(opts) {
-        options = merge({}, defaultOptions, opts);
-
-        items = document.getElementsByClassName(options.className);
-        totalCount = items.length;
-
-        if (totalCount === 0) {
-            endHandler();
+    Picture.prototype.load = function(){
+        if(this.totalCount === 0){
+            endHandler.call(this);
+            return;
         }
 
-        for (var i = 0; i < totalCount; ++i) {
-            startLoad(items[i]);
+        for(var i = 0; i < this.totalCount; ++i){
+            startLoad.call(this, this.items[i]);
         }
     };
 
     function startLoad(item) {
         if(item.classList.contains('done')) return;
 
+        var that = this;
         var src = item.getAttribute(dataName);
         var image = new Image();
 
         image.onload = function() {
-            item.classList.add('done');
-            item.appendChild(this);
-            DoneHandler(image);
+            item.appendChild(image);
+
+            DoneHandler.call(that, item);
         };
         image.onerror = function() {
-            item.classList.add('done');
-            DoneHandler(image);
+            DoneHandler.call(that, item);
         };
 
+        this.image = image;
         image.src = src;
     }
 
-    function DoneHandler(image) {
-        ++loadCount;
+    function DoneHandler(item) {
+        item.classList.add('done');
+        ++this.loadCount;
 
-        options.done(image, loadCount, totalCount);
+        this.done(this.image, this.loadCount, this.totalCount);
 
-        if (loadCount == totalCount) {
-            endHandler();
+        if (this.loadCount == this.totalCount) {
+            endHandler.call(this);
         }
     }
 
     function endHandler() {
-        options.end(loadCount, totalCount);
+        this.end(this.loadCount, this.totalCount);
     }
 
 

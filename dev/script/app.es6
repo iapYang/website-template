@@ -11,7 +11,7 @@ function init() {
     generateStruct();
     registerEvents();
 
-    Picture.load({
+    new Picture({
         className: 'preload',
         done: function(image, count, total) {
             console.log('==========', image, (count / total * 100) + '%');
@@ -26,7 +26,7 @@ function init() {
         end: function() {
             // console.log('==========end');
         }
-    });
+    }).load();
 }
 
 function generateStruct() {
