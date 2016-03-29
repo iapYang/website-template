@@ -1,9 +1,9 @@
 (function(factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
-        console.log('Picture load with commonJS');
+        console.log('PictureLoader load with commonJS');
         module.exports = factory();
     } else {
-        console.log('Picture load with normal');
+        console.log('PictureLoader load with normal');
         factory();
     }
 }(function() {
@@ -27,18 +27,19 @@
 
     var dataName = 'data-source';
 
-    var defaultOptions = {
+    var initialOptions = {
         className: 'preload',
+    };
+
+    var loadOptions = {
         done: function() {},
         end: function() {},
     };
 
-    var Picture = function(opts) {
-        var options = merge({}, defaultOptions, opts);
+    var PictureLoader = function(opts) {
+        var options = merge({}, initialOptions, opts);
 
         this.className = options.className;
-        this.done = options.done;
-        this.end = options.end;
 
         /************/
 
@@ -47,7 +48,12 @@
         this.loadCount = 0;
     };
 
-    Picture.prototype.load = function(){
+    PictureLoader.prototype.load = function(opts){
+        var options = merge({}, loadOptions, opts);
+
+        this.done = options.done;
+        this.end = options.end;
+
         if(this.totalCount === 0){
             endHandler.call(this);
             return;
@@ -74,7 +80,7 @@
             DoneHandler.call(that, item);
         };
 
-        this.image = image;
+        item.image = image;
         image.src = src;
     }
 
@@ -82,7 +88,7 @@
         item.classList.add('done');
         ++this.loadCount;
 
-        this.done(this.image, this.loadCount, this.totalCount);
+        this.done(item.image, this.loadCount, this.totalCount);
 
         if (this.loadCount == this.totalCount) {
             endHandler.call(this);
@@ -95,7 +101,7 @@
 
 
 
-    window.Picture = Picture;
+    window.PictureLoader = PictureLoader;
 
-    return Picture;
+    return PictureLoader;
 }));

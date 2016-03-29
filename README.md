@@ -18,6 +18,8 @@
 
 
 
+
+
 ## 2. gulp
 > 使用swig模板引擎，sass预编译，es6语法，browserify模块管理
 >
@@ -35,48 +37,58 @@
 
 
 
-### 3.1 picture.js
+### 3.1 pictureLoader.js
 
-> 图片加载库
+> 图片加载器
 >
 > tip：加载完成后，会添加标志类done
+
+#### 3.1.1 html
 
 ```html
 <!-- 图片加载的容器统一设置.preload, 图片路径设置为data-source -->
 <div class="preload" data-source="image/logo.png"></div>
+
 ```
 
+#### 3.1.2 初始化
 ```javascript
-new Picture({
+let loader = new PictureLoader({
   	// 需要加载的图片标志类，默认为preload
   	className: 'preload',
-  
+});
+```
+
+#### 3.1.3 执行加载
+
+```javascript
+loader.load({
   	// 每张图片加载完后的回调
 	// *参数1：加载完成的图片dom对象
   	// *参数2：已加载完成的图片数
   	// *参数3：图片总数
-    done: function(image, count, total){},
+    done: (image, count, total) => {},
 
   	// 全部图片加载完后的回调
-    end: function(){}
-}).load();
+    end: () => {}
+});
 ```
 
 
 
-## 3.2 platform.js
+### 3.2 platform.js
 
-> 平台检测库
+> 平台检测
 
 
-## 3.3 slider.js
+### 3.3 slider.js
 
-> 内容轮播库
+> 内容轮播
 
-### 3.3.1 初始化
+#### 3.3.1 初始化
 
 ```javascript
-var slider = new Slider({
+let slider = new Slider({
   	// 容器元素，dom
     container: document.getElementsById('slider'),
 
@@ -94,7 +106,7 @@ var slider = new Slider({
 
   	// 人为交互后的动画速度，单位ms，默认200
     interactiveSpeed: 300,
-  	
+
   	// 人为交互后进行跳转的最短距离，单位px，默认100
     interactiveDistance: 200,
 
@@ -104,27 +116,27 @@ var slider = new Slider({
   	// 动画开始时的回调
   	// *参数1：当前下标
   	// *参数2：下一项下标
-    onChangeStart: function(i, next){
+    onChangeStart: (i, next) => {
         console.log('==========', i, next);
     },
 
   	// 动画结束后的回调
   	// *参数1：当前下标
   	// *参数2：上一项下标
-    onChangeEnd: function(i, prev){
+    onChangeEnd: (i, prev) => {
         console.log('==========', i, prev);
     }
 });
 ```
 
-### 3.3.2 实例属性
+#### 3.3.2 实例属性
 
 ```javascript
 // 当前项的下标
 slider.currentIndex
 ```
 
-### 3.3.3 实例方法
+#### 3.3.3 实例方法
 
 ```javascript
 // 跳转到上一项
@@ -143,9 +155,11 @@ slider.slideTo(i, t)
 
 
 
-## 3.4 util.js
+### 3.4 util.js
 
-### 3.4.1 静态方法
+>   实用工具
+
+#### 3.4.1 静态方法
 
 ```javascript
 // 合并对象，同jquery的extend方法
@@ -160,4 +174,3 @@ Util.closest(el, selector)
 // 将字符串转换为json对象，字符串必须完全符合json规范
 Util.strToJson(str)
 ```
-

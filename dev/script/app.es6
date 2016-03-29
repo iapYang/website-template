@@ -1,9 +1,13 @@
-import Picture from './util/picture.js';
+import PictureLoader from './util/pictureLoader.js';
 import Platform from './util/platform.js';
 import Slider from './util/slider.js';
 import Util from './util/util.js';
 
 const body = document.body;
+
+let loader = new PictureLoader({
+    className: 'preload',
+});
 let slider;
 
 
@@ -11,9 +15,8 @@ function init() {
     generateStruct();
     registerEvents();
 
-    new Picture({
-        className: 'preload',
-        done: function(image, count, total) {
+    loader.load({
+        done: (image, count, total) => {
             console.log('==========', image, (count / total * 100) + '%');
 
             if (Platform.isIE) {
@@ -23,10 +26,10 @@ function init() {
                 }, 10);
             }
         },
-        end: function() {
-            // console.log('==========end');
+        end: () => {
+            console.log('==========end');
         }
-    }).load();
+    });
 }
 
 function generateStruct() {
@@ -39,10 +42,10 @@ function generateStruct() {
         interactiveSpeed: 300, //ms
         interactiveDistance: 200, //px
         ease: 'cubic-bezier(0.215, 0.61, 0.355, 1)', //string
-        onChangeStart: function(i, next) {
+        onChangeStart: (i, next) => {
             console.log('==========', i, next);
         },
-        onChangeEnd: function(i, prev) {
+        onChangeEnd: (i, prev) => {
             console.log('==========', i, prev);
         }
     });
