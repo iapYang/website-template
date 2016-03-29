@@ -5,8 +5,14 @@ import Util from './util/util.js';
 
 const body = document.body;
 
-let loader = new PictureLoader({
-    className: 'preload',
+let loader1 = new PictureLoader({
+    className: 'preload1',
+});
+let loader2 = new PictureLoader({
+    className: 'preload2',
+});
+let loader3 = new PictureLoader({
+    className: 'preload3',
 });
 let slider;
 
@@ -15,7 +21,7 @@ function init() {
     generateStruct();
     registerEvents();
 
-    loader.load({
+    loader1.load({
         done: (image, count, total) => {
             console.log('==========', image, (count / total * 100) + '%');
 
@@ -27,9 +33,12 @@ function init() {
             }
         },
         end: () => {
-            console.log('==========end');
+            console.log('==========end1');
         }
     });
+
+    setTimeout(() => loader2.load(), 2000);
+    setTimeout(() => loader3.load(), 3000);
 }
 
 function generateStruct() {
