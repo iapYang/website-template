@@ -11,8 +11,9 @@ function init() {
     generateStruct();
     registerEvents();
 
-    Picture.preload({
-        load: function(image, count, total) {
+    Picture.load({
+        className: 'preload',
+        done: function(image, count, total) {
             console.log('==========', image, (count / total * 100) + '%');
 
             if (Platform.isIE) {

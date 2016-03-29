@@ -25,14 +25,14 @@
     }
 
 
-    var className = 'preload';
     var dataName = 'data-source';
 
     var items, totalCount, options;
     var loadCount = 0;
 
     var defaultOptions = {
-        load: function() {},
+        className: 'preload',
+        done: function() {},
         end: function() {},
     };
 
@@ -40,14 +40,14 @@
 
     };
 
-    Picture.preload = function(opts) {
+    Picture.load = function(opts) {
         options = merge({}, defaultOptions, opts);
 
-        items = document.getElementsByClassName(className);
+        items = document.getElementsByClassName(options.className);
         totalCount = items.length;
 
         if (totalCount === 0) {
-            doEnd();
+            endHandler();
         }
 
         for (var i = 0; i < totalCount; ++i) {
@@ -56,31 +56,35 @@
     };
 
     function startLoad(item) {
+        if(item.classList.contains('done')) return;
+
         var src = item.getAttribute(dataName);
         var image = new Image();
 
         image.onload = function() {
+            item.classList.add('done');
             item.appendChild(this);
-            doLoad(image);
+            DoneHandler(image);
         };
         image.onerror = function() {
-            doLoad(image);
+            item.classList.add('done');
+            DoneHandler(image);
         };
 
         image.src = src;
     }
 
-    function doLoad(image) {
+    function DoneHandler(image) {
         ++loadCount;
 
-        options.load(image, loadCount, totalCount);
+        options.done(image, loadCount, totalCount);
 
         if (loadCount == totalCount) {
-            doEnd();
+            endHandler();
         }
     }
 
-    function doEnd() {
+    function endHandler() {
         options.end(loadCount, totalCount);
     }
 

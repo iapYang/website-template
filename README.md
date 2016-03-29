@@ -38,6 +38,7 @@
 ### 3.1 picture.js
 
 > 图片加载库
+> tip：加载完成后，会添加标志类done
 
 ```html
 <!-- 图片加载的容器统一设置.preload, 图片路径设置为data-source -->
@@ -45,12 +46,15 @@
 ```
 
 ```javascript
-Picture.preload({
+Picture.load({
+  	// 需要加载的图片标志类，默认为preload
+  	className: 'preload',
+  
   	// 每张图片加载完后的回调
 	// *参数1：加载完成的图片dom对象
   	// *参数2：已加载完成的图片数
   	// *参数3：图片总数
-    load: function(image, count, total){},
+    done: function(image, count, total){},
 
   	// 全部图片加载完后的回调
     end: function(){}
