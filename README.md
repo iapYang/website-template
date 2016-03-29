@@ -43,15 +43,14 @@
 >
 > tip：加载完成后，会添加标志类done
 
-#### 3.1.1 html
+html结构
 
 ```html
 <!-- 图片加载的容器统一设置.preload, 图片路径设置为data-source -->
 <div class="preload" data-source="image/logo.png"></div>
-
 ```
 
-#### 3.1.2 初始化
+初始化
 ```javascript
 let loader = new PictureLoader({
   	// 需要加载的图片标志类，默认为preload
@@ -59,7 +58,7 @@ let loader = new PictureLoader({
 });
 ```
 
-#### 3.1.3 执行加载
+执行加载
 
 ```javascript
 loader.load({
@@ -85,7 +84,7 @@ loader.load({
 
 > 内容轮播
 
-#### 3.3.1 初始化
+初始化
 
 ```javascript
 let slider = new Slider({
@@ -129,14 +128,14 @@ let slider = new Slider({
 });
 ```
 
-#### 3.3.2 实例属性
+实例属性
 
 ```javascript
 // 当前项的下标
 slider.currentIndex
 ```
 
-#### 3.3.3 实例方法
+实例方法
 
 ```javascript
 // 跳转到上一项
@@ -159,7 +158,7 @@ slider.slideTo(i, t)
 
 >   实用工具
 
-#### 3.4.1 静态方法
+静态方法
 
 ```javascript
 // 合并对象，同jquery的extend方法
