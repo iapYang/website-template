@@ -37,8 +37,8 @@ function init() {
         }
     });
 
-    setTimeout(() => loader2.load(), 2000);
-    setTimeout(() => loader3.load(), 3000);
+    loader2.load();
+    loader3.load();
 }
 
 function generateStruct() {
