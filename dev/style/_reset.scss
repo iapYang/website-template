@@ -11,7 +11,7 @@ figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, t
 }
 
 .preload{
-    img{
+    img, canvas{
         width: 100%;
     }
 }

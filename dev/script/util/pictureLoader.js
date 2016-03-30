@@ -24,7 +24,7 @@
         return obj;
     }
 
-
+    var timeoutValue = 1000 * 60;
     var dataName = 'data-source';
 
     var initialOptions = {
@@ -48,40 +48,65 @@
         this.loadCount = 0;
     };
 
-    PictureLoader.prototype.load = function(opts){
+    PictureLoader.prototype.load = function(opts) {
         var options = merge({}, loadOptions, opts);
 
         this.done = options.done;
         this.end = options.end;
 
-        if(this.totalCount === 0){
+        if (this.totalCount === 0) {
             endHandler.call(this);
             return;
         }
 
-        for(var i = 0; i < this.totalCount; ++i){
+        for (var i = 0; i < this.totalCount; ++i) {
             startLoad.call(this, this.items[i]);
         }
     };
 
     function startLoad(item) {
-        if(item.classList.contains('done')) return;
+        if (item.classList.contains('done')) return;
 
         var that = this;
         var src = item.getAttribute(dataName);
         var image = new Image();
 
-        image.onload = function() {
+        var storageObj = JSON.parse(localStorage.getItem(src)) || {};
+        var timestamp = storageObj.timestamp;
+        var liveUntil = timestamp + timeoutValue;
+
+        if (timestamp !== undefined && liveUntil > Date.now()) {
+            // load from cache
+            image.src = storageObj.source;
+
+            item.image = image;
             item.appendChild(image);
-
             DoneHandler.call(that, item);
-        };
-        image.onerror = function() {
-            DoneHandler.call(that, item);
-        };
+        } else {
+            // load from file
+            image.onload = function() {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
 
-        item.image = image;
-        image.src = src;
+                canvas.width = image.width;
+                canvas.height = image.height;
+                ctx.drawImage(image, 0, 0);
+
+                storageObj.source = canvas.toDataURL('image/png');
+                storageObj.timestamp = Date.now();
+
+                localStorage.setItem(src, JSON.stringify(storageObj));
+
+                item.image = image;
+                item.appendChild(image);
+                DoneHandler.call(that, item);
+            };
+            image.onerror = function() {
+                DoneHandler.call(that, item);
+            };
+
+            image.src = src;
+        }
     }
 
     function DoneHandler(item) {
