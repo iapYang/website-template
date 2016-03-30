@@ -28,7 +28,6 @@
     var dataName = 'data-source';
     var loadQueue = [];
     var queueFlag;
-    var isQueuing = false;
 
     var initialOptions = {
         className: 'preload',
@@ -99,7 +98,6 @@
             image.src = storageObj.source;
 
             if(item !== undefined){
-                item.image = image;
                 item.appendChild(image);
                 DoneHandler.call(that, image);
             }
@@ -119,7 +117,6 @@
                 localStorage.setItem(src, JSON.stringify(storageObj));
 
                 if(item !== undefined){
-                    item.image = image;
                     item.appendChild(image);
                     DoneHandler.call(that, image);
                 }
