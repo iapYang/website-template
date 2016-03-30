@@ -40,8 +40,6 @@
 ### 3.1 pictureLoader.js
 
 > 图片加载器
->
-> tip：加载完成后，会添加标志类done
 
 **html结构**
 
@@ -73,7 +71,23 @@ loader.load({
 });
 ```
 
+**静态方法**
 
+```javascript
+// 配置要加载的图片队列
+// 参数1：待加载点图片路径数组
+PictureLoader.pushQueue([
+  'image/1.jpg',
+  'image/2.jpg',
+  'image/3.jpg',
+]);
+
+// 开始加载图片队列(纯粹加载图片资源，不进行dom操作)
+PictureLoader.startQueue();
+
+// 停止加载图片队列
+PictureLoader.stopQueue();
+```
 
 ### 3.2 platform.js
 

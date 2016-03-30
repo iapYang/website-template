@@ -26,6 +26,9 @@
 
     var timeoutValue = 1000 * 60;
     var dataName = 'data-source';
+    var loadQueue = [];
+    var queueFlag;
+    var isQueuing = false;
 
     var initialOptions = {
         className: 'preload',
@@ -43,9 +46,26 @@
 
         /************/
 
-        this.items = document.getElementsByClassName(this.className);
+        this.items = [].slice.call(document.getElementsByClassName(this.className));
         this.totalCount = this.items.length;
         this.loadCount = 0;
+    };
+
+    PictureLoader.pushQueue = function(sourceArr){
+        Array.prototype.push.apply(loadQueue, sourceArr);
+    };
+
+    PictureLoader.startQueue = function(){
+        queueFlag = setInterval(function(){
+            if(loadQueue.length === 0) return;
+
+            var src = loadQueue.shift();
+            startLoad(src);
+        }, 10);
+    };
+
+    PictureLoader.stopQueue = function(){
+        clearInterval(queueFlag);
     };
 
     PictureLoader.prototype.load = function(opts) {
@@ -59,16 +79,15 @@
             return;
         }
 
-        for (var i = 0; i < this.totalCount; ++i) {
-            startLoad.call(this, this.items[i]);
-        }
+        var that = this;
+        this.items.forEach(function(item, i){
+            var src = item.getAttribute(dataName);
+            startLoad.call(that, src, item);
+        });
     };
 
-    function startLoad(item) {
-        if (item.classList.contains('done')) return;
-
+    function startLoad(src, item) {
         var that = this;
-        var src = item.getAttribute(dataName);
         var image = new Image();
 
         var storageObj = JSON.parse(localStorage.getItem(src)) || {};
@@ -79,9 +98,11 @@
             // load from cache
             image.src = storageObj.source;
 
-            item.image = image;
-            item.appendChild(image);
-            DoneHandler.call(that, item);
+            if(item !== undefined){
+                item.image = image;
+                item.appendChild(image);
+                DoneHandler.call(that, image);
+            }
         } else {
             // load from file
             image.onload = function() {
@@ -97,23 +118,24 @@
 
                 localStorage.setItem(src, JSON.stringify(storageObj));
 
-                item.image = image;
-                item.appendChild(image);
-                DoneHandler.call(that, item);
+                if(item !== undefined){
+                    item.image = image;
+                    item.appendChild(image);
+                    DoneHandler.call(that, image);
+                }
             };
             image.onerror = function() {
-                DoneHandler.call(that, item);
+                DoneHandler.call(that, image);
             };
 
             image.src = src;
         }
     }
 
-    function DoneHandler(item) {
-        item.classList.add('done');
+    function DoneHandler(image) {
         ++this.loadCount;
 
-        this.done(item.image, this.loadCount, this.totalCount);
+        this.done(image, this.loadCount, this.totalCount);
 
         if (this.loadCount == this.totalCount) {
             endHandler.call(this);

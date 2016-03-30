@@ -21,6 +21,21 @@ function init() {
     generateStruct();
     registerEvents();
 
+    PictureLoader.pushQueue([
+        'image/1.jpg',
+        'image/2.jpg',
+        'image/3.jpg',
+    ]);
+    PictureLoader.startQueue();
+
+    setTimeout(() => {
+        PictureLoader.pushQueue([
+            'image/4.jpg',
+            'image/5.jpg',
+            'image/6.jpg',
+        ]);
+    }, 5000);
+
     loader1.load({
         done: (image, count, total) => {
             console.log('==========', image, (count / total * 100) + '%');
