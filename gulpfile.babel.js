@@ -48,9 +48,6 @@ const tmpPath = {
 
 const destPath = {
     root: 'dist/',
-    htmlDir: 'dist/',
-    cssDir: 'dist/style',
-    jsDir: 'dist/script',
     imgDir: 'dist/image',
 };
 
@@ -123,6 +120,28 @@ function bundleJs(){
     .pipe(reload({stream: true}));
 }
 
+gulp.task('minify-html', () => {
+    return gulp.src(tmpPath.html)
+    .pipe(htmlmin({
+        removeComments: true,
+        collapseWhitespace: true,
+        conservativeCollapse: true,
+    }))
+    .pipe(gulp.dest(destPath.root));
+});
+
+gulp.task('minify-css', () => {
+    return gulp.src(tmpPath.css)
+    .pipe(minifyCss())
+    .pipe(gulp.dest(destPath.root));
+});
+
+gulp.task('minify-js', () => {
+    return gulp.src(tmpPath.js)
+    .pipe(uglify())
+    .pipe(gulp.dest(destPath.root));
+});
+
 gulp.task('inject', () => {
     var cssSource = gulp.src(tmpPath.css).pipe(minifyCss());
     var jsSource = gulp.src(tmpPath.js).pipe(uglify());
@@ -143,7 +162,7 @@ gulp.task('inject', () => {
         collapseWhitespace: true,
         conservativeCollapse: true,
     }))
-    .pipe(gulp.dest(destPath.htmlDir));
+    .pipe(gulp.dest(destPath.root));
 });
 
 gulp.task('img', () => {
@@ -198,6 +217,10 @@ gulp.task('default', ['compile'], () => {
     gulp.watch(util.devReloadSource).on('change', reload);
 });
 
-gulp.task('build', (cb) => {
+gulp.task('inject', (cb) => {
     sequence('compile', ['inject', 'img'], 'copy', 'compress', 'complete', cb);
+});
+
+gulp.task('build', (cb) => {
+    sequence('compile', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
 });
