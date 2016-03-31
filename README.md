@@ -40,22 +40,37 @@
 
 
 
-### 3.1 pictureLoader.js
+### 3.1 pictureLoader.js 图片加载器
 
-> 图片加载器
+> 开启了本地存储，加载图片时会先去检查localStorage中是否存在未过期的资源，
+> 若有，则直接从本地加载；否则，请求在线资源。
 
-**html结构**
+**初始化方式1：加载完成后插入到dom中**
 
 ```html
 <!-- 图片加载的容器统一设置标志类, 图片路径设置为data-source -->
 <div class="preload" data-source="image/logo.png"></div>
 ```
 
-**初始化**
 ```javascript
 let loader = new PictureLoader({
   	// 需要加载的图片标志类，默认为preload
   	className: 'preload',
+});
+```
+
+**初始化方式2：单纯加载图片资源**
+
+```javascript
+let loaderQueue = new PictureLoader({
+  	// 需要加载的图片资源路径，数组形式
+    sourceQueue: [
+        'image/1.jpg',
+        'image/2.jpg',
+        'image/3.jpg',
+        'image/4.jpg',
+        'image/5.jpg',
+    ],
 });
 ```
 
@@ -77,29 +92,18 @@ loader.load({
 **静态方法**
 
 ```javascript
-// 配置要加载的图片队列
-// 参数1：待加载点图片路径数组
-PictureLoader.pushQueue([
-  'image/1.jpg',
-  'image/2.jpg',
-  'image/3.jpg',
-]);
-
-// 开始加载图片队列(纯粹加载图片资源，不进行dom操作)
-PictureLoader.startQueue();
-
-// 停止加载图片队列
-PictureLoader.stopQueue();
+// 缓存周期，单位为毫秒，默认为60000毫秒(1分钟)
+PictureLoader.timeout
 ```
 
-### 3.2 platform.js
+### 3.2 platform.js 平台检测
 
-> 平台检测
+> 
 
 
-### 3.3 slider.js
+### 3.3 slider.js 内容轮播
 
-> 内容轮播
+> 
 
 **初始化**
 
@@ -171,9 +175,9 @@ slider.slideTo(i, t)
 
 
 
-### 3.4 util.js
+### 3.4 util.js 实用工具
 
->   实用工具
+>   
 
 **静态方法**
 

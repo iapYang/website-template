@@ -24,10 +24,7 @@
         return obj;
     }
 
-    var timeoutValue = 1000 * 60;
     var dataName = 'data-source';
-    var loadQueue = [];
-    var queueFlag;
 
     var initialOptions = {
         className: 'preload',
@@ -42,33 +39,25 @@
         var options = merge({}, initialOptions, opts);
 
         this.className = options.className;
+        this.sourceQueue = options.sourceQueue;
 
         /************/
 
-        this.items = [].slice.call(document.getElementsByClassName(this.className));
-        this.totalCount = this.items.length;
+        if (this.sourceQueue !== undefined) {
+            this.totalCount = this.sourceQueue.length;
+        } else {
+            this.items = [].slice.call(document.getElementsByClassName(this.className));
+            this.totalCount = this.items.length;
+        }
+
         this.loadCount = 0;
     };
 
-    PictureLoader.pushQueue = function(sourceArr){
-        Array.prototype.push.apply(loadQueue, sourceArr);
-    };
-
-    PictureLoader.startQueue = function(){
-        queueFlag = setInterval(function(){
-            if(loadQueue.length === 0) return;
-
-            var src = loadQueue.shift();
-            startLoad(src);
-        }, 10);
-    };
-
-    PictureLoader.stopQueue = function(){
-        clearInterval(queueFlag);
-    };
+    PictureLoader.timeout = 1000 * 60;
 
     PictureLoader.prototype.load = function(opts) {
         var options = merge({}, loadOptions, opts);
+        var that = this;
 
         this.done = options.done;
         this.end = options.end;
@@ -78,11 +67,16 @@
             return;
         }
 
-        var that = this;
-        this.items.forEach(function(item, i){
-            var src = item.getAttribute(dataName);
-            startLoad.call(that, src, item);
-        });
+        if (this.sourceQueue !== undefined) {
+            this.sourceQueue.forEach(function(src, i) {
+                startLoad.call(that, src);
+            });
+        } else {
+            this.items.forEach(function(item, i) {
+                var src = item.getAttribute(dataName);
+                startLoad.call(that, src, item);
+            });
+        }
     };
 
     function startLoad(src, item) {
@@ -91,16 +85,17 @@
 
         var storageObj = JSON.parse(localStorage.getItem(src)) || {};
         var timestamp = storageObj.timestamp;
-        var liveUntil = timestamp + timeoutValue;
+        var liveUntil = timestamp + PictureLoader.timeout;
 
         if (timestamp !== undefined && liveUntil > Date.now()) {
             // load from cache
             image.src = storageObj.source;
 
-            if(item !== undefined){
+            if (item !== undefined) {
                 item.appendChild(image);
-                DoneHandler.call(that, image);
             }
+
+            DoneHandler.call(that, image);
         } else {
             // load from file
             image.onload = function() {
@@ -116,10 +111,11 @@
 
                 localStorage.setItem(src, JSON.stringify(storageObj));
 
-                if(item !== undefined){
+                if (item !== undefined) {
                     item.appendChild(image);
-                    DoneHandler.call(that, image);
                 }
+
+                DoneHandler.call(that, image);
             };
             image.onerror = function() {
                 DoneHandler.call(that, image);

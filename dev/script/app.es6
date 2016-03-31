@@ -3,16 +3,21 @@ import Platform from './util/platform.js';
 import Slider from './util/slider.js';
 import Util from './util/util.js';
 
+PictureLoader.timeout = 1000 * 60;
+
 const body = document.body;
 
-let loader1 = new PictureLoader({
-    className: 'preload1',
+let loaderClass = new PictureLoader({
+    className: 'preload',
 });
-let loader2 = new PictureLoader({
-    className: 'preload2',
-});
-let loader3 = new PictureLoader({
-    className: 'preload3',
+let loaderQueue = new PictureLoader({
+    sourceQueue: [
+        'image/1.jpg',
+        'image/2.jpg',
+        'image/3.jpg',
+        'image/4.jpg',
+        'image/5.jpg',
+    ],
 });
 let slider;
 
@@ -21,22 +26,9 @@ function init() {
     generateStruct();
     registerEvents();
 
-    PictureLoader.pushQueue([
-        'image/1.jpg',
-        'image/2.jpg',
-        'image/3.jpg',
-    ]);
-    PictureLoader.startQueue();
+    loaderQueue.load();
 
-    setTimeout(() => {
-        PictureLoader.pushQueue([
-            'image/4.jpg',
-            'image/5.jpg',
-            'image/6.jpg',
-        ]);
-    }, 5000);
-
-    loader1.load({
+    loaderClass.load({
         done: (image, count, total) => {
             console.log('==========', image, (count / total * 100) + '%');
 
@@ -51,9 +43,6 @@ function init() {
             console.log('==========end1');
         }
     });
-
-    loader2.load();
-    loader3.load();
 }
 
 function generateStruct() {
