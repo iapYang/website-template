@@ -1,7 +1,3 @@
-
-
-[TOC]
-
 # website-template
 
 自娱自乐，方便从0开发
@@ -104,7 +100,9 @@ PictureLoader.timeout
 
 ### 3.2 platform.js 平台检测
 
-> 引入后自动对html标签添加相应class
+>   引入后自动对html标签添加相应class
+
+
 | 静态属性         | 类名          | 描述              |
 | ------------ | ----------- | --------------- |
 | isDesktop    | desktop     | 桌面浏览器           |
@@ -129,7 +127,7 @@ PictureLoader.timeout
 
 ### 3.3 slider.js 内容轮播
 
-> 
+>
 
 **初始化**
 
@@ -172,20 +170,15 @@ let slider = new Slider({
 
 ### 3.4 util.js 实用工具
 
->   
+>  
 
 **静态方法**
 
-```javascript
-// 合并对象，同jquery的extend方法
-Util.merge(...obj)
+| 名称                      | 描述                                      |
+| ----------------------- | --------------------------------------- |
+| merge(...obj)           | 合并对象，同jquery的extend方法                   |
+| parseDom(str)           | 将字符串转换为dom元素                            |
+| closest(el, selector)   | 获取元素el的祖先节点，不存在则为null，同jquery的closest方法 |
+| strToJson(str)          | 将字符串转换为json对象，字符串必须完全符合json规范           |
+| indexOf(el, collection) | 获取元素el在集合collection中的下标                 |
 
-// 将字符串转换为dom元素
-Util.parseDom(str)
-
-// 获取元素的祖先节点，不存在则为null，同jquery的closest方法
-Util.closest(el, selector)
-
-// 将字符串转换为json对象，字符串必须完全符合json规范
-Util.strToJson(str)
-```

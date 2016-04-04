@@ -53,6 +53,10 @@
         return JSON.parse(str);
     };
 
+    Util.indexOf = function(el, collection){
+        return [].indexOf.call(collection, el);
+    }
+
 
 
 
