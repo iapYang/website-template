@@ -1,3 +1,7 @@
+
+
+[TOC]
+
 # website-template
 
 自娱自乐，方便从0开发
@@ -96,9 +100,31 @@ loader.load({
 PictureLoader.timeout
 ```
 
+
+
 ### 3.2 platform.js 平台检测
 
-> 
+> 引入后自动对html标签添加相应class
+| 静态属性         | 类名          | 描述              |
+| ------------ | ----------- | --------------- |
+| isDesktop    | desktop     | 桌面浏览器           |
+| isIE         | ie          | IE浏览器           |
+| isIE11       | ie11        | IE11浏览器         |
+| isChrome     | chrome      | Chrome浏览器       |
+| isFirefox    | firefox     | Firefox浏览器      |
+| isSafari     | safari      | Safari浏览器       |
+| isTablet     | tablet      | 平板设备            |
+| isiPad       | ipad        | iPad设备          |
+| isAndroidPad | android-pad | Android平板设备     |
+| isNexus7     | nexus7      | Google Nexus7设备 |
+| isMobile     | mobile      | 手机设备            |
+| isiPhone     | iphone      | iPhone设备        |
+| isS4         | s4          | 三星S4设备          |
+| isS5         | s5          | 三星S5设备          |
+| isIOS        | ios         | IOS设备           |
+| isAndroid    | android     | 安卓设备            |
+| hasTouch     | has-touch   | 触摸屏设备           |
+
 
 
 ### 3.3 slider.js 内容轮播
@@ -109,69 +135,38 @@ PictureLoader.timeout
 
 ```javascript
 let slider = new Slider({
-  	// 容器元素，dom
-    container: document.getElementsById('slider'),
-
-  	// 上一项元素，dom
-    prevBtn: document.getElementsById('btn-prev'),
-
-  	// 下一项元素，dom
-    nextBtn: document.getElementsById('btn-next'),
-
-  	// 初始化后的显示项下标，默认为0
-    currentIndex: 0,
-
-  	// 动画速度，单位ms，默认为1000
-    speed: 800,
-
-  	// 人为交互后的动画速度，单位ms，默认200
-    interactiveSpeed: 300,
-
-  	// 人为交互后进行跳转的最短距离，单位px，默认100
-    interactiveDistance: 200,
-
-  	// 缓动动画，css字符串，默认ease-in-out
-    ease: 'cubic-bezier(0.215, 0.61, 0.355, 1)',
-
-  	// 动画开始时的回调
-  	// *参数1：当前下标
-  	// *参数2：下一项下标
-    onChangeStart: (i, next) => {
-        console.log('==========', i, next);
-    },
-
-  	// 动画结束后的回调
-  	// *参数1：当前下标
-  	// *参数2：上一项下标
-    onChangeEnd: (i, prev) => {
-        console.log('==========', i, prev);
-    }
+  	// options...
 });
 ```
 
+**初始化参数**
+
+| 参数                     | 类型           | 默认值           | 描述                     |
+| ---------------------- | ------------ | ------------- | ---------------------- |
+| container              | dom          | null          | 容器元素（必须）               |
+| prevBtn                | dom          | null          | 上一项按钮                  |
+| nextBtn                | dom          | null          | 下一项按钮                  |
+| currentIndex           | number (int) | 0             | 初始项下标                  |
+| speed                  | number (ms)  | 1000          | 动画速度                   |
+| interactiveSpeed       | number (ms)  | 200           | 人为交互后的动画速度             |
+| interactiveDistance    | number (px)  | 100           | 人为交互后进行跳转的最短距离         |
+| ease                   | string       | 'ease-in-out' | 缓动动画（css字符串）           |
+| onChangeStart(i, next) | function     | null          | 动画开始时的回调，参数：当前下标，下一项下标 |
+| onChangeEnd(i, prev)   | function     | null          | 动画结束后的回调，参数：当前下标，上一项下标 |
+
 **实例属性**
 
-```javascript
-// 当前项的下标
-slider.currentIndex
-```
+| 名称           | 类型           | 描述    |
+| ------------ | ------------ | ----- |
+| currentIndex | number (int) | 当前项下标 |
 
 **实例方法**
 
-```javascript
-// 跳转到上一项
-// *参数1：动画时间，默认为初始化速度
-slider.slidePrev(t)
-
-// 跳转到下一项
-// *参数1：动画时间，默认为初始化速度
-slider.slidePrev(t)
-
-// 跳转到指定项
-// *参数1：目标项下标
-// *参数2：动画时间，默认为初始化速度
-slider.slideTo(i, t)
-```
+| 名称            | 描述                   |
+| ------------- | -------------------- |
+| slidePrev(t)  | 跳转到上一项，参数：动画时间       |
+| slideNext(t)  | 跳转到下一项，参数：动画时间       |
+| slideTo(i, t) | 跳转到指定项，参数：目标项下标，动画时间 |
 
 
 
