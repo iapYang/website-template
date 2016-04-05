@@ -123,6 +123,7 @@ PictureLoader.timeout
 | isIOS        | ios         | IOS设备           |
 | isAndroid    | android     | 安卓设备            |
 | hasTouch     | has-touch   | 触摸屏设备           |
+| -            | no-touch    | 非触摸屏设备          |
 
 
 
