@@ -42,8 +42,9 @@
 
 ### 3.1 pictureLoader.js 图片加载器
 
-> 开启了本地存储，加载图片时会先去检查localStorage中是否存在未过期的资源，
-> 若有，则直接从本地加载；否则，请求在线资源。
+使用了本地存储，加载图片时会先去检查localStorage中是否存在未过期的资源，若有，则直接从本地加载；否则，请求在线资源。
+>   note：localStorage有大小限制，若图片大小超出限制，则不会被本地存储，依旧使用在线资源。
+
 
 **初始化方式1：加载完成后插入到dom中**
 
@@ -181,4 +182,3 @@ let slider = new Slider({
 | closest(el, selector)   | 获取元素el的祖先节点，不存在则为null，同jquery的closest方法 |
 | strToJson(str)          | 将字符串转换为json对象，字符串必须完全符合json规范           |
 | indexOf(el, collection) | 获取元素el在集合collection中的下标                 |
-

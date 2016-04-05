@@ -109,13 +109,17 @@
                 storageObj.source = canvas.toDataURL('image/png');
                 storageObj.timestamp = Date.now();
 
-                localStorage.setItem(src, JSON.stringify(storageObj));
+                try {
+                    localStorage.setItem(src, JSON.stringify(storageObj));
+                } catch (e) {
+                    console.log(e.message);
+                } finally {
+                    if (item !== undefined) {
+                        item.appendChild(image);
+                    }
 
-                if (item !== undefined) {
-                    item.appendChild(image);
+                    DoneHandler.call(that, image);
                 }
-
-                DoneHandler.call(that, image);
             };
             image.onerror = function() {
                 DoneHandler.call(that, image);

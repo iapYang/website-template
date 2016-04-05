@@ -26,7 +26,7 @@ function init() {
     generateStruct();
     registerEvents();
 
-    loaderQueue.load();
+    // loaderQueue.load();
 
     loaderClass.load({
         done: (image, count, total) => {
