@@ -176,8 +176,10 @@
         }, speed);
     }
 
-    function slideEnd(endIndex) {
-        this.onChangeEnd(endIndex, this.currentIndex);
+    function slideEnd(endIndex, noTriggerEvent) {
+        if(!noTriggerEvent){
+            this.onChangeEnd(endIndex, this.currentIndex);
+        }
 
         this.currentIndex = endIndex;
 
@@ -221,12 +223,14 @@
         this.interactived = false;
 
         var moveX = e.screenX - this.startOffsetX;
-        var finalIndex;
+        var finalIndex, noTriggerEnd;
 
         this.wrapper.style.transitionDuration = this.interactiveSpeed + 'ms';
         this.animating = true;
 
         if (Math.abs(moveX) > this.interactiveDistance) {
+            noTriggerEnd = false;
+
             if (moveX > 0) {
                 this.wrapper.style.transform = 'translateX(100%)';
                 finalIndex = getPrevIndex.call(this);
@@ -237,13 +241,15 @@
 
             this.onChangeStart(this.currentIndex, finalIndex);
         } else {
+            noTriggerEnd = true;
+
             this.wrapper.style.transform = 'translateX(0px)';
             finalIndex = this.currentIndex;
         }
 
         var that = this;
         setTimeout(function() {
-            slideEnd.call(that, finalIndex);
+            slideEnd.call(that, finalIndex, noTriggerEnd);
         }, that.interactiveSpeed);
     }
 
