@@ -26,7 +26,7 @@ function init() {
     generateStruct();
     registerEvents();
 
-    // loaderQueue.load();
+    loaderQueue.load();
 
     loaderClass.load({
         done: (image, count, total) => {
@@ -43,6 +43,8 @@ function init() {
             console.log('==========end1');
         }
     });
+
+    var src = PictureLoader.getSrc('image/1.jpg');
 }
 
 function generateStruct() {

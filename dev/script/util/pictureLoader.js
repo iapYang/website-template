@@ -55,6 +55,22 @@
 
     PictureLoader.timeout = 1000 * 60;
 
+    PictureLoader.getSrc = function(src){
+        var result;
+
+        checkIfInStorage({
+            src: src,
+            in: function(storageObj){
+                result = storageObj.source;
+            },
+            not: function(storageObj){
+                result = src;
+            }
+        });
+
+        return result;
+    };
+
     PictureLoader.prototype.load = function(opts) {
         var options = merge({}, loadOptions, opts);
         var that = this;
@@ -79,54 +95,66 @@
         }
     };
 
+    function checkIfInStorage(opts){
+        var storageObj = JSON.parse(localStorage.getItem(opts.src)) || {};
+        var timestamp = storageObj.timestamp;
+        var liveUntil = timestamp + PictureLoader.timeout;
+
+        if (timestamp !== undefined && liveUntil > Date.now()){
+            return opts.in.call(null, storageObj);
+        }else{
+            return opts.not.call(null, storageObj);
+        }
+    }
+
     function startLoad(src, item) {
         var that = this;
         var image = new Image();
 
-        var storageObj = JSON.parse(localStorage.getItem(src)) || {};
-        var timestamp = storageObj.timestamp;
-        var liveUntil = timestamp + PictureLoader.timeout;
+        checkIfInStorage({
+            src: src,
+            in: function(storageObj){
+                // load from cache
+                image.src = storageObj.source;
 
-        if (timestamp !== undefined && liveUntil > Date.now()) {
-            // load from cache
-            image.src = storageObj.source;
-
-            if (item !== undefined) {
-                item.appendChild(image);
-            }
-
-            DoneHandler.call(that, image);
-        } else {
-            // load from file
-            image.onload = function() {
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-
-                canvas.width = image.width;
-                canvas.height = image.height;
-                ctx.drawImage(image, 0, 0);
-
-                storageObj.source = canvas.toDataURL('image/png');
-                storageObj.timestamp = Date.now();
-
-                try {
-                    localStorage.setItem(src, JSON.stringify(storageObj));
-                } catch (e) {
-                    console.log(e.message);
-                } finally {
-                    if (item !== undefined) {
-                        item.appendChild(image);
-                    }
-
-                    DoneHandler.call(that, image);
+                if (item !== undefined) {
+                    item.appendChild(image);
                 }
-            };
-            image.onerror = function() {
-                DoneHandler.call(that, image);
-            };
 
-            image.src = src;
-        }
+                DoneHandler.call(that, image);
+            },
+            not: function(storageObj){
+                // load from file
+                image.onload = function() {
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    ctx.drawImage(image, 0, 0);
+
+                    storageObj.source = canvas.toDataURL('image/png');
+                    storageObj.timestamp = Date.now();
+
+                    try {
+                        localStorage.setItem(src, JSON.stringify(storageObj));
+                    } catch (e) {
+                        console.log(e.message);
+                    } finally {
+                        if (item !== undefined) {
+                            item.appendChild(image);
+                        }
+
+                        DoneHandler.call(that, image);
+                    }
+                };
+                image.onerror = function() {
+                    DoneHandler.call(that, image);
+                };
+
+                image.src = src;
+            }
+        });
     }
 
     function DoneHandler(image) {
