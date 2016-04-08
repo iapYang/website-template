@@ -44,7 +44,20 @@ function init() {
         }
     });
 
-    var src = PictureLoader.getSrc('image/1.jpg');
+    var arr = [
+        {
+            name: 'a',
+            age: 3
+        },
+        {
+            name: 'b',
+            age: 7
+        },
+        {
+            name: 'c',
+            age: 1
+        }
+    ];
 }
 
 function generateStruct() {
