@@ -54,6 +54,7 @@
     };
 
     PictureLoader.timeout = 1000 * 60;
+    PictureLoader.useStorage = true;
 
     PictureLoader.getSrc = function(src){
         var result;
@@ -96,14 +97,18 @@
     };
 
     function checkIfInStorage(opts){
-        var storageObj = JSON.parse(localStorage.getItem(opts.src)) || {};
-        var timestamp = storageObj.timestamp;
-        var liveUntil = timestamp + PictureLoader.timeout;
+        if(PictureLoader.useStorage){
+            var storageObj = JSON.parse(localStorage.getItem(opts.src)) || {};
+            var timestamp = storageObj.timestamp;
+            var liveUntil = timestamp + PictureLoader.timeout;
 
-        if (timestamp !== undefined && liveUntil > Date.now()){
-            return opts.in.call(null, storageObj);
+            if (timestamp !== undefined && liveUntil > Date.now()){
+                return opts.in.call(null, storageObj);
+            }else{
+                return opts.not.call(null, storageObj);
+            }
         }else{
-            return opts.not.call(null, storageObj);
+            return opts.not.call(null, {});
         }
     }
 
@@ -126,27 +131,29 @@
             not: function(storageObj){
                 // load from file
                 image.onload = function() {
-                    var canvas = document.createElement('canvas');
-                    var ctx = canvas.getContext('2d');
+                    if(PictureLoader.useStorage){
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
 
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    ctx.drawImage(image, 0, 0);
+                        canvas.width = image.width;
+                        canvas.height = image.height;
+                        ctx.drawImage(image, 0, 0);
 
-                    storageObj.source = canvas.toDataURL('image/png');
-                    storageObj.timestamp = Date.now();
+                        storageObj.source = canvas.toDataURL('image/png');
+                        storageObj.timestamp = Date.now();
 
-                    try {
-                        localStorage.setItem(src, JSON.stringify(storageObj));
-                    } catch (e) {
-                        console.log(e.message);
-                    } finally {
-                        if (item !== undefined) {
-                            item.appendChild(image);
+                        try {
+                            localStorage.setItem(src, JSON.stringify(storageObj));
+                        } catch (e) {
+                            console.log(e.message);
                         }
-
-                        DoneHandler.call(that, image);
                     }
+
+                    if (item !== undefined) {
+                        item.appendChild(image);
+                    }
+
+                    DoneHandler.call(that, image);
                 };
                 image.onerror = function() {
                     DoneHandler.call(that, image);
