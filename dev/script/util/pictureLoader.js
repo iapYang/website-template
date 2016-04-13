@@ -126,7 +126,7 @@
                     item.appendChild(image);
                 }
 
-                DoneHandler.call(that, image);
+                doneHandler.call(that, image);
             },
             not: function(){
                 // load from file
@@ -154,10 +154,10 @@
                         item.appendChild(image);
                     }
 
-                    DoneHandler.call(that, image);
+                    doneHandler.call(that, image);
                 };
                 image.onerror = function() {
-                    DoneHandler.call(that, image);
+                    doneHandler.call(that, image);
                 };
 
                 image.src = src;
@@ -165,7 +165,7 @@
         });
     }
 
-    function DoneHandler(image) {
+    function doneHandler(image) {
         ++this.loadCount;
 
         this.done(image, this.loadCount, this.totalCount);
