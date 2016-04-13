@@ -64,7 +64,7 @@
             in: function(storageObj){
                 result = storageObj.source;
             },
-            not: function(storageObj){
+            not: function(){
                 result = src;
             }
         });
@@ -105,10 +105,10 @@
             if (timestamp !== undefined && liveUntil > Date.now()){
                 return opts.in.call(null, storageObj);
             }else{
-                return opts.not.call(null, storageObj);
+                return opts.not.call(null);
             }
         }else{
-            return opts.not.call(null, {});
+            return opts.not.call(null);
         }
     }
 
@@ -128,10 +128,11 @@
 
                 DoneHandler.call(that, image);
             },
-            not: function(storageObj){
+            not: function(){
                 // load from file
                 image.onload = function() {
                     if(PictureLoader.useStorage){
+                        var storageObj = {};
                         var canvas = document.createElement('canvas');
                         var ctx = canvas.getContext('2d');
 
