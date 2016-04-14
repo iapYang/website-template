@@ -46,7 +46,7 @@ function init() {
 }
 
 function generateStruct() {
-    window.slider = new Slider({
+    window.slider = slider = new Slider({
         container: document.getElementById('slider'), //dom
         prevBtn: document.getElementById('btn-prev'), //dom
         nextBtn: document.getElementById('btn-next'), //dom
@@ -62,6 +62,8 @@ function generateStruct() {
             // console.log('==========', i, prev);
         }
     });
+
+
 
     // slider.currentIndex
     //slider.slidePrev(t)

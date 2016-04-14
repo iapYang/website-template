@@ -154,6 +154,8 @@
         this.animating = true;
 
         this.onChangeStart(this.currentIndex, targetIndex);
+        
+        // necessary when slide to a  random index
         hideItemsExcept.call(this, [this.currentIndex, targetIndex]);
 
         if (direct === null) {
