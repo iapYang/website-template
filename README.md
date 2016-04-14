@@ -139,6 +139,20 @@ loader.load({
 
 >
 
+**结构**
+
+```html
+<div id="slider">
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+```
+
+
+
 **初始化**
 
 ```javascript

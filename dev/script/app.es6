@@ -46,20 +46,20 @@ function init() {
 }
 
 function generateStruct() {
-    slider = new Slider({
-        container: document.getElementsByClassName('slider')[0], //dom
-        prevBtn: document.getElementsByClassName('btn-prev')[0], //dom
-        nextBtn: document.getElementsByClassName('btn-next')[0], //dom
+    window.slider = new Slider({
+        container: document.getElementById('slider'), //dom
+        prevBtn: document.getElementById('btn-prev'), //dom
+        nextBtn: document.getElementById('btn-next'), //dom
         currentIndex: 0,
         speed: 800, //ms
         interactiveSpeed: 300, //ms
         interactiveDistance: 100, //px
         ease: 'cubic-bezier(0.215, 0.61, 0.355, 1)', //string
         onChangeStart: (i, next) => {
-            console.log('==========', i, next);
+            // console.log('==========', i, next);
         },
         onChangeEnd: (i, prev) => {
-            console.log('==========', i, prev);
+            // console.log('==========', i, prev);
         }
     });
 
