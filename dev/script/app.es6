@@ -60,7 +60,7 @@ function generateStruct() {
             // console.log('==========', i, next);
         },
         onChangeEnd: (i, prev) => {
-            // console.log('==========', i, prev);
+            console.log('==========', i, prev);
         }
     });
 

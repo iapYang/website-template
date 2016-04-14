@@ -70,7 +70,8 @@
 
         // init vars
         this.wrapper = this.container.querySelector('ul');
-        this.items = this.wrapper.querySelectorAll('li');
+        this.items = [].slice.call(this.wrapper.querySelectorAll('li'));
+        this.indicatorElements = [].slice.call(this.indicator.querySelectorAll('li'));
         this.animating = false;
         this.length = this.items.length;
         this.wrapper.style.transitionTimingFunction = this.ease;
@@ -101,15 +102,23 @@
     };
 
     function initStyle() {
-        this.container.style.overflow = 'hidden';
+        var self = this;
 
+        this.container.style.overflow = 'hidden';
         this.wrapper.style.position = 'relative';
 
         this.items[0].style.position = 'relative';
-        for (var i = 1, length = this.items.length; i < length; ++i) {
-            this.items[i].style.position = 'absolute';
-            this.items[i].style.top = 0;
-        }
+
+        this.items.forEach(function(el, i){
+            if(i === 0){
+                el.style.position = 'relative';
+            }else{
+                el.style.position = 'absolute';
+                el.style.top = 0;
+            }
+        });
+
+        this.indicatorElements[this.currentIndex].classList.add('active');
     }
 
     function calcOrder() {
@@ -125,13 +134,34 @@
     }
 
     function hideItemsExcept(exceptArr) {
-        for (var i = 0, length = this.items.length; i < length; ++i) {
-            if (exceptArr.indexOf(i) == -1) {
-                this.items[i].style.visibility = 'hidden';
-            } else {
-                this.items[i].style.visibility = 'visible';
+        this.items.forEach(function(el, i){
+            if (exceptArr.indexOf(i) == -1){
+                el.style.visibility = 'hidden';
+            }else{
+                el.style.visibility = 'visible';
             }
+        });
+    }
+
+    function registerEvent() {
+        var self = this;
+        var tapEvent = hasTouch ? 'touchend' : 'click';
+        var downEvent = hasTouch ? 'touchstart' : 'mousedown';
+        var moveEvent = hasTouch ? 'touchmove' : 'mousemove';
+        var upEvent = hasTouch ? 'touchend' : 'mouseup';
+
+        if (this.prevBtn) this.prevBtn.addEventListener(tapEvent, this.slidePrev.bind(this), false);
+        if (this.nextBtn) this.nextBtn.addEventListener(tapEvent, this.slideNext.bind(this), false);
+        if (this.indicatorElements){
+            this.indicatorElements.forEach(function(el, i){
+                el.addEventListener(tapEvent, self.slideTo.bind(self, i), false);
+            });
         }
+
+        this.container.addEventListener(downEvent, startMove.bind(this), false);
+        this.container.addEventListener(moveEvent, duringMove.bind(this), false);
+        this.container.addEventListener(upEvent, endMove.bind(this), false);
+        this.container.addEventListener('mouseleave', endMove.bind(this), false);
     }
 
     function getPrevIndex() {
@@ -158,6 +188,9 @@
 
         // necessary when slide to a  random index
         hideItemsExcept.call(this, [this.currentIndex, targetIndex]);
+
+        // change indicator
+        changeIndicator.call(this, targetIndex);
 
         if (direct === null) {
             direct = this.currentIndex > targetIndex ? 'prev' : 'next';
@@ -192,21 +225,6 @@
         calcOrder.call(this);
     }
 
-    function registerEvent() {
-        var tapEvent = hasTouch ? 'touchend' : 'click';
-        var downEvent = hasTouch ? 'touchstart' : 'mousedown';
-        var moveEvent = hasTouch ? 'touchmove' : 'mousemove';
-        var upEvent = hasTouch ? 'touchend' : 'mouseup';
-
-        if (this.prevBtn) this.prevBtn.addEventListener(tapEvent, this.slidePrev.bind(this), false);
-        if (this.nextBtn) this.nextBtn.addEventListener(tapEvent, this.slideNext.bind(this), false);
-
-        this.container.addEventListener(downEvent, startMove.bind(this), false);
-        this.container.addEventListener(moveEvent, duringMove.bind(this), false);
-        this.container.addEventListener(upEvent, endMove.bind(this), false);
-        this.container.addEventListener('mouseleave', endMove.bind(this), false);
-    }
-
     function startMove(e) {
         if (this.animating) return;
         if (this.interactived) return;
@@ -229,7 +247,7 @@
         if (!this.interactived) return;
         this.interactived = false;
 
-        var finalIndex, noTriggerEnd;
+        var targetIndex, noTriggerEnd;
 
         this.wrapper.style.transitionDuration = this.interactiveSpeed + 'ms';
         this.animating = true;
@@ -239,22 +257,29 @@
 
             if (this.moveX > 0) {
                 this.wrapper.style.transform = 'translateX(100%)';
-                finalIndex = getPrevIndex.call(this);
+                targetIndex = getPrevIndex.call(this);
             } else {
                 this.wrapper.style.transform = 'translateX(-100%)';
-                finalIndex = getNextIndex.call(this);
+                targetIndex = getNextIndex.call(this);
             }
 
-            this.onChangeStart(this.currentIndex, finalIndex);
+            // change indicator
+            changeIndicator.call(this, targetIndex);
+
+            this.onChangeStart(this.currentIndex, targetIndex);
         } else {
             noTriggerEnd = true;
 
             this.wrapper.style.transform = 'translateX(0px)';
-            finalIndex = this.currentIndex;
+            targetIndex = this.currentIndex;
         }
 
-        var that = this;
-        setTimeout(slideEnd.bind(that, finalIndex, noTriggerEnd), that.interactiveSpeed);
+        setTimeout(slideEnd.bind(this, targetIndex, noTriggerEnd), this.interactiveSpeed);
+    }
+
+    function changeIndicator(targetIndex){
+        this.indicatorElements[this.currentIndex].classList.remove('active');
+        this.indicatorElements[targetIndex].classList.add('active');
     }
 
 

@@ -51,6 +51,7 @@ $colors: red, yellow, blue, green, purple;
         height: 10px;
         background-color: blue;
         margin: 0 5px;
+        cursor: pointer;
 
         @include border-radius(50%);
 
