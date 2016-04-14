@@ -30,6 +30,7 @@ $colors: red, yellow, blue, green, purple;
     display: inline-block;
 
     li{
+        position: relative;
         width: 300px;
         height: 200px;
         font-size: 5rem;
@@ -37,6 +38,12 @@ $colors: red, yellow, blue, green, purple;
         @for $i from 1 through length($colors){
             &:nth-child(#{$i}){
                 background-color: nth($colors, $i);
+
+                button{
+                    position: absolute;
+                    left: 0;
+                    top: $i*20px;
+                }
             }
         }
     }
