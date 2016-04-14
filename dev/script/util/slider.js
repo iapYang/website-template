@@ -71,9 +71,7 @@
         // init vars
         this.wrapper = this.container.querySelector('ul');
         this.items = [].slice.call(this.wrapper.querySelectorAll('li'));
-        if(this.indicator){
-            this.indicatorElements = [].slice.call(this.indicator.querySelectorAll('li'));
-        }
+        if(this.indicator) this.indicatorElements = [].slice.call(this.indicator.querySelectorAll('li'));
         this.animating = false;
         this.length = this.items.length;
         this.wrapper.style.transitionTimingFunction = this.ease;
