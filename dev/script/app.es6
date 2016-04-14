@@ -30,7 +30,7 @@ function init() {
 
     loaderClass.load({
         done: (image, count, total) => {
-            console.log('==========', image, (count / total * 100) + '%');
+            // console.log('==========', image, (count / total * 100) + '%');
 
             if (Platform.isIE) {
                 setTimeout(() => {
@@ -43,21 +43,6 @@ function init() {
             console.log('==========end1');
         }
     });
-
-    var arr = [
-        {
-            name: 'a',
-            age: 3
-        },
-        {
-            name: 'b',
-            age: 7
-        },
-        {
-            name: 'c',
-            age: 1
-        }
-    ];
 }
 
 function generateStruct() {
@@ -68,7 +53,7 @@ function generateStruct() {
         currentIndex: 0,
         speed: 800, //ms
         interactiveSpeed: 300, //ms
-        interactiveDistance: 200, //px
+        interactiveDistance: 100, //px
         ease: 'cubic-bezier(0.215, 0.61, 0.355, 1)', //string
         onChangeStart: (i, next) => {
             console.log('==========', i, next);

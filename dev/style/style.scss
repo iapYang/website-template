@@ -16,6 +16,7 @@ body{
 
 .preload{
     display: inline-block;
+    width: 100px;
 }
 
 .container{
@@ -23,17 +24,14 @@ body{
     height: 30rem;
     background-color: blue;
 }
-.preload{
-    width: 100px;
-}
 
 $colors: red, yellow, blue, green, purple;
 .slider{
     display: inline-block;
 
     .slider-item{
-        width: 50rem;
-        height: 10rem;
+        width: 300px;
+        height: 200px;
         font-size: 5rem;
 
         @for $i from 1 through length($colors){

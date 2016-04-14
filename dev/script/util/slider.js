@@ -29,7 +29,7 @@
     }
 
 
-
+    var hasTouch = 'ontouchstart' in window;
 
     var defaultOptions = {
         currentIndex: 0,
@@ -171,9 +171,7 @@
         }
 
         var that = this;
-        setTimeout(function() {
-            slideEnd.call(that, targetIndex);
-        }, speed);
+        setTimeout(slideEnd.bind(that, targetIndex), speed);
     }
 
     function slideEnd(endIndex, noTriggerEvent) {
@@ -192,12 +190,17 @@
     }
 
     function registerEvent() {
-        if (this.prevBtn) this.prevBtn.addEventListener('click', this.slidePrev.bind(this), false);
-        if (this.nextBtn) this.nextBtn.addEventListener('click', this.slideNext.bind(this), false);
+        var tapEvent = hasTouch ? 'touchend' : 'click';
+        var downEvent = hasTouch ? 'touchstart' : 'mousedown';
+        var moveEvent = hasTouch ? 'touchmove' : 'mousemove';
+        var upEvent = hasTouch ? 'touchend' : 'mouseup';
 
-        this.container.addEventListener('mousedown', startMove.bind(this), false);
-        this.container.addEventListener('mousemove', duringMove.bind(this), false);
-        this.container.addEventListener('mouseup', endMove.bind(this), false);
+        if (this.prevBtn) this.prevBtn.addEventListener(tapEvent, this.slidePrev.bind(this), false);
+        if (this.nextBtn) this.nextBtn.addEventListener(tapEvent, this.slideNext.bind(this), false);
+
+        this.container.addEventListener(downEvent, startMove.bind(this), false);
+        this.container.addEventListener(moveEvent, duringMove.bind(this), false);
+        this.container.addEventListener(upEvent, endMove.bind(this), false);
         this.container.addEventListener('mouseleave', endMove.bind(this), false);
     }
 
@@ -206,32 +209,32 @@
         if (this.interactived) return;
 
         this.interactived = true;
-        this.startOffsetX = e.screenX;
+        this.startOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
         this.wrapper.style.transitionDuration = '0ms';
     }
 
     function duringMove(e) {
         if (!this.interactived) return;
 
-        var moveX = e.screenX - this.startOffsetX;
+        var currentOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
 
-        this.wrapper.style.transform = 'translateX(' + moveX + 'px)';
+        this.moveX = currentOffsetX - this.startOffsetX;
+        this.wrapper.style.transform = 'translateX(' + this.moveX + 'px)';
     }
 
     function endMove(e) {
         if (!this.interactived) return;
         this.interactived = false;
 
-        var moveX = e.screenX - this.startOffsetX;
         var finalIndex, noTriggerEnd;
 
         this.wrapper.style.transitionDuration = this.interactiveSpeed + 'ms';
         this.animating = true;
 
-        if (Math.abs(moveX) > this.interactiveDistance) {
+        if (Math.abs(this.moveX) > this.interactiveDistance) {
             noTriggerEnd = false;
 
-            if (moveX > 0) {
+            if (this.moveX > 0) {
                 this.wrapper.style.transform = 'translateX(100%)';
                 finalIndex = getPrevIndex.call(this);
             } else {
@@ -248,9 +251,7 @@
         }
 
         var that = this;
-        setTimeout(function() {
-            slideEnd.call(that, finalIndex, noTriggerEnd);
-        }, that.interactiveSpeed);
+        setTimeout(slideEnd.bind(that, finalIndex, noTriggerEnd), that.interactiveSpeed);
     }
 
 
