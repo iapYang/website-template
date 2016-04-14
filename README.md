@@ -168,6 +168,7 @@ let slider = new Slider({
 | container              | dom          | null          | 容器元素（必须）               |
 | prevBtn                | dom          | null          | 上一项按钮                  |
 | nextBtn                | dom          | null          | 下一项按钮                  |
+| indicator              | dom          | null          | 索引指示器                  |
 | currentIndex           | number (int) | 0             | 初始项下标                  |
 | speed                  | number (ms)  | 1000          | 动画速度                   |
 | interactiveSpeed       | number (ms)  | 200           | 人为交互后的动画速度             |
