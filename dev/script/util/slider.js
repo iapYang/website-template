@@ -232,6 +232,7 @@
         if (this.interactived) return;
 
         this.interactived = true;
+        this.moveX = 0;
         this.startOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
         this.wrapper.style.transitionDuration = '0ms';
     }
