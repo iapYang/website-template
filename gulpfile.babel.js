@@ -27,22 +27,16 @@ const devPath = {
     sass: 'dev/style/**/*.{scss,sass}',
     js: 'dev/script/**/*',
     img: 'dev/image/**/*',
-    font: 'dev/font/**/*',
-    data: 'dev/data/**/*',
-    template: 'dev/template/**/*',
-    worker: 'dev/worker/**/*',
     cssDir: 'dev/style',
     browserifyFile: 'dev/script/app.es6',
     configFile: './dev/data/config.json',
 };
 
 const tmpPath = {
+    root: '.tmp/',
     html: '.tmp/*.html',
     css: '.tmp/**/*.css',
     js: '.tmp/**/*.js',
-    htmlDir: '.tmp',
-    cssDir: '.tmp',
-    jsDir: '.tmp',
     jsTargetName: 'app.js',
 };
 
@@ -65,11 +59,10 @@ const util = {
     compressDir: './',
     browserSyncDir: ['.tmp', 'dev'],
     devReloadSource: [
-        devPath.img,
-        devPath.font,
-        devPath.data,
-        devPath.template,
-        devPath.worker,
+        'dev/**/*',
+        '!dev/*.html',
+        '!dev/style/**/*',
+        '!dev/script/**/*',
     ]
 };
 
@@ -92,7 +85,7 @@ gulp.task('swig', () => {
     return gulp.src(devPath.html)
     .pipe(data(getJsonData))
     .pipe(swig({defaults: { cache: false }}))
-    .pipe(gulp.dest(tmpPath.htmlDir))
+    .pipe(gulp.dest(tmpPath.root))
     .pipe(reload({stream: true}));
 });
 
@@ -100,7 +93,7 @@ gulp.task('sass', () => {
     return gulp.src(devPath.sass)
     .pipe(compass({
         sassDir: devPath.cssDir,
-        cssDir: tmpPath.cssDir
+        cssDir: tmpPath.root
     }))
     .pipe(reload({stream: true}));
 });
@@ -116,7 +109,7 @@ function bundleJs(){
     })
     .pipe(source(tmpPath.jsTargetName))
     .pipe(buffer())
-    .pipe(gulp.dest(tmpPath.jsDir))
+    .pipe(gulp.dest(tmpPath.root))
     .pipe(reload({stream: true}));
 }
 
