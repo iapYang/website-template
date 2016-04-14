@@ -48,6 +48,7 @@
         this.container = options.container;
         this.prevBtn = options.prevBtn;
         this.nextBtn = options.nextBtn;
+        this.indicator = options.indicator;
         this.currentIndex = options.currentIndex;
         this.speed = options.speed;
         this.interactiveSpeed = options.interactiveSpeed;
@@ -68,7 +69,7 @@
 
 
         // init vars
-        this.wrapper = this.container.querySelectorAll('ul')[0];
+        this.wrapper = this.container.querySelector('ul');
         this.items = this.wrapper.querySelectorAll('li');
         this.animating = false;
         this.length = this.items.length;
@@ -154,7 +155,7 @@
         this.animating = true;
 
         this.onChangeStart(this.currentIndex, targetIndex);
-        
+
         // necessary when slide to a  random index
         hideItemsExcept.call(this, [this.currentIndex, targetIndex]);
 

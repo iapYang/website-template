@@ -41,3 +41,21 @@ $colors: red, yellow, blue, green, purple;
         }
     }
 }
+
+.indicator{
+    margin: 10px auto;
+
+    li{
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: blue;
+        margin: 0 5px;
+
+        @include border-radius(50%);
+
+        &.active{
+            background-color: green;
+        }
+    }
+}

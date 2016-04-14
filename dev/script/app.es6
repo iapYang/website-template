@@ -50,6 +50,7 @@ function generateStruct() {
         container: document.getElementById('slider'), //dom
         prevBtn: document.getElementById('btn-prev'), //dom
         nextBtn: document.getElementById('btn-next'), //dom
+        indicator: document.getElementById('indicator'), //dom
         currentIndex: 0,
         speed: 800, //ms
         interactiveSpeed: 300, //ms
@@ -76,7 +77,7 @@ function registerEvents() {
         event.preventDefault();
     });
 
-    document.getElementsByClassName('btn-go')[0].addEventListener('click', () => {
+    document.getElementById('btn-go').addEventListener('click', () => {
         var value = document.getElementById('page').value;
 
         slider.slideTo(value);
