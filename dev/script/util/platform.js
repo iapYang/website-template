@@ -34,6 +34,7 @@
 
     if (Platform.isDesktop) html.classList.add('desktop');
     if (Platform.isIE) html.classList.add('ie');
+    if (!Platform.isIE) html.classList.add('not-ie');
     if (Platform.isIE11) html.classList.add('ie11');
     if (Platform.isChrome) html.classList.add('chrome');
     if (Platform.isFirefox) html.classList.add('firefox');

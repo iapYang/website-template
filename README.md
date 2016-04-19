@@ -116,6 +116,7 @@ loader.load({
 | ------------ | ----------- | --------------- |
 | isDesktop    | desktop     | 桌面浏览器           |
 | isIE         | ie          | IE浏览器           |
+| -            | not-ie      | 非IE浏览器          |
 | isIE11       | ie11        | IE11浏览器         |
 | isChrome     | chrome      | Chrome浏览器       |
 | isFirefox    | firefox     | Firefox浏览器      |
