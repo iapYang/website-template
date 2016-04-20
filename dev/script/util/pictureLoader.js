@@ -24,6 +24,15 @@
         return obj;
     }
 
+    var ua = window.navigator.userAgent.toLowerCase();
+    var isMobile = ua.match(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile/i) !== null && ua.match(/Mobile/i) !== null;
+    var isiPad = ua.match(/ipad/i) !== null;
+    var isAndroid = ua.match(/android/i) !== null;
+    var isAndroidPad = isAndroid && !isMobile;
+    var isTablet = isiPad || isAndroidPad;
+    var isDesktop = !(isMobile || isTablet);
+
+
     var dataName = 'data-source';
 
     var initialOptions = {
@@ -54,7 +63,7 @@
     };
 
     PictureLoader.timeout = 1000 * 60;
-    PictureLoader.useStorage = true;
+    PictureLoader.useStorage = isDesktop;
 
     PictureLoader.getSrc = function(src){
         var result;

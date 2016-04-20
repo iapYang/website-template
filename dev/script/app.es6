@@ -4,7 +4,7 @@ import Slider from './util/slider.js';
 import Util from './util/util.js';
 
 PictureLoader.timeout = 1000 * 60;
-
+console.log(PictureLoader.useStorage);
 const body = document.body;
 
 let loaderClass = new PictureLoader({
