@@ -12,13 +12,17 @@ figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, t
     @include user-select(none);
 }
 
-.preload{
-    img, canvas{
-        width: 100%;
-    }
+html{
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
 
 a{
     color: black;
     text-decoration: none;
+}
+
+.preload{
+    img, canvas{
+        width: 100%;
+    }
 }
