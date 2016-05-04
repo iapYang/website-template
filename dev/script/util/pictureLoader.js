@@ -107,7 +107,7 @@
 
     function checkIfInStorage(opts){
         if(PictureLoader.useStorage){
-            var storageObj = JSON.parse(localStorage.getItem(opts.src)) || {};
+            var storageObj = JSON.parse(sessionStorage.getItem(opts.src)) || {};
             var timestamp = storageObj.timestamp;
             var liveUntil = timestamp + PictureLoader.timeout;
 
@@ -153,7 +153,7 @@
                         storageObj.timestamp = Date.now();
 
                         try {
-                            localStorage.setItem(src, JSON.stringify(storageObj));
+                            sessionStorage.setItem(src, JSON.stringify(storageObj));
                         } catch (e) {
                             console.log(e.message);
                         }
