@@ -86,7 +86,7 @@ function registerEvents() {
     Array.from(document.getElementById('slider').querySelectorAll('button')).forEach((el, i) => {
         el.addEventListener('click', (e) => {
             alert(i);
-        })
+        });
     });
 }
 
