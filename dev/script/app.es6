@@ -3,32 +3,18 @@ import Platform from './util/platform.js';
 import Slider from './util/slider.js';
 import Util from './util/util.js';
 
-PictureLoader.timeout = 1000 * 60;
-console.log(PictureLoader.useStorage);
 const body = document.body;
-
-let loaderClass = new PictureLoader({
-    className: 'preload',
-});
-let loaderQueue = new PictureLoader({
-    sourceQueue: [
-        'image/1.jpg',
-        'image/2.jpg',
-        'image/3.jpg',
-        'image/4.jpg',
-        'image/5.jpg',
-    ],
-});
 let slider;
 
+PictureLoader.timeout = 1000 * 60;
 
 function init() {
     generateStruct();
     registerEvents();
 
-    loaderQueue.load();
-
-    loaderClass.load({
+    new PictureLoader({
+        className: 'preload',
+    }).load({
         done: (image, count, total) => {
             // console.log('==========', image, (count / total * 100) + '%');
 

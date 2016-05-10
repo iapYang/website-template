@@ -161,10 +161,10 @@
             });
         }
 
-        this.container.addEventListener(downEvent, startMove.bind(this), false);
-        this.container.addEventListener(moveEvent, duringMove.bind(this), false);
-        this.container.addEventListener(upEvent, endMove.bind(this), false);
-        this.container.addEventListener('mouseleave', endMove.bind(this), false);
+        this.container.addEventListener(downEvent, startDrag.bind(this), false);
+        this.container.addEventListener(moveEvent, duringDrag.bind(this), false);
+        this.container.addEventListener(upEvent, endDrag.bind(this), false);
+        this.container.addEventListener('mouseleave', endDrag.bind(this), false);
     }
 
     function getPrevIndex() {
@@ -229,7 +229,7 @@
         calcOrder.call(this);
     }
 
-    function startMove(e) {
+    function startDrag(e) {
         if (this.animating) return;
         if (this.interactived) return;
 
@@ -239,7 +239,7 @@
         this.wrapper.style.transitionDuration = '0ms';
     }
 
-    function duringMove(e) {
+    function duringDrag(e) {
         if (!this.interactived) return;
 
         this.updating = true;
@@ -250,7 +250,7 @@
         this.wrapper.style.transform = 'translateX(' + this.moveX + 'px)';
     }
 
-    function endMove(e) {
+    function endDrag(e) {
         if (!this.interactived) return;
         this.interactived = false;
 
