@@ -288,8 +288,10 @@
     }
 
     function changeIndicator(targetIndex){
-        this.indicatorElements[this.currentIndex].classList.remove('active');
-        this.indicatorElements[targetIndex].classList.add('active');
+        if(this.indicatorElements){
+            this.indicatorElements[this.currentIndex].classList.remove('active');
+            this.indicatorElements[targetIndex].classList.add('active');
+        }
     }
 
 
