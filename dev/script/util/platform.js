@@ -20,6 +20,7 @@
         isS5: ua.match(/sm\-g900/i) !== null,
         isIE: /(msie|trident)/i.test(navigator.userAgent),
         isIE11: ua.match(/Trident\/7\.0/i) !== null,
+        isEdge: ua.match(/edge/i) !== null,
         isChrome: ua.match(/Chrome/gi) !== null,
         isFirefox: ua.match(/firefox/gi) !== null,
         hasTouch: ('ontouchstart' in window),
@@ -36,6 +37,8 @@
     if (Platform.isIE) html.classList.add('ie');
     if (!Platform.isIE) html.classList.add('not-ie');
     if (Platform.isIE11) html.classList.add('ie11');
+    if (platform.isEdge) html.classList.add('edge');
+    if (!platform.isEdge) html.classList.add('not-edge');
     if (Platform.isChrome) html.classList.add('chrome');
     if (Platform.isFirefox) html.classList.add('firefox');
     if (Platform.isSafari) html.classList.add('safari');

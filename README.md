@@ -51,8 +51,8 @@
 
 ### 3.1 pictureLoader.js 图片加载器
 
-使用了本地存储，加载图片时会先去检查localStorage中是否存在未过期的资源，若有，则直接从本地加载；否则，请求在线资源。
->   note：localStorage有大小限制，若图片大小超出限制，则不会被本地存储，依旧使用在线资源。
+使用了本地存储，加载图片时会先去检查sessionStorage中是否存在未过期的资源，若有，则直接从本地加载；否则，请求在线资源。
+>   note：sessionStorage有大小限制，若图片大小超出限制，则不会被本地存储，依旧使用在线资源。
 
 
 **初始化方式1：加载完成后插入到dom中**
@@ -125,6 +125,8 @@ loader.load({
 | isIE         | ie          | IE浏览器           |
 | -            | not-ie      | 非IE浏览器          |
 | isIE11       | ie11        | IE11浏览器         |
+| isEdge       | edge        | Edge浏览器         |
+| -            | not-edge    | 非Edge浏览器        |
 | isChrome     | chrome      | Chrome浏览器       |
 | isFirefox    | firefox     | Firefox浏览器      |
 | isSafari     | safari      | Safari浏览器       |
