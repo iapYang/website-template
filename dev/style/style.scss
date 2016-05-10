@@ -41,6 +41,15 @@ $colors: red, yellow, blue, green, purple;
             }
         }
     }
+
+    .scroll-wrapper{
+        height: 200px;
+        overflow: hidden;
+    }
+    p{
+        font-size: 15px;
+        text-align: left;
+    }
 }
 
 .indicator{

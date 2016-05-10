@@ -3,6 +3,8 @@ import Platform from './util/platform.js';
 import Slider from './util/slider.js';
 import Util from './util/util.js';
 
+import IScroll from 'iscroll';
+
 const body = document.body;
 let slider;
 
@@ -50,12 +52,11 @@ function generateStruct() {
         }
     });
 
+    Array.from(document.getElementsByClassName('scroll-wrapper')).forEach((el, i) => {
+        new IScroll(el, {
 
-
-    // slider.currentIndex
-    //slider.slidePrev(t)
-    //slider.slideNext(t)
-    //slider.slideTo(i, t)
+        });
+    });
 }
 
 function registerEvents() {
