@@ -85,6 +85,8 @@ function registerEvents() {
 
     Array.from(document.getElementById('slider').querySelectorAll('button')).forEach((el, i) => {
         el.addEventListener('click', (e) => {
+            if(slider.updating) return;
+
             alert(i);
         });
     });

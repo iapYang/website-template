@@ -73,6 +73,7 @@
         this.items = [].slice.call(this.wrapper.querySelectorAll('li'));
         if(this.indicator) this.indicatorElements = [].slice.call(this.indicator.querySelectorAll('li'));
         this.animating = false;
+        this.updating = false;
         this.length = this.items.length;
         this.wrapper.style.transitionTimingFunction = this.ease;
 
@@ -223,6 +224,7 @@
         this.wrapper.style.transform = 'translateX(0%)';
 
         this.animating = false;
+        this.updating = false;
 
         calcOrder.call(this);
     }
@@ -239,6 +241,8 @@
 
     function duringMove(e) {
         if (!this.interactived) return;
+
+        this.updating = true;
 
         var currentOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
 
