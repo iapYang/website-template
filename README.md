@@ -212,11 +212,12 @@ let slider = new Slider({
 
 **静态方法**
 
-| 名称                           | 描述                                      |
-| ---------------------------- | --------------------------------------- |
-| merge(...obj)                | 合并对象，同jquery的extend方法                   |
-| parseDom(str)                | 将字符串转换为dom元素                            |
-| closest(el, selector)        | 获取元素el的祖先节点，不存在则为null，同jquery的closest方法 |
-| strToJson(str)               | 将字符串转换为json对象，字符串必须完全符合json规范           |
-| indexOf(el, collection)      | 获取元素el在集合collection中的下标                 |
-| sortObjArrByKey(objArr, key) | 将对象数组objArr按给定的键key排序                   |
+| 名称                                | 描述                                       |
+| --------------------------------- | ---------------------------------------- |
+| merge(...obj)                     | 合并对象，同jquery的extend方法                    |
+| parseDom(str)                     | 将字符串转换为dom元素                             |
+| closest(el, selector)             | 获取元素el的祖先节点，不存在则为null，同jquery的closest方法  |
+| strToJson(str)                    | 将字符串转换为json对象，字符串必须完全符合json规范            |
+| indexOf(el, collection)           | 获取元素el在集合collection中的下标                  |
+| sortObjArrByKey(objArr, key)      | 将对象数组objArr按给定的键key排序                    |
+| triggerEvent(el, eventName, data) | 在el元素上触发eventName事件，并传递事件参数data到e.detail |

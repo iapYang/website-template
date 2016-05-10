@@ -15,6 +15,10 @@
 
     };
 
+    ////////////
+    // Object //
+    ////////////
+
     Util.merge = function() {
         var obj = {},
             i = 0,
@@ -31,6 +35,11 @@
 
         return obj;
     };
+
+
+    /////////
+    // Dom //
+    /////////
 
     Util.parseDom = function(str) {
         var div = document.createElement('div');
@@ -52,9 +61,19 @@
         return null;
     };
 
+
+    ////////////
+    // String //
+    ////////////
+
     Util.strToJson = function(str){
         return JSON.parse(str);
     };
+
+
+    ///////////
+    // Array //
+    ///////////
 
     Util.indexOf = function(el, collection){
         return [].indexOf.call(collection, el);
@@ -67,6 +86,28 @@
 
             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         });
+    };
+
+
+    ///////////
+    // Event //
+    ///////////
+
+    Util.triggerEvent = function(el, eventName, data) {
+        var event;
+
+        data = data || {};
+
+        if (window.CustomEvent) {
+            event = new CustomEvent(eventName, {
+                detail: data
+            });
+        } else {
+            event = document.createEvent('CustomEvent');
+            event.initCustomEvent(eventName, true, true, data);
+        }
+
+        el.dispatchEvent(event);
     };
 
 
