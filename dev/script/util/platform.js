@@ -1,12 +1,15 @@
-(function(factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        console.log('Platform load with commonJS');
-        module.exports = factory();
-    } else {
-        console.log('Platform load with normal');
-        factory();
-    }
-}(function() {
+(function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(factory);
+	} else if (typeof exports === 'object') {
+		// CommonJS
+		module.exports = factory();
+	} else {
+		// Browser global
+		factory();
+	}
+}(this, function() {
     var ua = window.navigator.userAgent.toLowerCase();
     var html = document.getElementsByTagName('html')[0];
 
@@ -37,8 +40,8 @@
     if (Platform.isIE) html.classList.add('ie');
     if (!Platform.isIE) html.classList.add('not-ie');
     if (Platform.isIE11) html.classList.add('ie11');
-    if (platform.isEdge) html.classList.add('edge');
-    if (!platform.isEdge) html.classList.add('not-edge');
+    if (Platform.isEdge) html.classList.add('edge');
+    if (!Platform.isEdge) html.classList.add('not-edge');
     if (Platform.isChrome) html.classList.add('chrome');
     if (Platform.isFirefox) html.classList.add('firefox');
     if (Platform.isSafari) html.classList.add('safari');

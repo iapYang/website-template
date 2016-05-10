@@ -1,12 +1,15 @@
-(function(factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        console.log('Util load with commonJS');
-        module.exports = factory();
-    } else {
-        console.log('Util load with normal');
-        factory();
-    }
-}(function() {
+(function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(factory);
+	} else if (typeof exports === 'object') {
+		// CommonJS
+		module.exports = factory();
+	} else {
+		// Browser global
+		factory();
+	}
+}(this, function() {
 
     var Util = function() {
 
@@ -61,7 +64,7 @@
         return arr.sort(function(a, b) {
             var x = a[key];
             var y = b[key];
-            
+
             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         });
     };

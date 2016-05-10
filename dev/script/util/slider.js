@@ -1,12 +1,15 @@
-(function(factory) {
-    if (typeof module === 'object' && typeof module.exports === 'object') {
-        console.log('Slider load with commonJS');
-        module.exports = factory();
-    } else {
-        console.log('Slider load with normal');
-        factory();
-    }
-}(function() {
+(function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(factory);
+	} else if (typeof exports === 'object') {
+		// CommonJS
+		module.exports = factory();
+	} else {
+		// Browser global
+		factory();
+	}
+}(this, function() {
     function merge() {
         var obj = {},
             i = 0,
