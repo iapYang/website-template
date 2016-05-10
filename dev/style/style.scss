@@ -58,6 +58,7 @@ $colors: red, yellow, blue, green, purple;
         background-color: white;
         top: 100px;
         cursor: pointer;
+        z-index: 999;
 
         &.navigate-prev{
             left: 10px;

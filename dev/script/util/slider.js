@@ -254,6 +254,14 @@
     }
 
     function endDrag(e) {
+        if (this.animating) return;
+
+        var interactive_el = e.srcElement || e.target || e.toElement;
+        if(!this.interactived &&
+            (interactive_el === this.prevBtn || interactive_el === this.nextBtn)){
+            return;
+        }
+
         if (!this.interactived) return;
         this.interactived = false;
 
