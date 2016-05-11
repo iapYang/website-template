@@ -7,7 +7,14 @@
 ## 0. 准备工作
 
 - 安装&配置node环境
+- 全局安装gulp
+- 全局安装compass
 - 根目录下运行sudo npm install安装所有依赖包
+- 预览：`gulp`
+- 打包发布（常规）：`gulp build`
+- 打包发布（注入）：`gulp inject`
+
+
 
 
 
@@ -41,7 +48,7 @@
 
 
 
-## 3. util
+## 3. js工具库
 
 遵循AMD、CommonJS规范，也可以单独引入使用
 
@@ -52,7 +59,7 @@
 ### 3.1 pictureLoader.js 图片加载器
 
 使用了本地存储，加载图片时会先去检查sessionStorage中是否存在未过期的资源，若有，则直接从本地加载；否则，请求在线资源。
->   note：sessionStorage有大小限制，若图片大小超出限制，则不会被本地存储，依旧使用在线资源。
+>   tip：sessionStorage有大小限制，若图片大小超出限制，则不会被本地存储，依旧使用在线资源
 
 
 **初始化方式1：加载完成后插入到dom中**
@@ -116,7 +123,7 @@ loader.load({
 
 ### 3.2 platform.js 平台检测
 
->   引入后自动对html标签添加相应class
+>   tip：引入后自动对html标签添加相应class
 
 
 | 静态属性         | 类名          | 描述              |
@@ -147,7 +154,7 @@ loader.load({
 
 ### 3.3 slider.js 内容轮播
 
->
+>等着以后来填坑。。。
 
 **结构**
 
@@ -160,8 +167,6 @@ loader.load({
   </ul>
 </div>
 ```
-
-
 
 **初始化**
 
@@ -208,7 +213,7 @@ let slider = new Slider({
 
 ### 3.4 util.js 实用工具
 
->  
+>  好东西
 
 **静态方法**
 
