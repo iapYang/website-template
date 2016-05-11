@@ -12,7 +12,7 @@
 - 根目录下运行sudo npm install安装所有依赖包
 - 预览：`gulp`
 - 打包发布（常规）：`gulp build`
-- 打包发布（注入）：`gulp inject`
+- 打包发布（合并）：`gulp inject`
 
 
 
