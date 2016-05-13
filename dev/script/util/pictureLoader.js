@@ -33,6 +33,7 @@
     var isAndroid = ua.match(/android/i) !== null;
     var isAndroidPad = isAndroid && !isMobile;
     var isTablet = isiPad || isAndroidPad;
+    var isIE = /(msie|trident)/i.test(navigator.userAgent);
     var isDesktop = !(isMobile || isTablet);
 
 
@@ -66,7 +67,7 @@
     };
 
     PictureLoader.timeout = 1000 * 60;
-    PictureLoader.useStorage = isDesktop;
+    PictureLoader.useStorage = isDesktop && !isIE;
 
     PictureLoader.getSrc = function(src){
         var result;
