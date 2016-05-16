@@ -31,8 +31,14 @@
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
-
+    var ua = window.navigator.userAgent.toLowerCase();
     var hasTouch = 'ontouchstart' in window;
+    var isIE = /(msie|trident)/i.test(navigator.userAgent);
+    var isEdge = ua.match(/edge/i) !== null;
+
+    var useTraditionalAnimation = isIE || isEdge;
+
+
 
     var defaultOptions = {
         currentIndex: 0,
@@ -164,6 +170,7 @@
             });
         }
 
+        // return;
         this.container.addEventListener(downEvent, startDrag.bind(this), false);
         this.container.addEventListener(moveEvent, duringDrag.bind(this), false);
         this.container.addEventListener(upEvent, endDrag.bind(this), false);
@@ -233,6 +240,11 @@
     }
 
     function startDrag(e) {
+        var interactive_el = e.srcElement || e.target || e.toElement;
+        if(interactive_el === this.prevBtn || interactive_el === this.nextBtn){
+            return;
+        }
+
         if (this.animating) return;
         if (this.interactived) return;
 
@@ -255,14 +267,8 @@
 
     function endDrag(e) {
         if (this.animating) return;
-
-        var interactive_el = e.srcElement || e.target || e.toElement;
-        if(!this.interactived &&
-            (interactive_el === this.prevBtn || interactive_el === this.nextBtn)){
-            return;
-        }
-
         if (!this.interactived) return;
+
         this.interactived = false;
 
         var targetIndex, noTriggerEnd;
