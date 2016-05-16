@@ -111,11 +111,20 @@
         slideFunc.call(this, targetIndex, null, calcSpeed);
     };
 
+    function setDisplacement(value){
+        if(useTraditionalAnimation){
+            this.wrapper.style.left = value;
+        }else{
+            this.wrapper.style.transform = 'translateX(' + value + ')';
+        }
+    }
+
     function initStyle() {
         var self = this;
 
         this.container.style.overflow = 'hidden';
         this.wrapper.style.position = 'relative';
+        setDisplacement.call(this, '0%');
 
         this.items[0].style.position = 'relative';
 
@@ -213,10 +222,10 @@
 
         if (direct == 'prev') {
             this.items[targetIndex].style.left = '-100%';
-            this.wrapper.style.transform = 'translateX(100%)';
+            setDisplacement.call(this, '100%');
         } else {
             this.items[targetIndex].style.left = '100%';
-            this.wrapper.style.transform = 'translateX(-100%)';
+            setDisplacement.call(this, '-100%');
         }
 
         var that = this;
@@ -231,7 +240,7 @@
         this.currentIndex = endIndex;
 
         this.wrapper.style.transitionDuration = '0ms';
-        this.wrapper.style.transform = 'translateX(0%)';
+        setDisplacement.call(this, '0%');
 
         this.animating = false;
         this.updating = false;
@@ -262,7 +271,7 @@
         var currentOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
 
         this.moveX = currentOffsetX - this.startOffsetX;
-        this.wrapper.style.transform = 'translateX(' + this.moveX + 'px)';
+        setDisplacement.call(this, this.moveX + 'px');
     }
 
     function endDrag(e) {
@@ -280,10 +289,10 @@
             noTriggerEnd = false;
 
             if (this.moveX > 0) {
-                this.wrapper.style.transform = 'translateX(100%)';
+                setDisplacement.call(this, '100%');
                 targetIndex = getPrevIndex.call(this);
             } else {
-                this.wrapper.style.transform = 'translateX(-100%)';
+                setDisplacement.call(this, '-100%');
                 targetIndex = getNextIndex.call(this);
             }
 
@@ -294,7 +303,7 @@
         } else {
             noTriggerEnd = true;
 
-            this.wrapper.style.transform = 'translateX(0px)';
+            setDisplacement.call(this, '0%');
             targetIndex = this.currentIndex;
         }
 
