@@ -222,6 +222,8 @@ let slider = new Slider({
 | merge(...obj)                     | 合并对象，同jquery的extend方法                    |
 | parseDom(str)                     | 将字符串转换为dom元素                             |
 | closest(el, selector)             | 获取元素el的祖先节点，不存在则为null，同jquery的closest方法  |
+| inViewWhole(el)                   | 判断元素el是否完全显示在窗口中                         |
+| inViewPartial(el)                 | 判断元素el是否部分显示在窗口中                         |
 | strToJson(str)                    | 将字符串转换为json对象，字符串必须完全符合json规范            |
 | indexOf(el, collection)           | 获取元素el在集合collection中的下标                  |
 | sortObjArrByKey(objArr, key)      | 将对象数组objArr按给定的键key排序                    |

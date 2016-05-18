@@ -1,14 +1,14 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(factory);
-	} else if (typeof exports === 'object') {
-		// CommonJS
-		module.exports = factory();
-	} else {
-		// Browser global
-		factory();
-	}
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // CommonJS
+        module.exports = factory();
+    } else {
+        // Browser global
+        factory();
+    }
 }(this, function() {
 
     var Util = function() {
@@ -61,12 +61,31 @@
         return null;
     };
 
+    Util.inViewWhole = function(el) {
+        var elemTop = el.getBoundingClientRect().top;
+        var elemBottom = el.getBoundingClientRect().bottom;
+
+        var isVisible = ((elemTop >= 0) && (elemTop < window.innerHeight)) ||
+            ((elemBottom > 0) && (elemBottom <= window.innerHeight));
+
+        return isVisible;
+    };
+
+    Util.inViewPartial = function(el) {
+        var elemTop = el.getBoundingClientRect().top;
+        var elemBottom = el.getBoundingClientRect().bottom;
+
+        var isVisible = !(elemTop < 0 && elemBottom < 0) && (elemTop < window.innerHeight);
+
+        return isVisible;
+    };
+
 
     ////////////
     // String //
     ////////////
 
-    Util.strToJson = function(str){
+    Util.strToJson = function(str) {
         return JSON.parse(str);
     };
 
@@ -75,11 +94,11 @@
     // Array //
     ///////////
 
-    Util.indexOf = function(el, collection){
+    Util.indexOf = function(el, collection) {
         return [].indexOf.call(collection, el);
     };
 
-    Util.sortObjArrByKey = function(arr, key){
+    Util.sortObjArrByKey = function(arr, key) {
         return arr.sort(function(a, b) {
             var x = a[key];
             var y = b[key];
