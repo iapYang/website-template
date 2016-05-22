@@ -315,7 +315,7 @@
             this.interactived = false;
             return;
         }
-        
+
         if (this.animating) return;
         if (!this.interactived) return;
 
