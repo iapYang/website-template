@@ -54,7 +54,7 @@ function generateStruct() {
     });
 
     Array.from(document.getElementsByClassName('scroll-wrapper')).forEach((el, i) => {
-        new IScroll(el, {
+        window.iscroll = new IScroll(el, {
 
         });
     });
