@@ -66,6 +66,10 @@ $colors: red, yellow, blue, green, purple;
         &.navigate-next{
             right: 10px;
         }
+
+        &.disabled{
+            background-color: gray;
+        }
     }
 }
 

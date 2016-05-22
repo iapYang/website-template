@@ -41,6 +41,7 @@
 
 
     var defaultOptions = {
+        loop: true,
         currentIndex: 0,
         speed: 1000,
         interactiveSpeed: 200,
@@ -58,6 +59,7 @@
         this.prevBtn = options.prevBtn;
         this.nextBtn = options.nextBtn;
         this.indicator = options.indicator;
+        this.loop = options.loop;
         this.currentIndex = options.currentIndex;
         this.speed = options.speed;
         this.interactiveSpeed = options.interactiveSpeed;
@@ -86,12 +88,18 @@
         this.length = this.items.length;
         this.wrapper.style.transitionTimingFunction = this.ease;
 
+        this.canSlidePrev = true;
+        this.canSlideNext = true;
+
+        checkEdge.call(this);
         initStyle.call(this);
         calcOrder.call(this);
         registerEvent.call(this);
     };
 
     Slider.prototype.slidePrev = function(speed) {
+        if(!this.canSlidePrev) return;
+
         var targetIndex = getPrevIndex.call(this);
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
@@ -99,6 +107,8 @@
     };
 
     Slider.prototype.slideNext = function(speed) {
+        if(!this.canSlideNext) return;
+
         var targetIndex = getNextIndex.call(this);
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
@@ -116,6 +126,23 @@
             this.wrapper.style.left = value;
         }else{
             this.wrapper.style.transform = 'translateX(' + value + ')';
+        }
+    }
+
+    function checkEdge(){
+        if(this.loop) return;
+
+        this.canSlidePrev = this.currentIndex !== 0;
+        this.canSlideNext = this.currentIndex !== this.length - 1;
+
+        if(this.prevBtn){
+            if(this.canSlidePrev) this.prevBtn.classList.remove('disabled');
+            else this.prevBtn.classList.add('disabled');
+        }
+
+        if(this.nextBtn){
+            if(this.canSlideNext) this.nextBtn.classList.remove('disabled');
+            else this.nextBtn.classList.add('disabled');
         }
     }
 
@@ -245,6 +272,7 @@
         this.animating = false;
         this.updating = false;
 
+        checkEdge.call(this);
         calcOrder.call(this);
     }
 
@@ -271,10 +299,23 @@
         var currentOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
 
         this.moveX = currentOffsetX - this.startOffsetX;
-        setDisplacement.call(this, this.moveX + 'px');
+
+        if((!this.canSlidePrev && this.moveX > 0) || (!this.canSlideNext && this.moveX < 0)){
+            this.canDrag = false;
+        }else{
+            this.canDrag = true;
+            setDisplacement.call(this, this.moveX + 'px');
+        }
     }
 
     function endDrag(e) {
+        if(!this.canDrag){
+            this.animating = false;
+            this.updating = false;
+            this.interactived = false;
+            return;
+        }
+        
         if (this.animating) return;
         if (!this.interactived) return;
 
