@@ -89,6 +89,14 @@
         return JSON.parse(str);
     };
 
+    Util.substringByWord = function(str, length){
+        if(str.length > length){
+            str = str.substring(0, str.lastIndexOf(' ', length));
+        }
+
+        return str;
+    };
+
 
     ///////////
     // Array //
