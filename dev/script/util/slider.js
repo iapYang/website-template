@@ -260,9 +260,7 @@
     }
 
     function slideEnd(endIndex, noTriggerEvent) {
-        if(!noTriggerEvent){
-            this.onChangeEnd(endIndex, this.currentIndex);
-        }
+        var prevIndex = this.currentIndex;
 
         this.currentIndex = endIndex;
 
@@ -274,6 +272,10 @@
 
         checkEdge.call(this);
         calcOrder.call(this);
+
+        if(!noTriggerEvent){
+            this.onChangeEnd(this.currentIndex, prevIndex);
+        }
     }
 
     function startDrag(e) {
