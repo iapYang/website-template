@@ -80,9 +80,9 @@
 
 
         // init vars
-        this.wrapper = this.container.querySelector('ul');
-        this.items = [].slice.call(this.wrapper.querySelectorAll('li'));
-        if(this.indicator) this.indicatorElements = [].slice.call(this.indicator.querySelectorAll('li'));
+        this.wrapper = this.container.children[0];
+        this.items = [].slice.call(this.wrapper.children);
+        if(this.indicator) this.indicatorElements = [].slice.call(this.indicator.children);
         this.animating = false;
         this.updating = false;
         this.length = this.items.length;
