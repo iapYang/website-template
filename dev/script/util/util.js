@@ -10,16 +10,19 @@
         factory();
     }
 }(this, function() {
+    //////////
+    // Name //
+    //////////
 
-    var Util = function() {
+    var COMPONENT_NAME = 'Util';
 
-    };
+    var Component = {};
 
     ////////////
     // Object //
     ////////////
 
-    Util.merge = function() {
+    Component.merge = function() {
         var obj = {},
             i = 0,
             il = arguments.length,
@@ -41,14 +44,14 @@
     // Dom //
     /////////
 
-    Util.parseDom = function(str) {
+    Component.parseDom = function(str) {
         var div = document.createElement('div');
         div.innerHTML = str;
 
         return div.children[0];
     };
 
-    Util.closest = function(el, selector) {
+    Component.closest = function(el, selector) {
         var matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
 
         while (el) {
@@ -61,7 +64,7 @@
         return null;
     };
 
-    Util.inViewWhole = function(el) {
+    Component.inViewWhole = function(el) {
         var elemTop = el.getBoundingClientRect().top;
         var elemBottom = el.getBoundingClientRect().bottom;
 
@@ -71,7 +74,7 @@
         return isVisible;
     };
 
-    Util.inViewPartial = function(el) {
+    Component.inViewPartial = function(el) {
         var elemTop = el.getBoundingClientRect().top;
         var elemBottom = el.getBoundingClientRect().bottom;
 
@@ -85,11 +88,11 @@
     // String //
     ////////////
 
-    Util.strToJson = function(str) {
+    Component.strToJson = function(str) {
         return JSON.parse(str);
     };
 
-    Util.substringByWord = function(str, length){
+    Component.substringByWord = function(str, length){
         if(str.length > length){
             str = str.substring(0, str.lastIndexOf(' ', length));
         }
@@ -102,11 +105,11 @@
     // Array //
     ///////////
 
-    Util.indexOf = function(el, collection) {
+    Component.indexOf = function(el, collection) {
         return [].indexOf.call(collection, el);
     };
 
-    Util.sortObjArrByKey = function(arr, key) {
+    Component.sortObjArrByKey = function(arr, key) {
         return arr.sort(function(a, b) {
             var x = a[key];
             var y = b[key];
@@ -120,7 +123,7 @@
     // Event //
     ///////////
 
-    Util.triggerEvent = function(el, eventName, data) {
+    Component.triggerEvent = function(el, eventName, data) {
         var event;
 
         data = data || {};
@@ -142,7 +145,7 @@
 
 
 
-    window.Util = Util;
+    window[COMPONENT_NAME] = Component;
 
-    return Util;
+    return Component;
 }));

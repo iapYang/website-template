@@ -10,6 +10,16 @@
 		factory();
 	}
 }(this, function() {
+    //////////
+    // Name //
+    //////////
+
+    var COMPONENT_NAME = 'PictureLoader';
+
+    //////////
+    // Tool //
+    //////////
+
     function merge() {
         var obj = {},
             i = 0,
@@ -37,6 +47,10 @@
     var isDesktop = !(isMobile || isTablet);
 
 
+    ///////////////
+    // Component //
+    ///////////////
+
     var dataName = 'data-source';
 
     var initialOptions = {
@@ -48,7 +62,7 @@
         end: function() {},
     };
 
-    var PictureLoader = function(opts) {
+    var Component = function(opts) {
         var options = merge({}, initialOptions, opts);
 
         this.className = options.className;
@@ -66,10 +80,10 @@
         this.loadCount = 0;
     };
 
-    PictureLoader.timeout = 1000 * 60;
-    PictureLoader.useStorage = isDesktop && !isIE;
+    Component.timeout = 1000 * 60;
+    Component.useStorage = isDesktop && !isIE;
 
-    PictureLoader.getSrc = function(src){
+    Component.getSrc = function(src){
         var result;
 
         checkIfInStorage({
@@ -85,7 +99,7 @@
         return result;
     };
 
-    PictureLoader.prototype.load = function(opts) {
+    Component.prototype.load = function(opts) {
         var options = merge({}, loadOptions, opts);
         var that = this;
 
@@ -110,10 +124,10 @@
     };
 
     function checkIfInStorage(opts){
-        if(PictureLoader.useStorage){
+        if(Component.useStorage){
             var storageObj = JSON.parse(sessionStorage.getItem(opts.src)) || {};
             var timestamp = storageObj.timestamp;
-            var liveUntil = timestamp + PictureLoader.timeout;
+            var liveUntil = timestamp + Component.timeout;
 
             if (timestamp !== undefined && liveUntil > Date.now()){
                 return opts.in.call(null, storageObj);
@@ -144,7 +158,7 @@
             not: function(){
                 // load from file
                 image.onload = function() {
-                    if(PictureLoader.useStorage){
+                    if(Component.useStorage){
                         var storageObj = {};
                         var canvas = document.createElement('canvas');
                         var ctx = canvas.getContext('2d');
@@ -194,7 +208,7 @@
 
 
 
-    window.PictureLoader = PictureLoader;
+    window[COMPONENT_NAME] = Component;
 
-    return PictureLoader;
+    return Component;
 }));

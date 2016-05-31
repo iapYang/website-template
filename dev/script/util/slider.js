@@ -10,6 +10,16 @@
 		factory();
 	}
 }(this, function() {
+    //////////
+    // Name //
+    //////////
+
+    var COMPONENT_NAME = 'Slider';
+
+    //////////
+    // Tool //
+    //////////
+
     function merge() {
         var obj = {},
             i = 0,
@@ -39,6 +49,9 @@
     var useTraditionalAnimation = isIE || isEdge;
 
 
+    ///////////////
+    // Component //
+    ///////////////
 
     var defaultOptions = {
         loop: true,
@@ -52,7 +65,7 @@
         onChangeEnd: function(i, prev) {}
     };
 
-    var Slider = function(opts) {
+    var Component = function(opts) {
         var options = merge({}, defaultOptions, opts);
 
         // options which user can config
@@ -99,7 +112,7 @@
         registerEvent.call(this);
     };
 
-    Slider.prototype.slidePrev = function(speed) {
+    Component.prototype.slidePrev = function(speed) {
         if(!this.canSlidePrev) return;
 
         var targetIndex = getPrevIndex.call(this);
@@ -108,7 +121,7 @@
         slideFunc.call(this, targetIndex, 'prev', calcSpeed);
     };
 
-    Slider.prototype.slideNext = function(speed) {
+    Component.prototype.slideNext = function(speed) {
         if(!this.canSlideNext) return;
 
         var targetIndex = getNextIndex.call(this);
@@ -117,7 +130,7 @@
         slideFunc.call(this, targetIndex, 'next', calcSpeed);
     };
 
-    Slider.prototype.slideTo = function(targetIndex, speed) {
+    Component.prototype.slideTo = function(targetIndex, speed) {
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
         slideFunc.call(this, targetIndex, null, calcSpeed);
@@ -390,7 +403,7 @@
 
 
 
-    window.Slider = Slider;
+    window[COMPONENT_NAME] = Component;
 
-    return Slider;
+    return Component;
 }));
