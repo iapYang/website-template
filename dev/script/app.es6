@@ -1,7 +1,7 @@
-import PictureLoader from './util/pictureLoader.js';
-import Platform from './util/platform.js';
-import Slider from './util/slider.js';
-import Util from './util/util.js';
+import PictureLoader from './component/pictureLoader';
+import Platform from './component/platform';
+import Slider from './component/slider';
+import Util from './component/util';
 
 import IScroll from 'iscroll';
 
