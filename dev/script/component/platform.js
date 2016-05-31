@@ -10,10 +10,20 @@
 		factory();
 	}
 }(this, function() {
+    //////////
+    // Name //
+    //////////
+
+    var COMPONENT_NAME = 'Platform';
+
+    ///////////////
+    // Component //
+    ///////////////
+
     var ua = window.navigator.userAgent.toLowerCase();
     var html = document.getElementsByTagName('html')[0];
 
-    window.Platform = {
+    var Component = {
         isiPad: ua.match(/ipad/i) !== null,
         isNexus7: ua.match(/Nexus 7/gi) !== null,
         isMobile: ua.match(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile/i) !== null && ua.match(/Mobile/i) !== null,
@@ -29,40 +39,41 @@
         hasTouch: ('ontouchstart' in window),
     };
 
-    window.Platform.isAndroidPad = Platform.isAndroid && !Platform.isMobile;
-    window.Platform.isTablet = Platform.isiPad || Platform.isAndroidPad;
-    window.Platform.isDesktop = !(Platform.isMobile || Platform.isTablet);
-    window.Platform.isIOS = Platform.isiPad || Platform.isiPhone;
-    window.Platform.isSafari = Platform.isDesktop && (!Platform.isIE) && (!Platform.isChrome) && (!Platform.isFirefox);
+    Component.isAndroidPad = Component.isAndroid && !Component.isMobile;
+    Component.isTablet = Component.isiPad || Component.isAndroidPad;
+    Component.isDesktop = !(Component.isMobile || Component.isTablet);
+    Component.isIOS = Component.isiPad || Component.isiPhone;
+    Component.isSafari = Component.isDesktop && (!Component.isIE) && (!Component.isChrome) && (!Component.isFirefox);
 
 
-    if (Platform.isDesktop) html.classList.add('desktop');
-    if (Platform.isIE) html.classList.add('ie');
-    if (!Platform.isIE) html.classList.add('not-ie');
-    if (Platform.isIE11) html.classList.add('ie11');
-    if (Platform.isEdge) html.classList.add('edge');
-    if (!Platform.isEdge) html.classList.add('not-edge');
-    if (Platform.isChrome) html.classList.add('chrome');
-    if (Platform.isFirefox) html.classList.add('firefox');
-    if (Platform.isSafari) html.classList.add('safari');
+    if (Component.isDesktop) html.classList.add('desktop');
+    if (Component.isIE) html.classList.add('ie');
+    if (!Component.isIE) html.classList.add('not-ie');
+    if (Component.isIE11) html.classList.add('ie11');
+    if (Component.isEdge) html.classList.add('edge');
+    if (!Component.isEdge) html.classList.add('not-edge');
+    if (Component.isChrome) html.classList.add('chrome');
+    if (Component.isFirefox) html.classList.add('firefox');
+    if (Component.isSafari) html.classList.add('safari');
 
-    if (Platform.isTablet) html.classList.add('tablet');
-    if (Platform.isiPad) html.classList.add('ipad');
-    if (Platform.isAndroidPad) html.classList.add('android-pad');
-    if (Platform.isNexus7) html.classList.add('nexus7');
+    if (Component.isTablet) html.classList.add('tablet');
+    if (Component.isiPad) html.classList.add('ipad');
+    if (Component.isAndroidPad) html.classList.add('android-pad');
+    if (Component.isNexus7) html.classList.add('nexus7');
 
-    if (Platform.isMobile) html.classList.add('mobile');
-    if (Platform.isiPhone) html.classList.add('iphone');
-    if (Platform.isS4) html.classList.add('s4');
-    if (Platform.isS5) html.classList.add('s5');
+    if (Component.isMobile) html.classList.add('mobile');
+    if (Component.isiPhone) html.classList.add('iphone');
+    if (Component.isS4) html.classList.add('s4');
+    if (Component.isS5) html.classList.add('s5');
 
-    if (Platform.isIOS) html.classList.add('ios');
-    if (Platform.isAndroid) html.classList.add('android');
+    if (Component.isIOS) html.classList.add('ios');
+    if (Component.isAndroid) html.classList.add('android');
 
-    if (Platform.hasTouch) html.classList.add('has-touch');
-    if (!Platform.hasTouch) html.classList.add('no-touch');
+    if (Component.hasTouch) html.classList.add('has-touch');
+    if (!Component.hasTouch) html.classList.add('no-touch');
 
 
+    window[COMPONENT_NAME] = Component;
 
-    return window.Platform;
+    return Component;
 }));
