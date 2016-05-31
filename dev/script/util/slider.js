@@ -42,6 +42,7 @@
 
     var defaultOptions = {
         loop: true,
+        dragable: true,
         currentIndex: 0,
         speed: 1000,
         interactiveSpeed: 200,
@@ -60,6 +61,7 @@
         this.nextBtn = options.nextBtn;
         this.indicator = options.indicator;
         this.loop = options.loop;
+        this.dragable = options.dragable;
         this.currentIndex = options.currentIndex;
         this.speed = options.speed;
         this.interactiveSpeed = options.interactiveSpeed;
@@ -207,10 +209,12 @@
         }
 
         // return;
-        this.container.addEventListener(downEvent, startDrag.bind(this), false);
-        this.container.addEventListener(moveEvent, duringDrag.bind(this), false);
-        this.container.addEventListener(upEvent, endDrag.bind(this), false);
-        this.container.addEventListener('mouseleave', endDrag.bind(this), false);
+        if(this.dragable){
+            this.container.addEventListener(downEvent, startDrag.bind(this), false);
+            this.container.addEventListener(moveEvent, duringDrag.bind(this), false);
+            this.container.addEventListener(upEvent, endDrag.bind(this), false);
+            this.container.addEventListener('mouseleave', endDrag.bind(this), false);
+        }
     }
 
     function getPrevIndex() {

@@ -40,6 +40,7 @@ function generateStruct() {
         nextBtn: document.getElementById('btn-next'), //dom
         indicator: document.getElementById('indicator'), //dom
         loop: false,
+        dragable: true,
         currentIndex: 0,
         speed: 800, //ms
         interactiveSpeed: 300, //ms

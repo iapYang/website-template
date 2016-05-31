@@ -185,6 +185,7 @@ let slider = new Slider({
 | nextBtn                | dom          | null          | 下一项按钮                  |
 | indicator              | dom          | null          | 索引指示器                  |
 | loop                   | boolean      | true          | 是否循环                   |
+| swipeable              | boolean      | true          | 是否可拖拽                  |
 | currentIndex           | number (int) | 0             | 初始项下标                  |
 | speed                  | number (ms)  | 1000          | 动画速度                   |
 | interactiveSpeed       | number (ms)  | 200           | 人为交互后的动画速度             |
@@ -198,6 +199,7 @@ let slider = new Slider({
 | 名称           | 类型           | 描述       |
 | ------------ | ------------ | -------- |
 | currentIndex | number (int) | 当前项下标    |
+| items        | array        | 所有内容项的数组 |
 | updating     | boolean      | 是否正在发生位移 |
 
 ***注：若要给slider内元素添加类似click的事件，需在事件处理函数的一开始判断updating值，若为true则禁止触发；若为false，则可正常触发（目的是为了防止在slider滑动过程中触发对应事件）***
