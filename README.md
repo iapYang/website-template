@@ -184,8 +184,7 @@ let slider = new Slider({
 | prevBtn                | dom          | null          | 上一项按钮                  |
 | nextBtn                | dom          | null          | 下一项按钮                  |
 | indicator              | dom          | null          | 索引指示器                  |
-| loop                   | boolean      | true          | 是否循环                   |
-| swipeable              | boolean      | true          | 是否可拖拽                  |
+| dragable               | boolean      | true          | 是否可拖拽                  |
 | currentIndex           | number (int) | 0             | 初始项下标                  |
 | speed                  | number (ms)  | 1000          | 动画速度                   |
 | interactiveSpeed       | number (ms)  | 200           | 人为交互后的动画速度             |

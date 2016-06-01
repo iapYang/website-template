@@ -194,7 +194,6 @@
             });
         }
 
-        // return;
         if(this.dragable){
             this.container.addEventListener(downEvent, startDrag.bind(this), false);
             this.container.addEventListener(moveEvent, duringDrag.bind(this), false);
@@ -216,9 +215,10 @@
     function slideFunc(targetIndex, direct, speed) {
         targetIndex = parseInt(targetIndex);
 
-        if (targetIndex == this.currentIndex) return;
-        if (targetIndex < 0) return;
-        if (targetIndex >= this.length) return;
+        if (targetIndex == this.currentIndex ||
+            targetIndex < 0 ||
+            targetIndex >= this.length)
+            return;
 
         if (this.animating) return;
         this.animating = true;
