@@ -39,7 +39,7 @@ function generateStruct() {
         prevBtn: document.getElementById('btn-prev'), //dom
         nextBtn: document.getElementById('btn-next'), //dom
         indicator: document.getElementById('indicator'), //dom
-        loop: false,
+        // loop: false,
         dragable: true,
         currentIndex: 0,
         speed: 800, //ms

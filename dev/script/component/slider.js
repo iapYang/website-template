@@ -54,7 +54,6 @@
     ///////////////
 
     var defaultOptions = {
-        loop: true,
         dragable: true,
         currentIndex: 0,
         speed: 1000,
@@ -73,7 +72,6 @@
         this.prevBtn = options.prevBtn;
         this.nextBtn = options.nextBtn;
         this.indicator = options.indicator;
-        this.loop = options.loop;
         this.dragable = options.dragable;
         this.currentIndex = options.currentIndex;
         this.speed = options.speed;
@@ -106,7 +104,6 @@
         this.canSlidePrev = true;
         this.canSlideNext = true;
 
-        checkEdge.call(this);
         initStyle.call(this);
         calcOrder.call(this);
         registerEvent.call(this);
@@ -141,23 +138,6 @@
             this.wrapper.style.left = value;
         }else{
             this.wrapper.style.transform = 'translateX(' + value + ')';
-        }
-    }
-
-    function checkEdge(){
-        if(this.loop) return;
-
-        this.canSlidePrev = this.currentIndex !== 0;
-        this.canSlideNext = this.currentIndex !== this.length - 1;
-
-        if(this.prevBtn){
-            if(this.canSlidePrev) this.prevBtn.classList.remove('disabled');
-            else this.prevBtn.classList.add('disabled');
-        }
-
-        if(this.nextBtn){
-            if(this.canSlideNext) this.nextBtn.classList.remove('disabled');
-            else this.nextBtn.classList.add('disabled');
         }
     }
 
@@ -287,7 +267,6 @@
         this.animating = false;
         this.updating = false;
 
-        checkEdge.call(this);
         calcOrder.call(this);
 
         if(!noTriggerEvent){
