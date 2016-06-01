@@ -81,29 +81,29 @@ function registerEvents() {
     });
 }
 
-// function xxx(a, b){
-//     var num1, num2;
-//     var t;
+
+
+
+// function moveEndToTop(arr){
+//     var length = arr.length;
+//     var t = arr[length - 1];
 //
-//     if(a > b){
-//         num1 = a;
-//         num2 = b;
-//     }else{
-//         num1 = b;
-//         num2 = a;
+//     for(var i = length - 1; i > 0; --i){
+//         arr[i] = arr[i - 1];
 //     }
 //
-//     while(num2 !== 0){
-//         t = num1 % num2;
-//         num1 = num2;
-//         num2 = t;
-//     }
-//
-//     return num1;
+//     arr[0] = t;
 // }
 //
-// console.log('==========', xxx(18, 12));
-
+// function order(arr, n){
+//     for(var i = 0; i < n; ++i){
+//         moveEndToTop(arr);
+//     }
+// }
+//
+// var a = [1,2,3,4,5,6,7,8,9];
+// order(a, 2);
+// console.log(a);
 
 
 window.addEventListener('load', init, false);

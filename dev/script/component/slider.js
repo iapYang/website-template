@@ -335,6 +335,10 @@
         }
 
         if(this.canMove){
+            // if((this.moveX > 0 && this.disablePrev) ||
+            //     (this.moveX < 0 && this.disableNext))
+            //     return;
+
             setDisplacement.call(this, this.moveX + 'px');
         }
     }
