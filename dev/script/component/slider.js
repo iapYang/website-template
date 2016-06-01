@@ -101,17 +101,12 @@
         this.length = this.items.length;
         this.wrapper.style.transitionTimingFunction = this.ease;
 
-        this.canSlidePrev = true;
-        this.canSlideNext = true;
-
         initStyle.call(this);
         calcOrder.call(this);
         registerEvent.call(this);
     };
 
     Component.prototype.slidePrev = function(speed) {
-        if(!this.canSlidePrev) return;
-
         var targetIndex = getPrevIndex.call(this);
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
@@ -119,8 +114,6 @@
     };
 
     Component.prototype.slideNext = function(speed) {
-        if(!this.canSlideNext) return;
-
         var targetIndex = getNextIndex.call(this);
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
@@ -283,53 +276,25 @@
         if (this.animating) return;
         if (this.interactived) return;
 
-        this.canDrag = true;
         this.interactived = true;
         this.moveX = 0;
-        this.moveY = 0;
         this.startOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
-        this.startOffsetY = hasTouch ? e.touches[0].screenY : e.screenY;
-        this.noMove = false;
-        this.noMoveChecked = false;
         this.wrapper.style.transitionDuration = '0ms';
     }
 
     function duringDrag(e) {
-        if(this.noMove) return;
         if (!this.interactived) return;
 
         this.updating = true;
 
         var currentOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
-        var currentOffsetY = hasTouch ? e.touches[0].screenY : e.screenY;
 
         this.moveX = currentOffsetX - this.startOffsetX;
-        this.moveY = currentOffsetY - this.startOffsetY;
 
-        if(!this.noMoveChecked){
-            this.noMoveChecked = true;
-            this.noMove = Math.abs(this.moveY) > Math.abs(this.moveX);
-
-            if(this.noMove){
-                resetFlags.call(this);
-                return;
-            }
-        }
-
-        if((!this.canSlidePrev && this.moveX > 0) || (!this.canSlideNext && this.moveX < 0)){
-            this.canDrag = false;
-        }else{
-            this.canDrag = true;
-            setDisplacement.call(this, this.moveX + 'px');
-        }
+        setDisplacement.call(this, this.moveX + 'px');
     }
 
     function endDrag(e) {
-        if(!this.canDrag){
-            resetFlags.call(this);
-            return;
-        }
-
         if (this.animating) return;
         if (!this.interactived) return;
 
@@ -363,12 +328,6 @@
         }
 
         setTimeout(slideEnd.bind(this, targetIndex, noTriggerEnd), this.interactiveSpeed);
-    }
-
-    function resetFlags(){
-        this.animating = false;
-        this.updating = false;
-        this.interactived = false;
     }
 
     function changeIndicator(targetIndex){
