@@ -39,7 +39,7 @@ function generateStruct() {
         prevBtn: document.getElementById('btn-prev'), //dom
         nextBtn: document.getElementById('btn-next'), //dom
         indicator: document.getElementById('indicator'), //dom
-        // loop: false,
+        loop: false,
         dragable: true,
         currentIndex: 0,
         speed: 800, //ms
@@ -80,6 +80,29 @@ function registerEvents() {
         });
     });
 }
+
+// function xxx(a, b){
+//     var num1, num2;
+//     var t;
+//
+//     if(a > b){
+//         num1 = a;
+//         num2 = b;
+//     }else{
+//         num1 = b;
+//         num2 = a;
+//     }
+//
+//     while(num2 !== 0){
+//         t = num1 % num2;
+//         num1 = num2;
+//         num2 = t;
+//     }
+//
+//     return num1;
+// }
+//
+// console.log('==========', xxx(18, 12));
 
 
 

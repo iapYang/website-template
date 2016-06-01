@@ -52,9 +52,11 @@
     ///////////////
     // Component //
     ///////////////
+    var SAFE_DISTANCE = 15;
 
     var defaultOptions = {
         dragable: true,
+        loop: true,
         currentIndex: 0,
         speed: 1000,
         interactiveSpeed: 200,
@@ -73,6 +75,7 @@
         this.nextBtn = options.nextBtn;
         this.indicator = options.indicator;
         this.dragable = options.dragable;
+        this.loop = options.loop;
         this.currentIndex = options.currentIndex;
         this.speed = options.speed;
         this.interactiveSpeed = options.interactiveSpeed;
@@ -98,15 +101,21 @@
         if(this.indicator) this.indicatorElements = [].slice.call(this.indicator.children);
         this.animating = false;
         this.updating = false;
-        this.length = this.items.length;
         this.wrapper.style.transitionTimingFunction = this.ease;
 
+        this.disablePrev = false;
+        this.disableNext = false;
+
+
+        adjustEdge.call(this, this.currentIndex);
         initStyle.call(this);
         calcOrder.call(this);
         registerEvent.call(this);
     };
 
     Component.prototype.slidePrev = function(speed) {
+        if(this.disablePrev) return;
+
         var targetIndex = getPrevIndex.call(this);
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
@@ -114,6 +123,8 @@
     };
 
     Component.prototype.slideNext = function(speed) {
+        if(this.disableNext) return;
+
         var targetIndex = getNextIndex.call(this);
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
 
@@ -125,6 +136,29 @@
 
         slideFunc.call(this, targetIndex, null, calcSpeed);
     };
+
+    function adjustEdge(index){
+        if(this.loop) return;
+
+        this.disablePrev = index === 0;
+        this.disableNext = index === this.items.length - 1;
+
+        if (this.prevBtn){
+            if(this.disablePrev){
+                this.prevBtn.classList.add('disabled');
+            }else{
+                this.prevBtn.classList.remove('disabled');
+            }
+        }
+
+        if(this.nextBtn){
+            if(this.disableNext){
+                this.nextBtn.classList.add('disabled');
+            }else{
+                this.nextBtn.classList.remove('disabled');
+            }
+        }
+    }
 
     function setDisplacement(value){
         if(useTraditionalAnimation){
@@ -217,13 +251,15 @@
 
         if (targetIndex == this.currentIndex ||
             targetIndex < 0 ||
-            targetIndex >= this.length)
+            targetIndex >= this.items.length)
             return;
 
         if (this.animating) return;
         this.animating = true;
 
         this.onChangeStart(this.currentIndex, targetIndex);
+
+        adjustEdge.call(this, targetIndex);
 
         // necessary when slide to a  random index
         hideItemsExcept.call(this, [this.currentIndex, targetIndex]);
@@ -292,9 +328,7 @@
 
         this.moveX = currentOffsetX - this.startOffsetX;
 
-        // console.log('==========', this.canMove, this.moveX);
-
-        if(!this.canMove && Math.abs(this.moveX) > 20){
+        if(!this.canMove && Math.abs(this.moveX) > SAFE_DISTANCE){
             this.canMove = true;
             this.startOffsetX = currentOffsetX;
             this.moveX = 0;
@@ -331,6 +365,7 @@
             changeIndicator.call(this, targetIndex);
 
             this.onChangeStart(this.currentIndex, targetIndex);
+            adjustEdge.call(this, targetIndex);
         } else {
             noTriggerEnd = true;
 
