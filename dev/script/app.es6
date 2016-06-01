@@ -83,5 +83,4 @@ function registerEvents() {
 
 
 
-
 window.addEventListener('load', init, false);

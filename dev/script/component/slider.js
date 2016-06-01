@@ -278,6 +278,7 @@
 
         this.interactived = true;
         this.moveX = 0;
+        this.canMove = false;
         this.startOffsetX = hasTouch ? e.touches[0].screenX : e.screenX;
         this.wrapper.style.transitionDuration = '0ms';
     }
@@ -291,7 +292,17 @@
 
         this.moveX = currentOffsetX - this.startOffsetX;
 
-        setDisplacement.call(this, this.moveX + 'px');
+        // console.log('==========', this.canMove, this.moveX);
+
+        if(!this.canMove && Math.abs(this.moveX) > 20){
+            this.canMove = true;
+            this.startOffsetX = currentOffsetX;
+            this.moveX = 0;
+        }
+
+        if(this.canMove){
+            setDisplacement.call(this, this.moveX + 'px');
+        }
     }
 
     function endDrag(e) {
