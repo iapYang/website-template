@@ -141,6 +141,38 @@
     };
 
 
+    ////////////
+    // social //
+    ////////////
+
+    Component.shareFacebook = function(opts){
+        var path = 'https://www.facebook.com/dialog/feed?' +
+            'app_id=' + encodeURIComponent(opts.app_id) +
+            '&link=' + encodeURIComponent(opts.link) +
+            '&picture=' + encodeURIComponent(opts.picture) +
+            '&name=' + encodeURIComponent(opts.name) +
+            '&description=' + encodeURIComponent(opts.description) +
+            '&redirect_uri=' + encodeURIComponent(opts.redirect_uri);
+
+        window.open(path, '_blank');
+    };
+
+    Component.shareTwitter = function(opts){
+        var path = 'https://twitter.com/intent/tweet?' +
+        'text=' + encodeURIComponent(opts.text) +
+        '&url=' + encodeURIComponent(opts.href);
+
+        window.open(path, '_blank');
+    };
+
+    Component.sharePinterest = function(opts){
+        var path = 'https://pinterest.com/pin/create/link/?' +
+            'url=' + encodeURIComponent(opts.url) +
+            '&media=' + encodeURIComponent(opts.media) +
+            '&description=' + encodeURIComponent(opts.description);
+
+        window.open(path, '_blank');
+    };
 
 
 

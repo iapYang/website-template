@@ -251,3 +251,12 @@ let slider = new Slider({
 | 名称                                | 描述                                       |
 | --------------------------------- | ---------------------------------------- |
 | triggerEvent(el, eventName, data) | 在el元素上触发eventName事件，并传递事件参数data到e.detail |
+
+**Social类**
+
+| 名称                   | 描述                                       |
+| -------------------- | ---------------------------------------- |
+| shareFacebook(opts)  | 分享到facebook（对象参数：app_id，link，picture，name，description，redirect_uri） |
+| shareTwitter(opts)   | 分享到twitter（对象参数：text，href）               |
+| sharePinterest(opts) | 分享到pinterest（对象参数：url，media，description） |
+
