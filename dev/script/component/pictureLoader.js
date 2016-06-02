@@ -142,6 +142,7 @@
     function startLoad(src, item) {
         var that = this;
         var image = new Image();
+        image.setAttribute('crossOrigin', 'anonymous');
 
         checkIfInStorage({
             src: src,
