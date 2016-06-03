@@ -192,13 +192,26 @@
     }
 
     function calcOrder() {
-        var currentIndex = this.currentIndex;
         var prevIndex = getPrevIndex.call(this);
         var nextIndex = getNextIndex.call(this);
 
-        hideItemsExcept.call(this, [currentIndex, prevIndex, nextIndex]);
+        var unHideArr = [this.currentIndex];
 
-        this.items[currentIndex].style.left = '0%';
+        if(this.loop){
+            unHideArr = [this.currentIndex, prevIndex, nextIndex];
+        }else{
+            if(this.currentIndex === 0){
+                unHideArr = [this.currentIndex, nextIndex];
+            }else if(this.currentIndex === this.items.length - 1){
+                unHideArr = [this.currentIndex, prevIndex];
+            }else{
+                unHideArr = [this.currentIndex, prevIndex, nextIndex];
+            }
+        }
+
+        hideItemsExcept.call(this, unHideArr);
+
+        this.items[this.currentIndex].style.left = '0%';
         this.items[prevIndex].style.left = '-100%';
         this.items[nextIndex].style.left = '100%';
     }
@@ -335,10 +348,6 @@
         }
 
         if(this.canMove){
-            // if((this.moveX > 0 && this.disablePrev) ||
-            //     (this.moveX < 0 && this.disableNext))
-            //     return;
-
             setDisplacement.call(this, this.moveX + 'px');
         }
     }
@@ -355,14 +364,31 @@
         this.animating = true;
 
         if (Math.abs(this.moveX) > this.interactiveDistance) {
-            noTriggerEnd = false;
+
 
             if (this.moveX > 0) {
-                setDisplacement.call(this, '100%');
-                targetIndex = getPrevIndex.call(this);
+                if(this.disablePrev){
+                    noTriggerEnd = true;
+
+                    setDisplacement.call(this, '0%');
+                    targetIndex = this.currentIndex;
+                }else{
+                    noTriggerEnd = false;
+
+                    setDisplacement.call(this, '100%');
+                    targetIndex = getPrevIndex.call(this);
+                }
             } else {
-                setDisplacement.call(this, '-100%');
-                targetIndex = getNextIndex.call(this);
+                if(this.disableNext){
+                    noTriggerEnd = true;
+
+                    setDisplacement.call(this, '0%');
+                    targetIndex = this.currentIndex;
+                }else{
+                    noTriggerEnd = false;
+                    setDisplacement.call(this, '-100%');
+                    targetIndex = getNextIndex.call(this);
+                }
             }
 
             // change indicator
