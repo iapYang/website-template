@@ -364,14 +364,9 @@
         this.animating = true;
 
         if (Math.abs(this.moveX) > this.interactiveDistance) {
-
-
             if (this.moveX > 0) {
                 if(this.disablePrev){
                     noTriggerEnd = true;
-
-                    setDisplacement.call(this, '0%');
-                    targetIndex = this.currentIndex;
                 }else{
                     noTriggerEnd = false;
 
@@ -381,24 +376,22 @@
             } else {
                 if(this.disableNext){
                     noTriggerEnd = true;
-
-                    setDisplacement.call(this, '0%');
-                    targetIndex = this.currentIndex;
                 }else{
                     noTriggerEnd = false;
                     setDisplacement.call(this, '-100%');
                     targetIndex = getNextIndex.call(this);
                 }
             }
+        } else {
+            noTriggerEnd = true;
+        }
 
-            // change indicator
+        if(!noTriggerEnd){
             changeIndicator.call(this, targetIndex);
 
             this.onChangeStart(this.currentIndex, targetIndex);
             adjustEdge.call(this, targetIndex);
-        } else {
-            noTriggerEnd = true;
-
+        }else{
             setDisplacement.call(this, '0%');
             targetIndex = this.currentIndex;
         }
