@@ -28,7 +28,6 @@ function init() {
             }
         },
         end: () => {
-            console.log('==========end1');
         }
     });
 }
@@ -80,30 +79,5 @@ function registerEvents() {
         });
     });
 }
-
-
-
-
-// function moveEndToTop(arr){
-//     var length = arr.length;
-//     var t = arr[length - 1];
-//
-//     for(var i = length - 1; i > 0; --i){
-//         arr[i] = arr[i - 1];
-//     }
-//
-//     arr[0] = t;
-// }
-//
-// function order(arr, n){
-//     for(var i = 0; i < n; ++i){
-//         moveEndToTop(arr);
-//     }
-// }
-//
-// var a = [1,2,3,4,5,6,7,8,9];
-// order(a, 2);
-// console.log(a);
-
 
 window.addEventListener('load', init, false);
