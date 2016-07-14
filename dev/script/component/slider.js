@@ -211,9 +211,21 @@
 
         hideItemsExcept.call(this, unHideArr);
 
-        this.items[this.currentIndex].style.left = '0%';
-        this.items[prevIndex].style.left = '-100%';
-        this.items[nextIndex].style.left = '100%';
+
+
+
+        if(!this.loop && this.items.length === 2){
+            this.items[this.currentIndex].style.left = '0%';
+
+            if(this.currentIndex === 0) this.items[nextIndex].style.left = '100%';
+            else this.items[nextIndex].style.left = '-100%';
+        }else if(this.items.length === 1){
+            this.items[this.currentIndex].style.left = '0%';
+        }else{
+            this.items[this.currentIndex].style.left = '0%';
+            this.items[prevIndex].style.left = '-100%';
+            this.items[nextIndex].style.left = '100%';
+        }
     }
 
     function hideItemsExcept(exceptArr) {
@@ -348,6 +360,11 @@
         }
 
         if(this.canMove){
+            if((this.moveX > 0 && this.disablePrev) ||
+                (this.moveX < 0 && this.disableNext)){
+                    this.moveX = this.moveX >> 1;
+                }
+
             setDisplacement.call(this, this.moveX + 'px');
         }
     }
