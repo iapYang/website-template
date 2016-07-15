@@ -37,7 +37,7 @@ function generateStruct() {
         container: document.getElementById('slider'), //dom
         prevBtn: document.getElementById('btn-prev'), //dom
         nextBtn: document.getElementById('btn-next'), //dom
-        indicator: document.getElementById('indicator'), //dom
+        // indicator: document.getElementById('indicator'), //dom
         loop: false,
         dragable: true,
         currentIndex: 0,
@@ -69,6 +69,18 @@ function registerEvents() {
         var value = document.getElementById('page').value;
 
         slider.slideTo(value);
+    }, false);
+
+    document.getElementById('prepend-slide').addEventListener('click', () => {
+        var dom = Util.parseDom('<li></li>');
+
+        slider.prependSlide(dom);
+    }, false);
+
+    document.getElementById('append-slide').addEventListener('click', () => {
+        var dom = Util.parseDom('<li></li>');
+
+        slider.appendSlide(dom);
     }, false);
 
     Array.from(document.getElementById('slider').querySelectorAll('button')).forEach((el, i) => {

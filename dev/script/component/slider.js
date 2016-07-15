@@ -137,6 +137,29 @@
         slideFunc.call(this, targetIndex, null, calcSpeed);
     };
 
+    Component.prototype.prependSlide = function(dom){
+        dom.style.position = 'absolute';
+        dom.style.top = 0;
+
+        this.items.unshift(dom);
+        this.wrapper.insertBefore(dom, this.wrapper.firstChild);
+        ++this.currentIndex;
+        
+        adjustEdge.call(this, this.currentIndex);
+        calcOrder.call(this);
+    };
+
+    Component.prototype.appendSlide = function(dom){
+        dom.style.position = 'absolute';
+        dom.style.top = 0;
+
+        this.items.push(dom);
+        this.wrapper.appendChild(dom);
+
+        adjustEdge.call(this, this.currentIndex);
+        calcOrder.call(this);
+    };
+
     function adjustEdge(index){
         if(this.loop) return;
 
