@@ -144,7 +144,7 @@
         this.items.unshift(dom);
         this.wrapper.insertBefore(dom, this.wrapper.firstChild);
         ++this.currentIndex;
-        
+
         adjustEdge.call(this, this.currentIndex);
         calcOrder.call(this);
     };
@@ -158,6 +158,10 @@
 
         adjustEdge.call(this, this.currentIndex);
         calcOrder.call(this);
+    };
+
+    Component.prototype.removeSlide = function(index){
+        
     };
 
     function adjustEdge(index){
