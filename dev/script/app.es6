@@ -83,6 +83,12 @@ function registerEvents() {
         slider.appendSlide(dom);
     }, false);
 
+    document.getElementById('remove-slide').addEventListener('click', () => {
+        var value = document.getElementById('page').value;
+
+        slider.removeSlide(value);
+    });
+
     Array.from(document.getElementById('slider').querySelectorAll('button')).forEach((el, i) => {
         el.addEventListener('click', (e) => {
             if(slider.updating) return;

@@ -161,7 +161,16 @@
     };
 
     Component.prototype.removeSlide = function(index){
-        
+        this.items.splice(index, 1);
+        this.wrapper.removeChild(this.wrapper.children[index]);
+
+        if(this.currentIndex === this.items.length) --this.currentIndex;
+
+        adjustEdge.call(this, this.currentIndex);
+        calcOrder.call(this);
+
+        // console.log('==========', this.wrapper.children);
+
     };
 
     function adjustEdge(index){
