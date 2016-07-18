@@ -168,9 +168,6 @@
 
         adjustEdge.call(this, this.currentIndex);
         calcOrder.call(this);
-
-        // console.log('==========', this.wrapper.children);
-
     };
 
     function adjustEdge(index){
