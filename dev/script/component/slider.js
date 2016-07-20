@@ -265,8 +265,10 @@
         this.items.forEach(function(el, i){
             if (exceptArr.indexOf(i) == -1){
                 el.style.visibility = 'hidden';
+                el.style.opacity = 0;
             }else{
                 el.style.visibility = 'visible';
+                el.style.opacity = 1;
             }
         });
     }
