@@ -197,6 +197,7 @@
         if(useTraditionalAnimation){
             this.wrapper.style.left = value;
         }else{
+            this.wrapper.style['-webkit-transform'] = 'translateX(' + value + ')';
             this.wrapper.style.transform = 'translateX(' + value + ')';
         }
     }
