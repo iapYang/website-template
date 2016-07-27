@@ -209,15 +209,26 @@
         this.wrapper.style.position = 'relative';
         setDisplacement.call(this, '0%');
 
-        this.items[0].style.position = 'relative';
+        var max_height_index = 0;
+        var max_height = 0;
 
         this.items.forEach(function(el, i){
-            if(i === 0){
+            if(el.getBoundingClientRect().height > max_height){
+                max_height = el.getBoundingClientRect().height;
+                max_height_index = i;
+
+                console.log(max_height, i);
+            }
+        });
+
+        this.items.forEach(function(el, i){
+            if(i === max_height_index){
                 el.style.position = 'relative';
             }else{
                 el.style.position = 'absolute';
-                el.style.top = 0;
             }
+
+            el.style.top = 0;
         });
 
         if(this.indicatorElements){
