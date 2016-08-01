@@ -31,6 +31,8 @@
         isAndroid: ua.match(/android/i) !== null,
         isS4: ua.match(/(gt\-i95)|(sph\-l720)/i) !== null,
         isS5: ua.match(/sm\-g900/i) !== null,
+        isS6: ua.match(/sm\-g9250/i) !== null,
+        isS7: (ua.match(/sm\-g930p/i) !== null) || (ua.match(/sm\-g9300/i) !== null),
         isIE: ua.match(/(msie|trident)/i) !==null, // /(msie|trident)/i.test(navigator.userAgent),
         isIE11: ua.match(/Trident\/7\.0/i) !== null,
         isEdge: ua.match(/edge/i) !== null,
@@ -67,6 +69,8 @@
     if (Component.isiPhone) html.classList.add('iphone');
     if (Component.isS4) html.classList.add('s4');
     if (Component.isS5) html.classList.add('s5');
+    if (Component.isS6) html.classList.add('s6');
+    if (Component.isS7) html.classList.add('s7');
 
     if (Component.isIOS) html.classList.add('ios');
     if (Component.isAndroid) html.classList.add('android');

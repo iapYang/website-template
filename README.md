@@ -145,6 +145,8 @@ loader.load({
 | isiPhone     | iphone      | iPhone设备        |
 | isS4         | s4          | 三星S4设备          |
 | isS5         | s5          | 三星S5设备          |
+| isS6         | s6          | 三星S6设备          |
+| isS7         | s7          | 三星S7设备          |
 | isIOS        | ios         | IOS设备           |
 | isAndroid    | android     | 安卓设备            |
 | hasTouch     | has-touch   | 触摸屏设备           |
