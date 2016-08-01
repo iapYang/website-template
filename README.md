@@ -149,6 +149,8 @@ loader.load({
 | isAndroid    | android     | 安卓设备            |
 | hasTouch     | has-touch   | 触摸屏设备           |
 | -            | no-touch    | 非触摸屏设备          |
+| isMac        | mac         | mac系统设备         |
+| isWindows    | windows     | windows系统设备     |
 
 
 
@@ -214,6 +216,7 @@ let slider = new Slider({
 | prependSlide(dom)  | 在首部添加子项，参数：待添加的子项dom元素 |
 | appendSlide(dom)   | 在尾部添加子项，参数：待添加的子项dom元素 |
 | removeSlide(index) | 删除指定的子项，参数：待删除的子项下标    |
+| refreshPosition()  | 重新排列子项位置和高度            |
 
 
 

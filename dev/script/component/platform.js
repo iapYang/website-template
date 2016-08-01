@@ -37,6 +37,8 @@
         isChrome: ua.match(/Chrome/gi) !== null,
         isFirefox: ua.match(/firefox/gi) !== null,
         hasTouch: ('ontouchstart' in window),
+        isMac: ua.match('mac') !== null,
+        isWindows: ua.match('windows') !== null,
     };
 
     Component.isAndroidPad = Component.isAndroid && !Component.isMobile;
@@ -71,6 +73,9 @@
 
     if (Component.hasTouch) html.classList.add('has-touch');
     if (!Component.hasTouch) html.classList.add('no-touch');
+
+    if (Component.isMac) html.classList.add('mac');
+    if (Component.isWindows) html.classList.add('windows');
 
 
     window[COMPONENT_NAME] = Component;

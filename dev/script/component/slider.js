@@ -170,6 +170,28 @@
         calcOrder.call(this);
     };
 
+    Component.prototype.refreshPosition = function(){
+        var max_height_index = 0;
+        var max_height = 0;
+
+        this.items.forEach(function(el, i){
+            if(el.getBoundingClientRect().height > max_height){
+                max_height = el.getBoundingClientRect().height;
+                max_height_index = i;
+            }
+        });
+
+        this.items.forEach(function(el, i){
+            if(i === max_height_index){
+                el.style.position = 'relative';
+            }else{
+                el.style.position = 'absolute';
+            }
+
+            el.style.top = 0;
+        });
+    };
+
     function adjustEdge(index){
         if(this.loop) return;
 
@@ -209,27 +231,7 @@
         this.wrapper.style.position = 'relative';
         setDisplacement.call(this, '0%');
 
-        var max_height_index = 0;
-        var max_height = 0;
-
-        this.items.forEach(function(el, i){
-            if(el.getBoundingClientRect().height > max_height){
-                max_height = el.getBoundingClientRect().height;
-                max_height_index = i;
-
-                console.log(max_height, i);
-            }
-        });
-
-        this.items.forEach(function(el, i){
-            if(i === max_height_index){
-                el.style.position = 'relative';
-            }else{
-                el.style.position = 'absolute';
-            }
-
-            el.style.top = 0;
-        });
+        this.refreshPosition.call(this);
 
         if(this.indicatorElements){
             this.indicatorElements[this.currentIndex].classList.add('active');
