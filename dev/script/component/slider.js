@@ -41,6 +41,14 @@
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
+    function setTransform(el, val){
+        el.style.webkitTransform = val;
+        el.style.MozTransform = val;
+        el.style.msTransform = val;
+        el.style.OTransform = val;
+        el.style.transform = val;
+    }
+
     var ua = window.navigator.userAgent.toLowerCase();
     var hasTouch = 'ontouchstart' in window;
     var isIE = /(msie|trident)/i.test(navigator.userAgent);
@@ -182,13 +190,18 @@
         });
 
         this.items.forEach(function(el, i){
+            el.style.top = 0;
+            setTransform(el, 'translateY(0%)');
+
+
             if(i === max_height_index){
                 el.style.position = 'relative';
             }else{
                 el.style.position = 'absolute';
-            }
 
-            el.style.top = 0;
+                el.style.top = '50%';
+                setTransform(el, 'translateY(-50%)');
+            }
         });
     };
 
@@ -219,8 +232,7 @@
         if(useTraditionalAnimation){
             this.wrapper.style.left = value;
         }else{
-            this.wrapper.style['-webkit-transform'] = 'translateX(' + value + ')';
-            this.wrapper.style.transform = 'translateX(' + value + ')';
+            setTransform(this.wrapper, 'translateX(' + value + ')');
         }
     }
 
