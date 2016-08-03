@@ -50,36 +50,26 @@
     Component.isSafari = Component.isDesktop && (!Component.isIE) && (!Component.isChrome) && (!Component.isFirefox);
 
 
-    if (Component.isDesktop) html.classList.add('desktop');
-    if (Component.isIE) html.classList.add('ie');
-    if (!Component.isIE) html.classList.add('not-ie');
-    if (Component.isIE11) html.classList.add('ie11');
-    if (Component.isEdge) html.classList.add('edge');
-    if (!Component.isEdge) html.classList.add('not-edge');
-    if (Component.isChrome) html.classList.add('chrome');
-    if (Component.isFirefox) html.classList.add('firefox');
-    if (Component.isSafari) html.classList.add('safari');
 
-    if (Component.isTablet) html.classList.add('tablet');
-    if (Component.isiPad) html.classList.add('ipad');
-    if (Component.isAndroidPad) html.classList.add('android-pad');
-    if (Component.isNexus7) html.classList.add('nexus7');
+    Object.keys(Component).forEach(function(key){
+        // value: Component[key]
 
-    if (Component.isMobile) html.classList.add('mobile');
-    if (Component.isiPhone) html.classList.add('iphone');
-    if (Component.isS4) html.classList.add('s4');
-    if (Component.isS5) html.classList.add('s5');
-    if (Component.isS6) html.classList.add('s6');
-    if (Component.isS7) html.classList.add('s7');
+        var className = key.toLowerCase().replace('is','');
 
-    if (Component.isIOS) html.classList.add('ios');
-    if (Component.isAndroid) html.classList.add('android');
+        if(className.indexOf('has') === 0){
+            className = className.replace('has', 'has-');
+        }
 
-    if (Component.hasTouch) html.classList.add('has-touch');
-    if (!Component.hasTouch) html.classList.add('no-touch');
+        if(!Component[key]){
+            if(className.indexOf('has') === 0){
+                className = className.replace('has', 'no');
+            }else{
+                className = 'not-' + className;
+            }
+        }
 
-    if (Component.isMac) html.classList.add('mac');
-    if (Component.isWindows) html.classList.add('windows');
+        html.classList.add(className);
+    });
 
 
     window[COMPONENT_NAME] = Component;
