@@ -83,20 +83,22 @@
     Component.timeout = 1000 * 60;
     Component.useStorage = isDesktop && !isIE;
 
-    Component.getSrc = function(src){
-        var result;
+    Component.load = function(src, callback){
+        var image = new Image();
+
+        image.onload = function(){
+            callback.call(this, image);
+        };
 
         checkIfInStorage({
             src: src,
             in: function(storageObj){
-                result = storageObj.source;
+                image.src = storageObj.source;
             },
             not: function(){
-                result = src;
+                image.src = src;
             }
         });
-
-        return result;
     };
 
     Component.prototype.load = function(opts) {
