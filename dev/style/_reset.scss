@@ -15,7 +15,13 @@ figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, t
 }
 
 html{
-    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
+    /* Prevent font scaling in landscape while allowing user zoom */
+    -webkit-text-size-adjust: 100%;
+
+    /* fix font family display error on different browsers */
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 a{
