@@ -28,7 +28,7 @@ const devPath = {
     js: 'dev/script/**/*',
     img: 'dev/image/**/*',
     cssDir: 'dev/style',
-    browserifyFile: 'dev/script/app.es6',
+    browserifyFile: 'dev/script/app.js',
     configFile: './dev/data/config.json',
 };
 
@@ -70,6 +70,19 @@ const browserify_instance = browserify({
     plugin: [watchify],
 }).transform(babelify, {presets: ['es2015']});
 
+function bundleJs(){
+    return browserify_instance
+    .bundle()
+    .on('error', (err) => {
+        console.log(err.toString());
+        this.emit('end');
+    })
+    .pipe(source(destPath.jsTargetName))
+    .pipe(buffer())
+    .pipe(gulp.dest(destPath.root))
+    .pipe(reload({stream: true}));
+}
+
 function getJsonData() {
     var jsonData = require(devPath.configFile);
     delete require.cache[require.resolve(devPath.configFile)];
@@ -95,19 +108,6 @@ gulp.task('sass', () => {
 });
 
 gulp.task('browserify-es6', bundleJs);
-
-function bundleJs(){
-    return browserify_instance
-    .bundle()
-    .on('error', (err) => {
-        console.log(err.toString());
-        this.emit('end');
-    })
-    .pipe(source(destPath.jsTargetName))
-    .pipe(buffer())
-    .pipe(gulp.dest(destPath.root))
-    .pipe(reload({stream: true}));
-}
 
 gulp.task('minify-html', () => {
     return gulp.src(destPath.html)
@@ -201,7 +201,6 @@ gulp.task('default', ['compile'], () => {
     gulp.watch([devPath.html, devPath.configFile], ['swig']);
     gulp.watch(devPath.sass, ['sass']);
     browserify_instance.on('update', bundleJs);
-    // gulp.watch(devPath.js, ['browserify-es6']);
 
     gulp.watch(util.devReloadSource).on('change', reload);
 });
