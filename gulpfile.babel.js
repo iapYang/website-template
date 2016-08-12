@@ -32,21 +32,17 @@ const devPath = {
     configFile: './dev/data/config.json',
 };
 
-const tmpPath = {
-    root: '.tmp/',
-    html: '.tmp/*.html',
-    css: '.tmp/**/*.css',
-    js: '.tmp/**/*.js',
-    jsTargetName: 'app.js',
-};
-
 const destPath = {
     root: 'dist/',
+    html: 'dist/*.html',
+    css: 'dist/**/*.css',
+    js: 'dist/**/*.js',
+    jsTargetName: 'app.js',
     imgDir: 'dist/image',
 };
 
 const util = {
-    cleanSource: ['.tmp', 'dist', 'archive.zip'],
+    cleanSource: ['dist', 'archive.zip'],
     copySource: [
         'dev/**/*',
         '!dev/*.html',
@@ -57,7 +53,7 @@ const util = {
     zipFile: 'archive.zip',
     compressFile: 'dist/**',
     compressDir: './',
-    browserSyncDir: ['.tmp', 'dev'],
+    browserSyncDir: ['dist', 'dev'],
     devReloadSource: [
         'dev/**/*',
         '!dev/*.html',
@@ -85,7 +81,7 @@ gulp.task('swig', () => {
     return gulp.src(devPath.html)
     .pipe(data(getJsonData))
     .pipe(swig({defaults: { cache: false }}))
-    .pipe(gulp.dest(tmpPath.root))
+    .pipe(gulp.dest(destPath.root))
     .pipe(reload({stream: true}));
 });
 
@@ -93,7 +89,7 @@ gulp.task('sass', () => {
     return gulp.src(devPath.sass)
     .pipe(compass({
         sassDir: devPath.cssDir,
-        cssDir: tmpPath.root
+        cssDir: destPath.root
     }))
     .pipe(reload({stream: true}));
 });
@@ -107,14 +103,14 @@ function bundleJs(){
         console.log(err.toString());
         this.emit('end');
     })
-    .pipe(source(tmpPath.jsTargetName))
+    .pipe(source(destPath.jsTargetName))
     .pipe(buffer())
-    .pipe(gulp.dest(tmpPath.root))
+    .pipe(gulp.dest(destPath.root))
     .pipe(reload({stream: true}));
 }
 
 gulp.task('minify-html', () => {
-    return gulp.src(tmpPath.html)
+    return gulp.src(destPath.html)
     .pipe(htmlmin({
         removeComments: true,
         collapseWhitespace: true,
@@ -124,22 +120,22 @@ gulp.task('minify-html', () => {
 });
 
 gulp.task('minify-css', () => {
-    return gulp.src(tmpPath.css)
+    return gulp.src(destPath.css)
     .pipe(minifyCss())
     .pipe(gulp.dest(destPath.root));
 });
 
 gulp.task('minify-js', () => {
-    return gulp.src(tmpPath.js)
+    return gulp.src(destPath.js)
     .pipe(uglify())
     .pipe(gulp.dest(destPath.root));
 });
 
 gulp.task('inject', () => {
-    var cssSource = gulp.src(tmpPath.css).pipe(minifyCss());
-    var jsSource = gulp.src(tmpPath.js).pipe(uglify());
+    var cssSource = gulp.src(destPath.css).pipe(minifyCss());
+    var jsSource = gulp.src(destPath.js).pipe(uglify());
 
-    return gulp.src(tmpPath.html)
+    return gulp.src(destPath.html)
     .pipe(inject(cssSource, {
         transform: function (filePath, file) {
           return `<style>${file.contents.toString('utf8')}</style>`;

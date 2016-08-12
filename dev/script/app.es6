@@ -10,7 +10,6 @@ let slider;
 
 PictureLoader.timeout = 1000 * 60;
 
-
 function init() {
     generateStruct();
     registerEvents();
