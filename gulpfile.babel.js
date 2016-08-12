@@ -19,16 +19,18 @@ import watchify from 'watchify';
 import exit from 'gulp-exit';
 import notify from 'gulp-notify';
 import browserSync from 'browser-sync';
+import glob from 'glob';
+import path from 'path';
 
 const reload = browserSync.reload;
+const browserifyObjectArray = [];
 
 const devPath = {
     html: 'dev/*.html',
     sass: 'dev/style/**/*.{scss,sass}',
-    js: 'dev/script/**/*',
+    js: 'dev/script/*.js',
     img: 'dev/image/**/*',
     cssDir: 'dev/style',
-    browserifyFile: 'dev/script/app.js',
     configFile: './dev/data/config.json',
 };
 
@@ -37,7 +39,6 @@ const destPath = {
     html: 'dist/*.html',
     css: 'dist/**/*.css',
     js: 'dist/**/*.js',
-    jsTargetName: 'app.js',
     imgDir: 'dist/image',
 };
 
@@ -62,26 +63,43 @@ const util = {
     ]
 };
 
-const browserify_instance = browserify({
-    entries: [devPath.browserifyFile],
-    cache: {},
-    packageCache: {},
-    fullPaths: true,
-    plugin: [watchify],
-}).transform(babelify, {presets: ['es2015']});
+
+glob(devPath.js, (err, files) => {
+    files.forEach((file) => {
+        let name = path.basename(file);
+
+        let instance = browserify({
+            entries: [file],
+            cache: {},
+            packageCache: {},
+            fullPaths: true,
+            plugin: [watchify],
+        }).transform(babelify, {presets: ['es2015']});
+
+        browserifyObjectArray.push({
+            name: name,
+            instance: instance,
+            processor: () => {
+                instance
+                .bundle()
+                .on('error', (err) => {
+                    console.log(err.toString());
+                    this.emit('end');
+                })
+                .pipe(source(name))
+                .pipe(buffer())
+                .pipe(gulp.dest(destPath.root))
+                .pipe(reload({stream: true}));
+            }
+        });
+    });
+});
+
 
 function bundleJs(){
-    // return
-    browserify_instance
-    .bundle()
-    .on('error', (err) => {
-        console.log(err.toString());
-        this.emit('end');
-    })
-    .pipe(source(destPath.jsTargetName))
-    .pipe(buffer())
-    .pipe(gulp.dest(destPath.root))
-    .pipe(reload({stream: true}));
+    browserifyObjectArray.forEach((obj) => {
+        obj.processor();
+    });
 }
 
 function getJsonData() {
@@ -201,7 +219,12 @@ gulp.task('default', ['compile'], () => {
 
     gulp.watch([devPath.html, devPath.configFile], ['swig']);
     gulp.watch(devPath.sass, ['sass']);
-    browserify_instance.on('update', bundleJs);
+
+    browserifyObjectArray.forEach((obj) => {
+        obj.instance.on('update', obj.processor);
+    });
+
+    // browserifyObjectArray[0].instance.on('update', browserifyObjectArray[0].processor);
 
     gulp.watch(util.devReloadSource).on('change', reload);
 });
