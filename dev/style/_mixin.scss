@@ -11,7 +11,7 @@
         // url("./font/#{$name}.ttf") format("truetype"),
         // url("./font/#{$name}.svg##{$name}") format("svg");
 
-        src: url("./font/#{$name}.svg##{$name}") format("svg"),
-        url("./font/#{$name}.woff") format("woff");
+        src: url("../font/#{$name}.svg##{$name}") format("svg"),
+        url("../font/#{$name}.woff") format("woff");
     }
 }
