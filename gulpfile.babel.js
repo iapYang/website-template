@@ -61,7 +61,7 @@ const util = {
         '!dev/style/**/*',
         '!dev/script/**/*',
     ]
-};
+}; 
 
 
 glob(devPath.js, (err, files) => {
