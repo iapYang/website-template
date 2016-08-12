@@ -6,7 +6,6 @@ import browserify from 'browserify';
 import babelify from 'babelify';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
-import inject from 'gulp-inject';
 import htmlmin from 'gulp-htmlmin';
 import minifyCss from 'gulp-minify-css';
 import uglify from 'gulp-uglify';
@@ -61,7 +60,7 @@ const util = {
         '!dev/style/**/*',
         '!dev/script/**/*',
     ]
-}; 
+};
 
 
 glob(devPath.js, (err, files) => {
@@ -150,29 +149,6 @@ gulp.task('minify-js', () => {
     .pipe(gulp.dest(destPath.root));
 });
 
-gulp.task('inject', () => {
-    var cssSource = gulp.src(destPath.css).pipe(minifyCss());
-    var jsSource = gulp.src(destPath.js).pipe(uglify());
-
-    return gulp.src(destPath.html)
-    .pipe(inject(cssSource, {
-        transform: function (filePath, file) {
-          return `<style>${file.contents.toString('utf8')}</style>`;
-        }
-    }))
-    .pipe(inject(jsSource, {
-        transform: function (filePath, file) {
-          return `<script>${file.contents.toString('utf8')}</script>`;
-        }
-    }))
-    .pipe(htmlmin({
-        removeComments: true,
-        collapseWhitespace: true,
-        conservativeCollapse: true,
-    }))
-    .pipe(gulp.dest(destPath.root));
-});
-
 gulp.task('img', () => {
     return gulp.src(devPath.img)
     .pipe(imagemin())
@@ -227,10 +203,6 @@ gulp.task('default', ['compile'], () => {
     // browserifyObjectArray[0].instance.on('update', browserifyObjectArray[0].processor);
 
     gulp.watch(util.devReloadSource).on('change', reload);
-});
-
-gulp.task('inject', (cb) => {
-    sequence('compile', ['inject', 'img'], 'copy', 'compress', 'complete', cb);
 });
 
 gulp.task('build', (cb) => {
