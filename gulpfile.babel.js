@@ -71,7 +71,8 @@ const browserify_instance = browserify({
 }).transform(babelify, {presets: ['es2015']});
 
 function bundleJs(){
-    return browserify_instance
+    // return
+    browserify_instance
     .bundle()
     .on('error', (err) => {
         console.log(err.toString());
