@@ -107,7 +107,7 @@ gulp.task('sass', () => {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('browserify-es6', bundleJs);
+gulp.task('browserify', bundleJs);
 
 gulp.task('minify-html', () => {
     return gulp.src(destPath.html)
@@ -187,7 +187,7 @@ gulp.task('complete', () => {
 });
 
 gulp.task('compile', (cb) => {
-    sequence('clean', ['swig', 'sass', 'browserify-es6'], cb);
+    sequence('clean', ['swig', 'sass', 'browserify'], cb);
 });
 
 gulp.task('default', ['compile'], () => {
