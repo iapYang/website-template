@@ -29,16 +29,18 @@ const devPath = {
     sass: 'dev/style/**/*.{scss,sass}',
     js: 'dev/script/*.js',
     img: 'dev/image/**/*',
-    cssDir: 'dev/style',
+    cssDir: 'dev/style/',
     configFile: './dev/data/config.json',
 };
 
 const destPath = {
     root: 'dist/',
     html: 'dist/*.html',
-    css: 'dist/**/*.css',
-    js: 'dist/**/*.js',
-    imgDir: 'dist/image',
+    css: 'dist/style/**/*.css',
+    js: 'dist/script/**/*.js',
+    cssDir: 'dist/style/',
+    jsDir: 'dist/script/',
+    imgDir: 'dist/image/',
 };
 
 const util = {
@@ -87,13 +89,12 @@ glob(devPath.js, (err, files) => {
                 })
                 .pipe(source(name))
                 .pipe(buffer())
-                .pipe(gulp.dest(destPath.root))
+                .pipe(gulp.dest(destPath.jsDir))
                 .pipe(reload({stream: true}));
             }
         });
     });
 });
-
 
 function bundleJs(){
     browserifyObjectArray.forEach((obj) => {
@@ -120,7 +121,7 @@ gulp.task('sass', () => {
     return gulp.src(devPath.sass)
     .pipe(compass({
         sassDir: devPath.cssDir,
-        cssDir: destPath.root
+        cssDir: destPath.cssDir
     }))
     .pipe(reload({stream: true}));
 });
@@ -140,13 +141,13 @@ gulp.task('minify-html', () => {
 gulp.task('minify-css', () => {
     return gulp.src(destPath.css)
     .pipe(minifyCss())
-    .pipe(gulp.dest(destPath.root));
+    .pipe(gulp.dest(destPath.cssDir));
 });
 
 gulp.task('minify-js', () => {
     return gulp.src(destPath.js)
     .pipe(uglify())
-    .pipe(gulp.dest(destPath.root));
+    .pipe(gulp.dest(destPath.jsDir));
 });
 
 gulp.task('img', () => {
