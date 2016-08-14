@@ -27,7 +27,6 @@
   - util：工具库
 - style：样式
 - template：模板
-- worker：线程
 - vendor：不参与合并输出的文件
 
 
