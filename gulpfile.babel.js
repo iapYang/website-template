@@ -109,8 +109,11 @@ function getJsonData() {
     return jsonData;
 }
 
+import cache from 'gulp-cached';
+
 gulp.task('swig', () => {
     return gulp.src(devPath.html)
+    .pipe(cache('swig'))
     .pipe(data(getJsonData))
     .pipe(swig({defaults: { cache: false }}))
     .pipe(gulp.dest(destPath.root))
@@ -119,6 +122,7 @@ gulp.task('swig', () => {
 
 gulp.task('sass', () => {
     return gulp.src(devPath.sass)
+    .pipe(cache('sass'))
     .pipe(compass({
         sassDir: devPath.cssDir,
         cssDir: destPath.cssDir
@@ -200,8 +204,6 @@ gulp.task('default', ['compile'], () => {
     browserifyObjectArray.forEach((obj) => {
         obj.instance.on('update', obj.processor);
     });
-
-    // browserifyObjectArray[0].instance.on('update', browserifyObjectArray[0].processor);
 
     gulp.watch(util.devReloadSource).on('change', reload);
 });
