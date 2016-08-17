@@ -17,9 +17,11 @@ import zip from 'gulp-zip';
 import watchify from 'watchify';
 import exit from 'gulp-exit';
 import notify from 'gulp-notify';
+import cache from 'gulp-cached';
 import browserSync from 'browser-sync';
 import glob from 'glob';
 import path from 'path';
+
 
 const reload = browserSync.reload;
 const browserifyObjectArray = [];
@@ -109,7 +111,7 @@ function getJsonData() {
     return jsonData;
 }
 
-import cache from 'gulp-cached';
+
 
 gulp.task('swig', () => {
     return gulp.src(devPath.html)
