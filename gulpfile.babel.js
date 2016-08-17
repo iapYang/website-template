@@ -26,12 +26,19 @@ import path from 'path';
 const reload = browserSync.reload;
 const browserifyObjectArray = [];
 
+const devFolder = 'dev';
+const destFolder = 'dist';
+
+const styleFolder = 'style';
+const scriptFolder = 'script';
+const imageFolder = 'image';
+
 const devPath = {
-    html: 'dev/*.html',
-    sass: 'dev/style/**/*.{scss,sass}',
-    js: 'dev/script/*.js',
-    img: 'dev/image/**/*',
-    cssDir: 'dev/style/',
+    html: path.join('.', devFolder, '*.html'),
+    sass: path.join('.', devFolder, styleFolder, '**', '*.{scss,sass}'),
+    js: path.join('.', devFolder, scriptFolder, '*.js'),
+    img: path.join('.', devFolder, imageFolder, '**', '*'),
+    cssDir: path.join('.', devFolder, styleFolder),
     configFile: './dev/data/config.json',
 };
 
