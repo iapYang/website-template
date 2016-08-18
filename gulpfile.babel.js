@@ -34,6 +34,8 @@ const scriptFolder = 'script';
 const imageFolder = 'image';
 const dataFolder = 'data';
 
+const archiveFile = 'archive.zip';
+
 
 const devPath = {
     html: path.join(devFolder, '*.html'),
@@ -55,7 +57,7 @@ const destPath = {
 };
 
 const util = {
-    cleanSource: ['dist', 'archive.zip'],
+    cleanSource: [destFolder, archiveFile],
     copySource: [
         'dev/**/*',
         '!dev/*.html',
@@ -63,10 +65,10 @@ const util = {
         '!dev/script/**/*',
         '!dev/image/**/*',
     ],
-    zipFile: 'archive.zip',
+    archiveFile: archiveFile,
     compressFile: 'dist/**',
     compressDir: './',
-    browserSyncDir: ['dist', 'dev'],
+    browserSyncDir: [destFolder, devFolder],
     devReloadSource: [
         'dev/**/*',
         '!dev/*.html',
@@ -185,7 +187,7 @@ gulp.task('copy', () => {
 
 gulp.task('compress', () => {
     return gulp.src(util.compressFile)
-    .pipe(zip(util.zipFile))
+    .pipe(zip(util.archiveFile))
     .pipe(gulp.dest(util.compressDir));
 });
 
