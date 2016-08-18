@@ -26,6 +26,7 @@ import path from 'path';
 const reload = browserSync.reload;
 const browserifyObjectArray = [];
 
+
 const devFolder = 'dev';
 const destFolder = 'dist';
 
@@ -59,22 +60,22 @@ const destPath = {
 const util = {
     cleanSource: [destFolder, archiveFile],
     copySource: [
-        'dev/**/*',
-        '!dev/*.html',
-        '!dev/style/**/*',
-        '!dev/script/**/*',
-        '!dev/image/**/*',
+        path.join(devFolder, '**', '*'),
+        '!' + path.join(devFolder, '*.html'),
+        '!' + path.join(devFolder, styleFolder, '**', '*'),
+        '!' + path.join(devFolder, scriptFolder, '**', '*'),
+        '!' + path.join(devFolder, imageFolder, '**', '*'),
     ],
     archiveFile: archiveFile,
-    compressFile: 'dist/**',
-    compressDir: './',
+    compressFile:  path.join(destFolder, '**'),
+    compressDir: '.' + path.sep,
     browserSyncDir: [destFolder, devFolder],
     devReloadSource: [
-        'dev/**/*',
-        '!dev/*.html',
-        '!dev/style/**/*',
-        '!dev/script/**/*',
-    ]
+        path.join(devFolder, '**', '*'),
+        '!' + path.join(devFolder, '*.html'),
+        '!' + path.join(devFolder, styleFolder, '**', '*'),
+        '!' + path.join(devFolder, scriptFolder, '**', '*'),
+    ],
 };
 
 
@@ -121,7 +122,6 @@ function getJsonData() {
 
     return jsonData;
 }
-
 
 
 gulp.task('swig', () => {
