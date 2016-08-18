@@ -32,24 +32,26 @@ const destFolder = 'dist';
 const styleFolder = 'style';
 const scriptFolder = 'script';
 const imageFolder = 'image';
+const dataFolder = 'data';
+
 
 const devPath = {
-    html: path.join('.', devFolder, '*.html'),
-    sass: path.join('.', devFolder, styleFolder, '**', '*.{scss,sass}'),
-    js: path.join('.', devFolder, scriptFolder, '*.js'),
-    img: path.join('.', devFolder, imageFolder, '**', '*'),
-    cssDir: path.join('.', devFolder, styleFolder),
-    configFile: './dev/data/config.json',
+    html: path.join(devFolder, '*.html'),
+    sass: path.join(devFolder, styleFolder, '**', '*.{scss,sass}'),
+    js: path.join(devFolder, scriptFolder, '*.js'),
+    img: path.join(devFolder, imageFolder, '**', '*'),
+    cssDir: path.join(devFolder, styleFolder),
+    configFile: '.' + path.sep + path.join(devFolder, dataFolder, 'config.json'),
 };
 
 const destPath = {
-    root: 'dist/',
-    html: 'dist/*.html',
-    css: 'dist/style/**/*.css',
-    js: 'dist/script/**/*.js',
-    cssDir: 'dist/style/',
-    jsDir: 'dist/script/',
-    imgDir: 'dist/image/',
+    root: path.join(destFolder),
+    html: path.join(destFolder, '*.html'),
+    css: path.join(destFolder, styleFolder, '**', '*.css'),
+    js: path.join(destFolder, scriptFolder, '**', '*.js'),
+    cssDir: path.join(destFolder, styleFolder),
+    jsDir: path.join(destFolder, scriptFolder),
+    imgDir: path.join(destFolder, imageFolder),
 };
 
 const util = {
