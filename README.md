@@ -18,10 +18,10 @@
 ## 目录结构
 
 - data：临时/动态数据
-- font：字体
+- font：字体（[在线转换字体](https://onlinefontconverter.com/)）
 - image：图片
 - script：脚本
-  - util：工具库
+- util：工具库
 - style：样式
 - template：模板
 - vendor：不参与合并输出的文件
