@@ -153,7 +153,11 @@
                 image.src = storageObj.source;
 
                 if (item !== undefined) {
-                    item.appendChild(image);
+                    if(item.getAttribute('data-bg') !== null){
+                        item.style.backgroundImage = 'url(' + src + ')';
+                    }else{
+                        item.appendChild(image);
+                    }
                 }
 
                 doneHandler.call(that, image);
@@ -181,7 +185,11 @@
                     }
 
                     if (item !== undefined) {
-                        item.appendChild(image);
+                        if(item.getAttribute('data-bg') !== null){
+                            item.style.backgroundImage = 'url(' + src + ')';
+                        }else{
+                            item.appendChild(image);
+                        }
                     }
 
                     doneHandler.call(that, image);

@@ -62,6 +62,7 @@
 
 ```html
 <!-- 图片加载的容器统一设置标志类, 图片路径设置为data-source -->
+<!-- 如需加载为背景图，则添加data-bg属性，不需要赋值 -->
 <div class="preload" data-source="image/logo.png"></div>
 ```
 
