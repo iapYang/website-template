@@ -12,7 +12,7 @@ function init() {
 
     new PictureLoader().load({
         done: (image, count, total) => {
-            
+
         },
         end: () => {
         }

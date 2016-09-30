@@ -21,7 +21,7 @@
 - font：字体（[在线转换字体](https://onlinefontconverter.com/)）
 - image：图片
 - script：脚本
-- util：工具库
+  - component：工具库
 - style：样式
 - template：模板
 - vendor：不参与合并输出的文件
