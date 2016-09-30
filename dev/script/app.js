@@ -1,31 +1,40 @@
+let Vue = require('vue');
+
 import PictureLoader from './plugin/pictureLoader';
 import Platform from './plugin/platform';
 import Slider from './plugin/slider';
 import Util from './plugin/util';
 
+import App from '../component/App.vue';
 
-PictureLoader.timeout = 1000 * 60;
+new Vue({
+    el: 'body',
+    components: {
+        App
+    }
+});
 
-function init() {
-    generateStruct();
-    registerEvents();
 
-    new PictureLoader().load({
-        done: (image, count, total) => {
-
-        },
-        end: () => {
-            console.log('==========2');
-        }
-    });
-}
-
-function generateStruct() {
-
-}
-
-function registerEvents() {
-
-}
-
-window.addEventListener('load', init, false);
+// function init() {
+//     generateStruct();
+//     registerEvents();
+//
+//     new PictureLoader().load({
+//         done: (image, count, total) => {
+//
+//         },
+//         end: () => {
+//             console.log('==========2');
+//         }
+//     });
+// }
+//
+// function generateStruct() {
+//
+// }
+//
+// function registerEvents() {
+//
+// }
+//
+// window.addEventListener('load', init, false);

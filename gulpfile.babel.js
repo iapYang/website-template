@@ -33,6 +33,7 @@ const destFolder = 'dist';
 const styleFolder = 'style';
 const scriptFolder = 'script';
 const imageFolder = 'image';
+const componentFolder = 'component';
 
 const archiveFile = 'archive.zip';
 
@@ -70,6 +71,7 @@ const util = {
     browserSyncDir: [destFolder, devFolder],
     devReloadSource: [
         path.join(devFolder, '**', '*'),
+        '!' + path.join(devFolder, componentFolder, '**', '*'),
         '!' + path.join(devFolder, styleFolder, '**', '*'),
         '!' + path.join(devFolder, scriptFolder, '**', '*'),
     ],
