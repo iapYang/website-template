@@ -12,12 +12,7 @@ function init() {
 
     new PictureLoader().load({
         done: (image, count, total) => {
-            if (Platform.isIE) {
-                setTimeout(() => {
-                    image.removeAttribute('width', '');
-                    image.removeAttribute('height', '');
-                }, 10);
-            }
+            
         },
         end: () => {
         }
