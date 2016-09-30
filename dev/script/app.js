@@ -1,7 +1,7 @@
-import PictureLoader from './component/pictureLoader';
-import Platform from './component/platform';
-import Slider from './component/slider';
-import Util from './component/util';
+import PictureLoader from './plugin/pictureLoader';
+import Platform from './plugin/platform';
+import Slider from './plugin/slider';
+import Util from './plugin/util';
 
 
 PictureLoader.timeout = 1000 * 60;
@@ -15,7 +15,7 @@ function init() {
 
         },
         end: () => {
-            console.log('==========');
+            console.log('==========2');
         }
     });
 }
