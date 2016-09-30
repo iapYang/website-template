@@ -1,6 +1,4 @@
 import gulp from 'gulp';
-import swig from 'gulp-swig';
-import data from 'gulp-data';
 import compass from  'gulp-for-compass' ;
 import browserify from 'browserify';
 import babelify from 'babelify';
@@ -22,6 +20,8 @@ import browserSync from 'browser-sync';
 import glob from 'glob';
 import path from 'path';
 
+import vueify from 'vueify';
+
 
 const reload = browserSync.reload;
 const browserifyObjectArray = [];
@@ -33,7 +33,7 @@ const destFolder = 'dist';
 const styleFolder = 'style';
 const scriptFolder = 'script';
 const imageFolder = 'image';
-const dataFolder = 'data';
+const componentFolder = 'component';
 
 const archiveFile = 'archive.zip';
 
@@ -44,7 +44,6 @@ const devPath = {
     js: path.join(devFolder, scriptFolder, '*.js'),
     img: path.join(devFolder, imageFolder, '**', '*'),
     cssDir: path.join(devFolder, styleFolder),
-    configFile: '.' + path.sep + path.join(devFolder, dataFolder, 'config.json'),
 };
 
 const destPath = {
@@ -72,12 +71,11 @@ const util = {
     browserSyncDir: [destFolder, devFolder],
     devReloadSource: [
         path.join(devFolder, '**', '*'),
-        '!' + path.join(devFolder, '*.html'),
+        '!' + path.join(devFolder, componentFolder, '**', '*'),
         '!' + path.join(devFolder, styleFolder, '**', '*'),
         '!' + path.join(devFolder, scriptFolder, '**', '*'),
     ],
 };
-
 
 glob(devPath.js, (err, files) => {
     files.forEach((file) => {
@@ -89,7 +87,9 @@ glob(devPath.js, (err, files) => {
             packageCache: {},
             fullPaths: true,
             plugin: [watchify],
-        }).transform(babelify, {presets: ['es2015']});
+        })
+        .transform(vueify)
+        .transform(babelify, {presets: ['es2015']});
 
         browserifyObjectArray.push({
             name: name,
@@ -116,23 +116,6 @@ function bundleJs(){
     });
 }
 
-function getJsonData() {
-    var jsonData = require(devPath.configFile);
-    delete require.cache[require.resolve(devPath.configFile)];
-
-    return jsonData;
-}
-
-
-gulp.task('swig', () => {
-    return gulp.src(devPath.html)
-    .pipe(cache('swig'))
-    .pipe(data(getJsonData))
-    .pipe(swig({defaults: { cache: false }}))
-    .pipe(gulp.dest(destPath.root))
-    .pipe(reload({stream: true}));
-});
-
 gulp.task('sass', () => {
     return gulp.src(devPath.sass)
     .pipe(cache('sass'))
@@ -146,7 +129,7 @@ gulp.task('sass', () => {
 gulp.task('browserify', bundleJs);
 
 gulp.task('minify-html', () => {
-    return gulp.src(destPath.html)
+    return gulp.src(devPath.html)
     .pipe(htmlmin({
         removeComments: true,
         collapseWhitespace: true,
@@ -200,7 +183,7 @@ gulp.task('complete', () => {
 });
 
 gulp.task('compile', (cb) => {
-    sequence('clean', ['swig', 'sass', 'browserify'], cb);
+    sequence('clean', ['sass', 'browserify'], cb);
 });
 
 gulp.task('default', ['compile'], () => {
@@ -211,7 +194,6 @@ gulp.task('default', ['compile'], () => {
         },
     });
 
-    gulp.watch([devPath.html, devPath.configFile], ['swig']);
     gulp.watch(devPath.sass, ['sass']);
 
     browserifyObjectArray.forEach((obj) => {
