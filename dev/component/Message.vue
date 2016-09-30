@@ -1,13 +1,15 @@
 <template lang="html">
-    <h1>{{ msg }}</h1>
+    <h1>{{ count }}</h1>
 </template>
 
 <script>
+import { count } from '../vuex/getters';
+
 export default {
-  data () {
-    return {
-        msg: 'hello world~aaa~~bbb'
+    vuex: {
+        getters: {
+            count
+        }
     }
-  },
 }
 </script>

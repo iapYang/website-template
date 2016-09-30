@@ -3,16 +3,14 @@
 </template>
 
 <script>
+import store from '../vuex/store';
+
 import Message from './Message.vue';
 
 export default {
-  data () {
-    return {
-
-    }
-  },
-  components: {
-      Message
-  }
+    components: {
+        Message
+    },
+    store
 }
 </script>
