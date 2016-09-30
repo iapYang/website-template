@@ -20,6 +20,8 @@ import browserSync from 'browser-sync';
 import glob from 'glob';
 import path from 'path';
 
+import vueify from 'vueify';
+
 
 const reload = browserSync.reload;
 const browserifyObjectArray = [];
@@ -83,7 +85,9 @@ glob(devPath.js, (err, files) => {
             packageCache: {},
             fullPaths: true,
             plugin: [watchify],
-        }).transform(babelify, {presets: ['es2015']});
+        })
+        .transform(vueify)
+        .transform(babelify, {presets: ['es2015']});
 
         browserifyObjectArray.push({
             name: name,
