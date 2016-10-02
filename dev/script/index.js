@@ -5,12 +5,20 @@ import Platform from './plugin/platform';
 import Slider from './plugin/slider';
 import Util from './plugin/util';
 
-import App from '../component/App.vue';
+// import App from '../component/App.vue';
+
+// new Vue({
+//     el: 'body',
+//     components: {
+//         App
+//     }
+// });
+
 
 new Vue({
-    el: 'body',
-    components: {
-        App
+    el: '#dv',
+    data: {
+        msg: 'hhh'
     }
 });
 
