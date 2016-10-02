@@ -21,7 +21,7 @@
 - font：字体（[在线转换字体](https://onlinefontconverter.com/)）
 - image：图片
 - script：脚本
-  - component：工具库
+  - plugin：工具库
 - style：样式
 - template：模板
 - vendor：不参与合并输出的文件
@@ -36,9 +36,6 @@
 > 模板引擎的数据来源默认路径为 dev/data/config.json
 
 `default`  开发时运行，自动编译sass，js，并打开本地服务器实时预览
-
-
-`inject`  发布时运行，整合相关文件，并生成压缩包（html，css，js整合为一个文件）
 
 `build`  发布时运行，整合相关文件，并生成压缩包（html，css，js为单独的文件）
 
