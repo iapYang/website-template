@@ -1,48 +1,54 @@
 let Vue = require('vue');
+let Vuex = require('vuex');
 
-import PictureLoader from './plugin/pictureLoader';
-import Platform from './plugin/platform';
-import Slider from './plugin/slider';
-import Util from './plugin/util';
+import Counter from '../component/Counter.vue';
 
-// import App from '../component/App.vue';
+Vue.use(Vuex);
 
-// new Vue({
-//     el: 'body',
-//     components: {
-//         App
-//     }
-// });
-
-
-new Vue({
-    el: '#dv',
-    data: {
-        msg: 'hhh'
+const store = new Vuex.Store({
+    state: {
+        todos: [
+            {
+                id: 1,
+                text: '111'
+            },
+            {
+                id: 2,
+                text: '222'
+            },
+            {
+                id: 3,
+                text: '333'
+            }
+        ]
+    },
+    getters: {
+        count: state => state.todos.length
+    },
+    mutations: {
+        increment: state => ++state.count,
+        decrement: state => --state.count
     }
 });
 
+const app = new Vue({
+    el: '#app',
+    store,
+    components: {
+        Counter
+    }
+    // computed: {
+    //     count(){
+    //         return store.state.count;
+    //     }
+    // },
+    // methods: {
+    //     increment(){
+    //         store.commit('increment');
+    //     },
+    //     decrement(){
+    //         store.commit('decrement');
+    //     }
+    // },
 
-// function init() {
-//     generateStruct();
-//     registerEvents();
-//
-//     new PictureLoader().load({
-//         done: (image, count, total) => {
-//
-//         },
-//         end: () => {
-//             console.log('==========2');
-//         }
-//     });
-// }
-//
-// function generateStruct() {
-//
-// }
-//
-// function registerEvents() {
-//
-// }
-//
-// window.addEventListener('load', init, false);
+});

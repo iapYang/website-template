@@ -90,7 +90,9 @@ glob(devPath.js, (err, files) => {
             plugin: [watchify],
         })
         .transform(vueify)
-        .transform(babelify, {presets: ['es2015']})
+        .transform(babelify, {
+            presets: ['es2015']
+        })
         .transform(aliasify, {
             aliases: {
                 vue: 'vue/dist/vue.js'
