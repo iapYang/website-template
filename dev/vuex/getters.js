@@ -1,3 +1,2 @@
-export function count(state){
-    return state.count;
-}
+export const todoCount = state => state.todos;
+export const count = state => state.count;

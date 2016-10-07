@@ -3,13 +3,14 @@
 </template>
 
 <script>
-import { count } from '../vuex/getters';
+import { mapGetters } from 'vuex';
 
 export default {
-    vuex: {
-        getters: {
-            count
-        }
-    }
+    computed: {
+        ...mapGetters([
+            'todoCount',
+            'count'
+        ])
+    },
 }
 </script>
