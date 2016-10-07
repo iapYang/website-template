@@ -1,2 +1,4 @@
-export const todoCount = state => state.todos;
-export const count = state => state.count;
+export default {
+    todoCount: state => state.todos.length,
+    count: state => state.count,
+};

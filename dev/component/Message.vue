@@ -1,5 +1,5 @@
 <template lang="html">
-    <h1>{{ count }}</h1>
+    <h1>{{ todoCount }}</h1>
 </template>
 
 <script>
@@ -9,7 +9,6 @@ export default {
     computed: {
         ...mapGetters([
             'todoCount',
-            'count'
         ])
     },
 }
