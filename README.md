@@ -4,11 +4,19 @@
 
 
 
-## 环境配置
+## 环境
 
-- node
-- gulp
-- compass
+- 样式：sass
+- 脚本：es6
+- 打包：browserify
+
+
+
+## 准备
+
+- 安装node
+- 安装gulp
+- 安装compass
 - npm install安装所有依赖包
 
 
@@ -37,9 +45,6 @@
 
 
 ## gulp
-> 使用sass预编译，es6语法，browserify模块管理
->
-
 `default`  开发时运行，自动编译sass，js，并打开本地服务器实时预览
 
 `build`  发布时运行，整合相关文件，并生成压缩包（html，css，js为单独的文件）
