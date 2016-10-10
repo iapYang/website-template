@@ -17,23 +17,28 @@
 
 ## 目录结构
 
-- data：临时/动态数据
+- component：vue组件
 - font：字体（[在线转换字体](https://onlinefontconverter.com/)）
 - image：图片
 - script：脚本
   - plugin：工具库
 - style：样式
-- template：模板
 - vendor：不参与合并输出的文件
+- vuex：状态管理
+  - actions：对mutations的调用操作（可异步）
+  - getters：属性读取器
+  - mutation-types：操作方法名
+  - mutations：对属性的直接操作（必须同步）
+  - state：应用程序所有状态
+  - store：初始化对象
 
 
 
 
 
 ## gulp
-> 使用swig模板引擎，sass预编译，es6语法，browserify模块管理
+> 使用sass预编译，es6语法，browserify模块管理
 >
-> 模板引擎的数据来源默认路径为 dev/data/config.json
 
 `default`  开发时运行，自动编译sass，js，并打开本地服务器实时预览
 
