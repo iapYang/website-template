@@ -11,7 +11,6 @@ export default {
         {
             id: 3,
             text: '333'
-        }
+        },
     ],
-    count: 1
 };
