@@ -1,21 +1,16 @@
 let Vue = require('vue');
 let Vuex = require('vuex');
 
-import * as types from './mutation-types';
+import state from './state';
+import getters from './getters';
+import mutations from './mutations';
+import actions from './actions';
 
 Vue.use(Vuex);
 
-const state = {
-    count: 0
-};
-
-const mutations = {
-    [types.SETCOUNT](state, value){
-        state.count = value;
-    }
-};
-
 export default new Vuex.Store({
     state,
-    mutations
+    getters,
+    mutations,
+    actions,
 });

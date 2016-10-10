@@ -1,3 +1,3 @@
-export function count(state){
-    return state.count;
-}
+export default {
+    todoCount: state => state.todos.length,
+};

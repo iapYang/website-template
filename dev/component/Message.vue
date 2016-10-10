@@ -1,15 +1,17 @@
 <template lang="html">
-    <h1>{{ count }}</h1>
+    <div class="message">
+        <h1>{{ todoCount }}</h1>
+    </div>
 </template>
 
 <script>
-import { count } from '../vuex/getters';
+import { mapGetters } from 'vuex';
 
 export default {
-    vuex: {
-        getters: {
-            count
-        }
-    }
+    computed: {
+        ...mapGetters([
+            'todoCount',
+        ])
+    },
 }
 </script>
