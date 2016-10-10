@@ -1,16 +1,21 @@
 <template lang="html">
-    <Message></Message>
+    <div id="app">
+        <message></message>
+        <controller></controller>
+    </div>
 </template>
 
 <script>
 import store from '../vuex/store';
 
 import Message from './Message.vue';
+import Controller from './Controller.vue';
 
 export default {
     store,
     components: {
-        Message
+        Message,
+        Controller,
     }
 }
 </script>

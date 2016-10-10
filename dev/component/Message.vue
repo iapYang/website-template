@@ -1,5 +1,7 @@
 <template lang="html">
-    <h1>{{ todoCount }}</h1>
+    <div class="message">
+        <h1>{{ todoCount }}</h1>
+    </div>
 </template>
 
 <script>
