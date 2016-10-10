@@ -24,6 +24,8 @@ export default {
             this.$store.dispatch('addTodo', {
                 id: this.id,
                 text: this.text
+            }).then(function(){
+                console.log('==========');
             });
         }
     },
