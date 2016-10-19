@@ -44,7 +44,6 @@ const devPath = {
     sass: path.join(devFolder, styleFolder, '**', '*.{scss,sass}'),
     js: path.join(devFolder, scriptFolder, '*.js'),
     img: path.join(devFolder, imageFolder, '**', '*'),
-    cssDir: path.join(devFolder, styleFolder),
 };
 
 const destPath = {
@@ -105,7 +104,7 @@ glob(devPath.js, (err, files) => {
             name: name,
             instance: instance,
             processor: () => {
-                instance
+                return instance
                 .bundle()
                 .on('error', (err) => {
                     console.log(err.toString());
@@ -122,7 +121,7 @@ glob(devPath.js, (err, files) => {
 
 function bundleJs(){
     browserifyObjectArray.forEach((obj) => {
-        obj.processor();
+        return obj.processor();
     });
 }
 
@@ -190,7 +189,7 @@ gulp.task('complete', () => {
 });
 
 gulp.task('compile', (cb) => {
-    sequence('clean', ['sass', 'browserify'], cb);
+    sequence('clean', ['browserify', 'sass'], cb);
 });
 
 gulp.task('default', ['compile'], () => {
