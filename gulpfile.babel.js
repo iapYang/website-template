@@ -48,7 +48,6 @@ const devPath = {
 
 const destPath = {
     root: path.join(destFolder),
-    html: path.join(destFolder, '*.html'),
     css: path.join(destFolder, styleFolder, '**', '*.css'),
     js: path.join(destFolder, scriptFolder, '**', '*.js'),
     cssDir: path.join(destFolder, styleFolder),
