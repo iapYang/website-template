@@ -1,28 +1,29 @@
-import gulp from 'gulp';
-import sass from 'gulp-sass';
-import postcss from 'gulp-postcss';
-import cssnext from 'postcss-cssnext';
-import browserify from 'browserify';
-import babelify from 'babelify';
-import source from 'vinyl-source-stream';
-import buffer from 'vinyl-buffer';
-import htmlmin from 'gulp-htmlmin';
-import minifyCss from 'gulp-minify-css';
-import uglify from 'gulp-uglify';
-import imagemin from 'gulp-imagemin';
-import copy from 'gulp-copy';
-import clean from 'gulp-clean';
-import sequence from 'gulp-sequence';
-import zip from 'gulp-zip';
-import watchify from 'watchify';
-import exit from 'gulp-exit';
-import notify from 'gulp-notify';
-import browserSync from 'browser-sync';
-import glob from 'glob';
-import path from 'path';
-
-import vueify from 'vueify';
-import aliasify from 'aliasify';
+let gulp = require('gulp');
+let sass = require('gulp-sass');
+let sourcemaps = require('gulp-sourcemaps');
+let postcss = require('gulp-postcss');
+let cssnext = require('postcss-cssnext');
+let sorting = require('postcss-sorting');
+let browserify = require('browserify');
+let babelify = require('babelify');
+let source = require('vinyl-source-stream');
+let buffer = require('vinyl-buffer');
+let htmlmin = require('gulp-htmlmin');
+let minifyCss = require('gulp-minify-css');
+let uglify = require('gulp-uglify');
+let imagemin = require('gulp-imagemin');
+let copy = require('gulp-copy');
+let clean = require('gulp-clean');
+let sequence = require('gulp-sequence');
+let zip = require('gulp-zip');
+let watchify = require('watchify');
+let exit = require('gulp-exit');
+let notify = require('gulp-notify');
+let browserSync = require('browser-sync');
+let glob = require('glob');
+let path = require('path');
+let vueify = require('vueify');
+let aliasify = require('aliasify');
 
 
 const reload = browserSync.reload;
@@ -129,10 +130,13 @@ function bundleJs(){
 
 gulp.task('sass', () => {
     return gulp.src(devPath.sass)
+    .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(postcss([
         cssnext(),
+        sorting(),
     ]))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(destPath.cssDir))
     .pipe(reload({stream: true}));
 });
