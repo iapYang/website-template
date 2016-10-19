@@ -10,8 +10,8 @@ figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, t
     font-size: 0;
 
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    @include box-sizing(border-box);
-    @include user-select(none);
+    box-sizing: border-box;
+    user-select: none;
 }
 
 html{

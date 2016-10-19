@@ -1,5 +1,5 @@
 import gulp from 'gulp';
-import compass from  'gulp-for-compass' ;
+import sass from 'gulp-sass';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import source from 'vinyl-source-stream';
@@ -128,10 +128,8 @@ function bundleJs(){
 
 gulp.task('sass', () => {
     return gulp.src(devPath.sass)
-    .pipe(compass({
-        sassDir: devPath.cssDir,
-        cssDir: destPath.cssDir
-    }))
+    .pipe(sass())
+    .pipe(gulp.dest(destPath.cssDir))
     .pipe(reload({stream: true}));
 });
 
