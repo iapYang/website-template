@@ -1,5 +1,7 @@
 import gulp from 'gulp';
 import sass from 'gulp-sass';
+import postcss from 'gulp-postcss';
+import autoprefixer from 'autoprefixer';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import source from 'vinyl-source-stream';
@@ -127,6 +129,9 @@ function bundleJs(){
 gulp.task('sass', () => {
     return gulp.src(devPath.sass)
     .pipe(sass())
+    .pipe(postcss([
+        autoprefixer(),
+    ]))
     .pipe(gulp.dest(destPath.cssDir))
     .pipe(reload({stream: true}));
 });
