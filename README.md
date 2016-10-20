@@ -16,7 +16,6 @@
 
 - 安装node
 - 安装gulp
-- 安装compass
 - npm install安装所有依赖包
 
 
@@ -53,7 +52,7 @@
 
 ## js工具库
 
-遵循AMD、CommonJS规范，也可以单独引入使用
+遵循AMD、CommonJS、ES6规范，也可以单独引入使用
 
 > 所有模块对象名均为js文件名，首字母大写
 
