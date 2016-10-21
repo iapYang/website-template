@@ -146,6 +146,11 @@
         var image = new Image();
         // image.setAttribute('crossOrigin', 'anonymous');
 
+        if(item.classList.contains('loaded')){
+            doneHandler.call(that, image);
+            return;
+        }
+
         checkIfInStorage({
             src: src,
             in: function(storageObj){
@@ -153,10 +158,14 @@
                 image.src = storageObj.source;
 
                 if (item !== undefined) {
-                    if(item.getAttribute('data-bg') !== null){
-                        item.style.backgroundImage = 'url(' + src + ')';
-                    }else{
-                        item.appendChild(image);
+                    if(!item.classList.contains('loaded')){
+                        if(item.getAttribute('data-bg') !== null){
+                            item.style.backgroundImage = 'url(' + src + ')';
+                        }else{
+                            item.appendChild(image);
+                        }
+
+                        item.classList.add('loaded');
                     }
                 }
 
@@ -185,16 +194,21 @@
                     }
 
                     if (item !== undefined) {
-                        if(item.getAttribute('data-bg') !== null){
-                            item.style.backgroundImage = 'url(' + src + ')';
-                        }else{
-                            item.appendChild(image);
+                        if(!item.classList.contains('loaded')){
+                            if(item.getAttribute('data-bg') !== null){
+                                item.style.backgroundImage = 'url(' + src + ')';
+                            }else{
+                                item.appendChild(image);
+                            }
+
+                            item.classList.add('loaded');
                         }
                     }
 
                     doneHandler.call(that, image);
                 };
                 image.onerror = function() {
+                    item.classList.add('loaded');
                     doneHandler.call(that, image);
                 };
 
