@@ -127,7 +127,6 @@ function bundleJs(){
     });
 }
 
-
 gulp.task('sass', () => {
     return gulp.src(devPath.sass)
     .pipe(sourcemaps.init())
