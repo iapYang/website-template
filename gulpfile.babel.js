@@ -239,8 +239,17 @@ gulp.task('webpack', () => {
                     exclude: /node_module/,
                     loader: 'babel',
                 },
+                {
+                    test: /\.vue$/,
+                    loader: 'vue',
+                },
             ],
         },
+        resolve: {
+            alias: {
+                'vue$': 'vue/dist/vue.js',
+            }
+        }
     }))
     .pipe(gulp.dest(destPath.jsDir))
     .pipe(reload({ stream:true }));

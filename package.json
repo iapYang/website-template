@@ -39,6 +39,7 @@
     "vinyl-named": "^1.1.0",
     "vinyl-source-stream": "^1.1.0",
     "vue": "^2.0.1",
+    "vue-loader": "^9.7.0",
     "vueify": "^9.2.4",
     "vuex": "^2.0.0",
     "watchify": "^3.7.0",
