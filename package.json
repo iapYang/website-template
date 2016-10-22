@@ -11,6 +11,7 @@
   "devDependencies": {
     "aliasify": "^2.0.0",
     "babel-core": "^6.7.4",
+    "babel-loader": "^6.2.5",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.7.4",
@@ -35,10 +36,13 @@
     "postcss-cssnext": "^2.8.0",
     "postcss-sorting": "^1.7.0",
     "vinyl-buffer": "^1.0.0",
+    "vinyl-named": "^1.1.0",
     "vinyl-source-stream": "^1.1.0",
     "vue": "^2.0.1",
     "vueify": "^9.2.4",
     "vuex": "^2.0.0",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
+    "webpack": "^1.13.2",
+    "webpack-stream": "^3.2.0"
   }
 }
