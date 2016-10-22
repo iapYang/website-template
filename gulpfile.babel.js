@@ -4,10 +4,6 @@ let sourcemaps = require('gulp-sourcemaps');
 let postcss = require('gulp-postcss');
 let cssnext = require('postcss-cssnext');
 let sorting = require('postcss-sorting');
-let browserify = require('browserify');
-let babelify = require('babelify');
-let source = require('vinyl-source-stream');
-let buffer = require('vinyl-buffer');
 let htmlmin = require('gulp-htmlmin');
 let minifyCss = require('gulp-minify-css');
 let uglify = require('gulp-uglify');
@@ -16,22 +12,14 @@ let copy = require('gulp-copy');
 let clean = require('gulp-clean');
 let sequence = require('gulp-sequence');
 let zip = require('gulp-zip');
-let watchify = require('watchify');
 let exit = require('gulp-exit');
 let notify = require('gulp-notify');
 let browserSync = require('browser-sync');
-let glob = require('glob');
 let path = require('path');
-let vueify = require('vueify');
-let aliasify = require('aliasify');
-
 let webpack = require('webpack-stream');
 let named = require('vinyl-named');
 
-
 const reload = browserSync.reload;
-const browserifyObjectArray = [];
-
 
 const devFolder = 'dev';
 const destFolder = 'dist';
