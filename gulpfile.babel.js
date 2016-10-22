@@ -25,6 +25,9 @@ let path = require('path');
 let vueify = require('vueify');
 let aliasify = require('aliasify');
 
+let webpack = require('webpack-stream');
+let named = require('vinyl-named');
+
 
 const reload = browserSync.reload;
 const browserifyObjectArray = [];
@@ -80,53 +83,6 @@ const util = {
     ],
 };
 
-glob(devPath.js, (err, files) => {
-    files.forEach((file) => {
-        let name = path.basename(file);
-
-        let instance = browserify({
-            entries: [file],
-            cache: {},
-            packageCache: {},
-            fullPaths: true,
-            plugin: [watchify],
-        })
-        .transform(vueify)
-        .transform(babelify, {
-            presets: ['es2015']
-        })
-        .transform(aliasify, {
-            aliases: {
-                vue: 'vue/dist/vue.js'
-            },
-            verbose: false
-        });
-
-        browserifyObjectArray.push({
-            name: name,
-            instance: instance,
-            processor: () => {
-                return instance
-                .bundle()
-                .on('error', (err) => {
-                    console.log(err.toString());
-                    this.emit('end');
-                })
-                .pipe(source(name))
-                .pipe(buffer())
-                .pipe(gulp.dest(destPath.jsDir))
-                .pipe(reload({stream: true}));
-            }
-        });
-    });
-});
-
-function bundleJs(){
-    browserifyObjectArray.forEach((obj) => {
-        return obj.processor();
-    });
-}
-
 gulp.task('sass', () => {
     return gulp.src(devPath.sass)
     .pipe(sourcemaps.init())
@@ -140,7 +96,33 @@ gulp.task('sass', () => {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('browserify', bundleJs);
+gulp.task('webpack', () => {
+    return gulp.src(devPath.js)
+    .pipe(named())
+    .pipe(webpack({
+        devtool: 'source-map',
+        module: {
+            loaders: [
+                {
+                    test: /\.js$/,
+                    exclude: /node_module/,
+                    loader: 'babel',
+                },
+                {
+                    test: /\.vue$/,
+                    loader: 'vue',
+                },
+            ],
+        },
+        resolve: {
+            alias: {
+                'vue$': 'vue/dist/vue.js',
+            }
+        }
+    }))
+    .pipe(gulp.dest(destPath.jsDir))
+    .pipe(reload({ stream:true }));
+});
 
 gulp.task('minify-html', () => {
     return gulp.src(devPath.html)
@@ -197,7 +179,7 @@ gulp.task('complete', () => {
 });
 
 gulp.task('compile', (cb) => {
-    sequence('clean', ['browserify', 'sass'], cb);
+    sequence('clean', ['webpack', 'sass'], cb);
 });
 
 gulp.task('default', ['compile'], () => {
@@ -209,70 +191,11 @@ gulp.task('default', ['compile'], () => {
     });
 
     gulp.watch(devPath.sass, ['sass']);
-
-    browserifyObjectArray.forEach((obj) => {
-        obj.instance.on('update', obj.processor);
-    });
+    gulp.watch(devPath.js, ['webpack']);
 
     gulp.watch(util.devReloadSource).on('change', reload);
 });
 
 gulp.task('build', (cb) => {
     sequence('compile', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
-});
-
-
-// ================================================================
-
-let webpack = require('webpack-stream');
-let named = require('vinyl-named');
-
-gulp.task('webpack', () => {
-    return gulp.src(devPath.js)
-    .pipe(named())
-    .pipe(webpack({
-        devtool: 'source-map',
-        module: {
-            loaders: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_module/,
-                    loader: 'babel',
-                },
-                {
-                    test: /\.vue$/,
-                    loader: 'vue',
-                },
-            ],
-        },
-        resolve: {
-            alias: {
-                'vue$': 'vue/dist/vue.js',
-            }
-        }
-    }))
-    .pipe(gulp.dest(destPath.jsDir))
-    .pipe(reload({ stream:true }));
-});
-
-gulp.task('compile-test', (cb) => {
-    sequence('clean', ['webpack', 'sass'], cb);
-});
-
-gulp.task('default-test', ['compile-test'], () => {
-    browserSync.init({
-        port: 9000,
-        server: {
-            baseDir: util.browserSyncDir,
-        }
-    });
-
-    gulp.watch(devPath.sass, ['sass']);
-    gulp.watch(devPath.js, ['webpack']);
-
-    gulp.watch(util.devReloadSource).on('change', reload);
-});
-
-gulp.task('build-test', (cb) => {
-    sequence('compile-test', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
 });
