@@ -220,3 +220,50 @@ gulp.task('default', ['compile'], () => {
 gulp.task('build', (cb) => {
     sequence('compile', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
 });
+
+
+// ================================================================
+
+let webpack = require('webpack-stream');
+let named = require('vinyl-named');
+
+gulp.task('webpack', () => {
+    return gulp.src(devPath.js)
+    .pipe(named())
+    .pipe(webpack({
+        devtool: 'source-map',
+        module: {
+            loaders: [
+                {
+                    test: /\.js$/,
+                    exclude: /node_module/,
+                    loader: 'babel',
+                },
+            ],
+        },
+    }))
+    .pipe(gulp.dest(destPath.jsDir))
+    .pipe(reload({ stream:true }));
+});
+
+gulp.task('compile-test', (cb) => {
+    sequence('clean', ['webpack', 'sass'], cb);
+});
+
+gulp.task('default-test', ['compile-test'], () => {
+    browserSync.init({
+        port: 9000,
+        server: {
+            baseDir: util.browserSyncDir,
+        }
+    });
+
+    gulp.watch(devPath.sass, ['sass']);
+    gulp.watch(devPath.js, ['webpack']);
+
+    gulp.watch(util.devReloadSource).on('change', reload);
+});
+
+gulp.task('build-test', (cb) => {
+    sequence('compile-test', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
+});
