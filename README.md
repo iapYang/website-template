@@ -6,9 +6,9 @@
 
 ## 环境
 
-- 样式：sass
+- 样式：sass+postcss
 - 脚本：es6
-- 打包：browserify
+- 打包：webpack
 
 
 
@@ -30,7 +30,7 @@
 - script：脚本
   - plugin：工具库
 - style：样式
-- vendor：不参与合并输出的文件
+- vendor：不参与合并输出的文件（可能需要手动创建该目录）
 - vuex：状态管理
   - actions：对mutations的调用操作（可异步）
   - getters：属性读取器
