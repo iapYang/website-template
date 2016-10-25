@@ -1,7 +1,8 @@
+import 'babel-polyfill';
+
 let Vue = require('vue');
 
 import store from '../vuex/store';
-
 import App from '../component/App.vue';
 
 
