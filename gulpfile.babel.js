@@ -4,10 +4,6 @@ let sourcemaps = require('gulp-sourcemaps');
 let postcss = require('gulp-postcss');
 let cssnext = require('postcss-cssnext');
 let sorting = require('postcss-sorting');
-let browserify = require('browserify');
-let babelify = require('babelify');
-let source = require('vinyl-source-stream');
-let buffer = require('vinyl-buffer');
 let htmlmin = require('gulp-htmlmin');
 let minifyCss = require('gulp-minify-css');
 let uglify = require('gulp-uglify');
@@ -16,19 +12,14 @@ let copy = require('gulp-copy');
 let clean = require('gulp-clean');
 let sequence = require('gulp-sequence');
 let zip = require('gulp-zip');
-let watchify = require('watchify');
 let exit = require('gulp-exit');
 let notify = require('gulp-notify');
 let browserSync = require('browser-sync');
-let glob = require('glob');
 let path = require('path');
-let vueify = require('vueify');
-let aliasify = require('aliasify');
-
+let webpack = require('webpack-stream');
+let named = require('vinyl-named');
 
 const reload = browserSync.reload;
-const browserifyObjectArray = [];
-
 
 const devFolder = 'dev';
 const destFolder = 'dist';
@@ -71,61 +62,19 @@ const util = {
     compressFile:  path.join(destFolder, '**'),
     compressDir: '.' + path.sep,
     browserSyncDir: [destFolder, devFolder],
+    webpackCompileSource: [
+        path.join(devFolder, scriptFolder, '**', '*'),
+        path.join(devFolder, componentFolder, '**', '*'),
+        path.join(devFolder, vuexFolder, '**', '*'),
+    ],
     devReloadSource: [
         path.join(devFolder, '**', '*'),
-        '!' + path.join(devFolder, vuexFolder, '**', '*'),
-        '!' + path.join(devFolder, componentFolder, '**', '*'),
         '!' + path.join(devFolder, styleFolder, '**', '*'),
         '!' + path.join(devFolder, scriptFolder, '**', '*'),
+        '!' + path.join(devFolder, componentFolder, '**', '*'),
+        '!' + path.join(devFolder, vuexFolder, '**', '*'),
     ],
 };
-
-glob(devPath.js, (err, files) => {
-    files.forEach((file) => {
-        let name = path.basename(file);
-
-        let instance = browserify({
-            entries: [file],
-            cache: {},
-            packageCache: {},
-            fullPaths: true,
-            plugin: [watchify],
-        })
-        .transform(vueify)
-        .transform(babelify, {
-            presets: ['es2015']
-        })
-        .transform(aliasify, {
-            aliases: {
-                vue: 'vue/dist/vue.js'
-            },
-            verbose: false
-        });
-
-        browserifyObjectArray.push({
-            name: name,
-            instance: instance,
-            processor: () => {
-                return instance
-                .bundle()
-                .on('error', (err) => {
-                    console.log(err.toString());
-                    this.emit('end');
-                })
-                .pipe(source(name))
-                .pipe(buffer())
-                .pipe(gulp.dest(destPath.jsDir))
-                .pipe(reload({stream: true}));
-            }
-        });
-    });
-});
-
-function bundleJs(){
-    browserifyObjectArray.forEach((obj) => {
-        return obj.processor();
-    });
-}
 
 gulp.task('sass', () => {
     return gulp.src(devPath.sass)
@@ -140,7 +89,13 @@ gulp.task('sass', () => {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('browserify', bundleJs);
+gulp.task('webpack', () => {
+    return gulp.src(devPath.js)
+    .pipe(named())
+    .pipe(webpack(require('./webpack.config.js')))
+    .pipe(gulp.dest(destPath.jsDir))
+    .pipe(reload({ stream:true }));
+});
 
 gulp.task('minify-html', () => {
     return gulp.src(devPath.html)
@@ -197,7 +152,7 @@ gulp.task('complete', () => {
 });
 
 gulp.task('compile', (cb) => {
-    sequence('clean', ['browserify', 'sass'], cb);
+    sequence('clean', ['webpack', 'sass'], cb);
 });
 
 gulp.task('default', ['compile'], () => {
@@ -209,10 +164,7 @@ gulp.task('default', ['compile'], () => {
     });
 
     gulp.watch(devPath.sass, ['sass']);
-
-    browserifyObjectArray.forEach((obj) => {
-        obj.instance.on('update', obj.processor);
-    });
+    gulp.watch(util.webpackCompileSource, ['webpack']);
 
     gulp.watch(util.devReloadSource).on('change', reload);
 });
