@@ -62,12 +62,17 @@ const util = {
     compressFile:  path.join(destFolder, '**'),
     compressDir: '.' + path.sep,
     browserSyncDir: [destFolder, devFolder],
+    webpackCompileSource: [
+        path.join(devFolder, scriptFolder, '**', '*'),
+        path.join(devFolder, componentFolder, '**', '*'),
+        path.join(devFolder, vuexFolder, '**', '*'),
+    ],
     devReloadSource: [
         path.join(devFolder, '**', '*'),
-        '!' + path.join(devFolder, vuexFolder, '**', '*'),
-        '!' + path.join(devFolder, componentFolder, '**', '*'),
         '!' + path.join(devFolder, styleFolder, '**', '*'),
         '!' + path.join(devFolder, scriptFolder, '**', '*'),
+        '!' + path.join(devFolder, componentFolder, '**', '*'),
+        '!' + path.join(devFolder, vuexFolder, '**', '*'),
     ],
 };
 
@@ -87,27 +92,7 @@ gulp.task('sass', () => {
 gulp.task('webpack', () => {
     return gulp.src(devPath.js)
     .pipe(named())
-    .pipe(webpack({
-        devtool: 'source-map',
-        module: {
-            loaders: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_module/,
-                    loader: 'babel',
-                },
-                {
-                    test: /\.vue$/,
-                    loader: 'vue',
-                },
-            ],
-        },
-        resolve: {
-            alias: {
-                'vue$': 'vue/dist/vue.js',
-            }
-        }
-    }))
+    .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest(destPath.jsDir))
     .pipe(reload({ stream:true }));
 });
@@ -179,7 +164,7 @@ gulp.task('default', ['compile'], () => {
     });
 
     gulp.watch(devPath.sass, ['sass']);
-    gulp.watch(devPath.js, ['webpack']);
+    gulp.watch(util.webpackCompileSource, ['webpack']);
 
     gulp.watch(util.devReloadSource).on('change', reload);
 });
