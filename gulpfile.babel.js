@@ -57,6 +57,8 @@ const util = {
         '!' + path.join(devFolder, styleFolder, '**', '*'),
         '!' + path.join(devFolder, scriptFolder, '**', '*'),
         '!' + path.join(devFolder, imageFolder, '**', '*'),
+        '!' + path.join(devFolder, componentFolder, '**', '*'),
+        '!' + path.join(devFolder, vuexFolder, '**', '*'),
     ],
     archiveFile: archiveFile,
     compressFile:  path.join(destFolder, '**'),
@@ -94,7 +96,7 @@ gulp.task('webpack', () => {
     .pipe(named())
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest(destPath.jsDir))
-    .pipe(reload({ stream:true }));
+    .pipe(reload({ stream: true }));
 });
 
 gulp.task('minify-html', () => {
