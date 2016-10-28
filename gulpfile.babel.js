@@ -19,6 +19,8 @@ let path = require('path');
 let webpack = require('webpack-stream');
 let named = require('vinyl-named');
 
+let webpackConfig = require('./webpack.config.js');
+
 const reload = browserSync.reload;
 
 const devFolder = 'dev';
@@ -89,26 +91,8 @@ gulp.task('webpack', () => {
     return gulp.src(devPath.js)
     .pipe(named())
     .pipe(webpack({
+        ...webpackConfig,
         watch: process.argv[2] === 'webpack',
-        devtool: 'source-map',
-        module: {
-            loaders: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_module/,
-                    loader: 'babel',
-                },
-                {
-                    test: /\.vue$/,
-                    loader: 'vue',
-                },
-            ],
-        },
-        resolve: {
-            alias: {
-                'vue$': 'vue/dist/vue.js',
-            }
-        },
     }))
     .pipe(gulp.dest(destPath.jsDir));
 });
