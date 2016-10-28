@@ -32,6 +32,7 @@ const vuexFolder = 'vuex';
 
 const archiveFile = 'archive.zip';
 
+let shouldWatch = true;
 
 const devPath = {
     html: path.join(devFolder, '*.html'),
@@ -64,11 +65,6 @@ const util = {
     compressFile:  path.join(destFolder, '**'),
     compressDir: '.' + path.sep,
     browserSyncDir: [destFolder, devFolder],
-    webpackCompileSource: [
-        path.join(devFolder, scriptFolder, '**', '*'),
-        path.join(devFolder, componentFolder, '**', '*'),
-        path.join(devFolder, vuexFolder, '**', '*'),
-    ],
     devReloadSource: [
         path.join(devFolder, '**', '*'),
         '!' + path.join(devFolder, styleFolder, '**', '*'),
@@ -94,9 +90,29 @@ gulp.task('sass', () => {
 gulp.task('webpack', () => {
     return gulp.src(devPath.js)
     .pipe(named())
-    .pipe(webpack(require('./webpack.config.js')))
-    .pipe(gulp.dest(destPath.jsDir))
-    .pipe(reload({ stream: true }));
+    .pipe(webpack({
+        watch: shouldWatch,
+        devtool: 'source-map',
+        module: {
+            loaders: [
+                {
+                    test: /\.js$/,
+                    exclude: /node_module/,
+                    loader: 'babel',
+                },
+                {
+                    test: /\.vue$/,
+                    loader: 'vue',
+                },
+            ],
+        },
+        resolve: {
+            alias: {
+                'vue$': 'vue/dist/vue.js',
+            }
+        },
+    }))
+    .pipe(gulp.dest(destPath.jsDir));
 });
 
 gulp.task('minify-html', () => {
@@ -135,7 +151,7 @@ gulp.task('clean', () => {
 gulp.task('copy', () => {
     return gulp.src(util.copySource)
     .pipe(copy(destPath.root, {
-        prefix: 1
+        prefix: 1,
     }));
 });
 
@@ -154,7 +170,7 @@ gulp.task('complete', () => {
 });
 
 gulp.task('compile', (cb) => {
-    sequence('clean', ['webpack', 'sass'], cb);
+    sequence('clean', ['sass'], cb);
 });
 
 gulp.task('default', ['compile'], () => {
@@ -166,11 +182,12 @@ gulp.task('default', ['compile'], () => {
     });
 
     gulp.watch(devPath.sass, ['sass']);
-    gulp.watch(util.webpackCompileSource, ['webpack']);
 
     gulp.watch(util.devReloadSource).on('change', reload);
 });
 
-gulp.task('build', (cb) => {
-    sequence('compile', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
+gulp.task('build', ['compile'], (cb) => {
+    shouldWatch = false;
+
+    sequence('webpack', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
 });
