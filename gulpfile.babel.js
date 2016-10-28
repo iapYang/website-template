@@ -32,8 +32,6 @@ const vuexFolder = 'vuex';
 
 const archiveFile = 'archive.zip';
 
-let shouldWatch = true;
-
 const devPath = {
     html: path.join(devFolder, '*.html'),
     sass: path.join(devFolder, styleFolder, '**', '*.{scss,sass}'),
@@ -91,7 +89,7 @@ gulp.task('webpack', () => {
     return gulp.src(devPath.js)
     .pipe(named())
     .pipe(webpack({
-        watch: shouldWatch,
+        watch: process.argv[2] === 'webpack',
         devtool: 'source-map',
         module: {
             loaders: [
@@ -187,7 +185,5 @@ gulp.task('default', ['compile'], () => {
 });
 
 gulp.task('build', ['compile'], (cb) => {
-    shouldWatch = false;
-
     sequence('webpack', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
 });
