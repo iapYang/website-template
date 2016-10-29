@@ -155,6 +155,7 @@ gulp.task('compile', (cb) => {
     sequence('clean', ['sass'], cb);
 });
 
+let spawn = require('child_process').spawn;
 gulp.task('default', ['compile'], () => {
     browserSync.init({
         port: 9000,
@@ -164,8 +165,12 @@ gulp.task('default', ['compile'], () => {
     });
 
     gulp.watch(devPath.sass, ['sass']);
-
     gulp.watch(util.devReloadSource).on('change', reload);
+
+    spawn('gulp', ['webpack']).stdout.on('data', (data) => {
+        console.log(data.toString());
+        browserSync.reload();
+    });
 });
 
 gulp.task('build', ['compile'], (cb) => {
