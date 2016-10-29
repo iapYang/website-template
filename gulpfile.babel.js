@@ -21,6 +21,8 @@ let named = require('vinyl-named');
 let webpackPackage = require('webpack');
 let spawn = require('child_process').spawn;
 
+let inDev = true;
+
 const reload = browserSync.reload;
 
 const devFolder = 'dev';
@@ -94,13 +96,12 @@ gulp.task('webpack-proxy', () => {
             browserSync.reload();
         });
     }else{ // build
+        inDev = false;
         gulp.start('webpack');
     }
 });
 
 gulp.task('webpack', () => {
-    let inDev = process.argv[2] === 'webpack';
-
     let options = {
         watch: inDev,
         devtool: inDev ? 'source-map' : null,
