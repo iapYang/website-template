@@ -6,7 +6,6 @@ let cssnext = require('postcss-cssnext');
 let sorting = require('postcss-sorting');
 let htmlmin = require('gulp-htmlmin');
 let minifyCss = require('gulp-minify-css');
-let uglify = require('gulp-uglify');
 let imagemin = require('gulp-imagemin');
 let copy = require('gulp-copy');
 let clean = require('gulp-clean');
@@ -19,7 +18,8 @@ let path = require('path');
 let webpack = require('webpack-stream');
 let named = require('vinyl-named');
 
-let webpackConfig = require('./webpack.config.js');
+let webpackPackage = require('webpack');
+let spawn = require('child_process').spawn;
 
 const reload = browserSync.reload;
 
@@ -33,6 +33,7 @@ const componentFolder = 'component';
 const vuexFolder = 'vuex';
 
 const archiveFile = 'archive.zip';
+const archiveFolder = 'archive';
 
 const devPath = {
     html: path.join(devFolder, '*.html'),
@@ -44,14 +45,13 @@ const devPath = {
 const destPath = {
     root: path.join(destFolder),
     css: path.join(destFolder, styleFolder, '**', '*.css'),
-    js: path.join(destFolder, scriptFolder, '**', '*.js'),
     cssDir: path.join(destFolder, styleFolder),
     jsDir: path.join(destFolder, scriptFolder),
     imgDir: path.join(destFolder, imageFolder),
 };
 
 const util = {
-    cleanSource: [destFolder, archiveFile],
+    cleanSource: [destFolder, archiveFile, archiveFolder],
     copySource: [
         path.join(devFolder, '**', '*'),
         '!' + path.join(devFolder, '*.html'),
@@ -87,13 +87,56 @@ gulp.task('sass', () => {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('webpack-proxy', () => {
+    if(process.argv.length === 2){
+        spawn('gulp', ['webpack']).stdout.on('data', (data) => {
+            console.log(data.toString());
+            browserSync.reload();
+        });
+    }else{
+        gulp.start('webpack');
+    }
+});
+
 gulp.task('webpack', () => {
+    let inDev = process.argv[2] === 'webpack';
+
+    let options = {
+        watch: inDev,
+        devtool: inDev ? 'source-map' : null,
+        module: {
+            loaders: [
+                {
+                    test: /\.js$/,
+                    exclude: /node_module/,
+                    loader: 'babel',
+                },
+                {
+                    test: /\.vue$/,
+                    loader: 'vue',
+                },
+            ],
+        },
+        resolve: {
+            alias: {
+                'vue$': 'vue/dist/vue.js',
+            }
+        },
+    };
+
+    if(!inDev){
+        options.plugins = [
+            new webpackPackage.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false,
+                },
+            })
+        ];
+    }
+
     return gulp.src(devPath.js)
     .pipe(named())
-    .pipe(webpack({
-        ...webpackConfig,
-        watch: process.argv[2] === 'webpack',
-    }))
+    .pipe(webpack(options))
     .pipe(gulp.dest(destPath.jsDir));
 });
 
@@ -111,12 +154,6 @@ gulp.task('minify-css', () => {
     return gulp.src(destPath.css)
     .pipe(minifyCss())
     .pipe(gulp.dest(destPath.cssDir));
-});
-
-gulp.task('minify-js', () => {
-    return gulp.src(destPath.js)
-    .pipe(uglify())
-    .pipe(gulp.dest(destPath.jsDir));
 });
 
 gulp.task('img', () => {
@@ -152,10 +189,9 @@ gulp.task('complete', () => {
 });
 
 gulp.task('compile', (cb) => {
-    sequence('clean', ['sass'], cb);
+    sequence('clean', ['webpack-proxy', 'sass'], cb);
 });
 
-let spawn = require('child_process').spawn;
 gulp.task('default', ['compile'], () => {
     browserSync.init({
         port: 9000,
@@ -166,13 +202,8 @@ gulp.task('default', ['compile'], () => {
 
     gulp.watch(devPath.sass, ['sass']);
     gulp.watch(util.devReloadSource).on('change', reload);
-
-    spawn('gulp', ['webpack']).stdout.on('data', (data) => {
-        console.log(data.toString());
-        browserSync.reload();
-    });
 });
 
 gulp.task('build', ['compile'], (cb) => {
-    sequence('webpack', ['minify-html', 'minify-css', 'minify-js', 'img'], 'copy', 'compress', 'complete', cb);
+    sequence(['minify-html', 'minify-css', 'img'], 'copy', 'compress', 'complete', cb);
 });
