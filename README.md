@@ -28,27 +28,23 @@
 - font：字体（[在线转换字体](https://onlinefontconverter.com/)）
 - image：图片
 - script：脚本
-  - plugin：工具库
+- plugin：工具库
 - style：样式
 - vendor：不参与合并输出的文件（可能需要手动创建该目录）
 - vuex：状态管理
-  - actions：对mutations的调用操作（可异步）
-  - getters：属性读取器
-  - mutation-types：操作方法名
-  - mutations：对属性的直接操作（必须同步）
-  - state：应用程序所有状态
-  - store：初始化对象
+- actions：对mutations的调用操作（可异步）
+- getters：属性读取器
+- mutation-types：操作方法名
+- mutations：对属性的直接操作（必须同步）
+- state：应用程序所有状态
+- store：初始化对象
 
 
 
 
 
 ## gulp
-`default`  开发时第一步运行，自动编译sass，并打开本地服务器实时预览
-
-`webpack`  开发时第二步运行，自动编译js，之后需要手动刷新（暂无解决方案）
-
-> 注：上述2步需要开两个单独的命令行窗口
+`default`  开发时运行，自动编译sass、js，并打开本地服务器实时预览（第一次需要手动刷新，暂无解决方案）
 
 `build`  发布时运行，整合相关文件，并生成压缩包（html，css，js为单独的文件）
 
