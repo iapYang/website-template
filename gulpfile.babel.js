@@ -88,12 +88,12 @@ gulp.task('sass', () => {
 });
 
 gulp.task('webpack-proxy', () => {
-    if(process.argv.length === 2){
+    if(process.argv.length === 2){ // default
         spawn('gulp', ['webpack']).stdout.on('data', (data) => {
             console.log(data.toString());
             browserSync.reload();
         });
-    }else{
+    }else{ // build
         gulp.start('webpack');
     }
 });
