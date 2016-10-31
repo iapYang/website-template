@@ -90,13 +90,20 @@ gulp.task('sass', () => {
 });
 
 gulp.task('webpack-proxy', () => {
-    if(process.argv.length === 2){ // default
+    inDev = process.argv.length === 2;
+
+    if(inDev){ // default
         spawn('gulp', ['webpack']).stdout.on('data', (data) => {
-            console.log(data.toString());
-            browserSync.reload();
+            let content = data.toString();
+
+            if(!content.includes('Version')) return;
+
+            setTimeout(() => {
+                console.log(content);
+                browserSync.reload();
+            }, 100);
         });
     }else{ // build
-        inDev = false;
         gulp.start('webpack');
     }
 });
@@ -121,18 +128,19 @@ gulp.task('webpack', () => {
         resolve: {
             alias: {
                 'vue$': 'vue/dist/vue.js',
-            }
+            },
         },
+        plugins: [],
     };
 
     if(!inDev){
-        options.plugins = [
-            new webpackPackage.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false,
-                },
-            })
-        ];
+        let uglifyJs = new webpackPackage.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+            },
+        });
+
+        options.plugins.push(uglifyJs);
     }
 
     return gulp.src(devPath.js)
