@@ -94,6 +94,7 @@ gulp.task('webpack-proxy', () => {
 
     if(inDev){ // default
         let task = spawn('gulp', ['webpack']);
+
         task.stdout.on('data', (data) => {
             let content = data.toString();
 
@@ -133,6 +134,10 @@ gulp.task('webpack', () => {
                 {
                     test: /\.vue$/,
                     loader: 'vue',
+                },
+                {
+                    test: /\.json$/,
+                    loader: 'json',
                 },
             ],
         },
