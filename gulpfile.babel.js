@@ -93,7 +93,8 @@ gulp.task('webpack-proxy', () => {
     inDev = process.argv.length === 2;
 
     if(inDev){ // default
-        spawn('gulp', ['webpack']).stdout.on('data', (data) => {
+        let task = spawn('gulp', ['webpack']);
+        task.stdout.on('data', (data) => {
             let content = data.toString();
 
             if(!content.includes('Version')) return;
@@ -102,6 +103,16 @@ gulp.task('webpack-proxy', () => {
                 console.log(content);
                 browserSync.reload();
             }, 100);
+        });
+
+        task.stderr.on('data', (data) => {
+            let content = data.toString();
+
+            if(content.includes('graceful-fs')) return;
+
+            console.log(content);
+
+            process.exit();
         });
     }else{ // build
         gulp.start('webpack');
