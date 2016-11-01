@@ -32,13 +32,13 @@
   - plugin：工具库
 - style：样式
 - vendor：不参与合并输出的文件（可能需要手动创建该目录）
-- vuex：状态管理
+- store：状态管理
   - actions：对mutations的调用操作（可异步）
   - getters：属性读取器
   - mutation-types：操作方法名
   - mutations：对属性的直接操作（必须同步）
   - state：应用程序所有状态
-  - store：初始化对象
+  - index：初始化对象
 
 
 
