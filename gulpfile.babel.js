@@ -32,7 +32,7 @@ const styleFolder = 'style';
 const scriptFolder = 'script';
 const imageFolder = 'image';
 const componentFolder = 'component';
-const vuexFolder = 'vuex';
+const storeFolder = 'store';
 
 const archiveFile = 'archive.zip';
 const archiveFolder = 'archive';
@@ -61,7 +61,7 @@ const util = {
         '!' + path.join(devFolder, scriptFolder, '**', '*'),
         '!' + path.join(devFolder, imageFolder, '**', '*'),
         '!' + path.join(devFolder, componentFolder, '**', '*'),
-        '!' + path.join(devFolder, vuexFolder, '**', '*'),
+        '!' + path.join(devFolder, storeFolder, '**', '*'),
     ],
     archiveFile: archiveFile,
     compressFile:  path.join(destFolder, '**'),
@@ -72,7 +72,7 @@ const util = {
         '!' + path.join(devFolder, styleFolder, '**', '*'),
         '!' + path.join(devFolder, scriptFolder, '**', '*'),
         '!' + path.join(devFolder, componentFolder, '**', '*'),
-        '!' + path.join(devFolder, vuexFolder, '**', '*'),
+        '!' + path.join(devFolder, storeFolder, '**', '*'),
     ],
 };
 
@@ -103,7 +103,7 @@ gulp.task('webpack-proxy', () => {
             setTimeout(() => {
                 console.log(content);
                 browserSync.reload();
-            }, 100);
+            }, 150);
         });
 
         task.stderr.on('data', (data) => {
