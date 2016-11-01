@@ -26,7 +26,7 @@
 ## 目录结构
 
 - component：vue组件
-- font：字体（[在线转换字体](https://onlinefontconverter.com/)）
+- font：字体（[在线转换字体](https://onlinefontconverter.com/) ｜ [常用字体库](https://github.com/JoshuaYang/web-fonts)）
 - image：图片
 - script：脚本
   - plugin：工具库
