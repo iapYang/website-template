@@ -147,7 +147,7 @@
         // image.setAttribute('crossOrigin', 'anonymous');
 
         if(item.classList.contains('loaded')){
-            doneHandler.call(that, image);
+            doneHandler.call(that, item, src, image);
             return;
         }
 
@@ -157,19 +157,7 @@
                 // load from cache
                 image.src = storageObj.source;
 
-                if (item !== undefined) {
-                    if(!item.classList.contains('loaded')){
-                        if(item.getAttribute('data-bg') !== null){
-                            item.style.backgroundImage = 'url(' + src + ')';
-                        }else{
-                            item.appendChild(image);
-                        }
-
-                        item.classList.add('loaded');
-                    }
-                }
-
-                doneHandler.call(that, image);
+                doneHandler.call(that, item, src, image);
             },
             not: function(){
                 // load from file
@@ -193,23 +181,11 @@
                         }
                     }
 
-                    if (item !== undefined) {
-                        if(!item.classList.contains('loaded')){
-                            if(item.getAttribute('data-bg') !== null){
-                                item.style.backgroundImage = 'url(' + src + ')';
-                            }else{
-                                item.appendChild(image);
-                            }
-
-                            item.classList.add('loaded');
-                        }
-                    }
-
-                    doneHandler.call(that, image);
+                    doneHandler.call(that, item, src, image);
                 };
                 image.onerror = function() {
                     item.classList.add('loaded');
-                    doneHandler.call(that, image);
+                    doneHandler.call(that, item, src, image);
                 };
 
                 image.src = src;
@@ -217,7 +193,20 @@
         });
     }
 
-    function doneHandler(image) {
+    function doneHandler(item, src, image) {
+        if (item !== undefined) {
+            if(!item.classList.contains('loaded')){
+                if(item.getAttribute('data-bg') !== null){
+                    item.style.backgroundImage = 'url(' + src + ')';
+                }else{
+                    item.appendChild(image);
+                }
+
+                item.classList.add('loaded');
+            }
+        }
+
+
         ++this.loadCount;
 
         this.done(image, this.loadCount, this.totalCount);
