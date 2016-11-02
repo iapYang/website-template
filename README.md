@@ -280,5 +280,23 @@ let slider = new Slider({
 
 ### entranceListener.js 出入场监听
 
+> 向下滚动，元素入场到达指定位置时触发enter回调
+>
+> 向上滚动，元素出场时触发leave回调
+
 **初始化**
 
+```javascript
+new EntranceListener({
+  // options
+});
+```
+
+**初始化参数**
+
+| 参数     | 类型         | 默认值  | 描述          |
+| ------ | ---------- | ---- | ----------- |
+| el     | dom        | null | 需要监听的元素（必须） |
+| offset | number（px） | 0    | 入场后的偏移量     |
+| enter  | function   | null | 入场回调        |
+| leave  | function   | null | 出场回调        |
