@@ -72,7 +72,9 @@
     });
 
 
-    window[COMPONENT_NAME] = Component;
+    if(window[COMPONENT_NAME] === undefined){
+        window[COMPONENT_NAME] = Component;
+    }
 
     return Component;
 }));
