@@ -42,7 +42,10 @@
     ///////////////
 
     var defaultOptions = {
+        triggered: false,
         offset: 0,
+        enter: function(){},
+        leave: function(){},
     };
 
     var Component = function(opts) {
@@ -51,7 +54,6 @@
         Component.sourceQueue.push({
             el: options.el,
             offset: options.offset,
-            triggered: false,
             enter: options.enter,
             leave: options.leave,
         });
@@ -82,8 +84,9 @@
         });
     }
 
-
-    window[COMPONENT_NAME] = Component;
+    if(window[COMPONENT_NAME] === undefined){
+        window[COMPONENT_NAME] = Component;
+    }
 
     return Component;
 }));
