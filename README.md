@@ -276,3 +276,9 @@ let slider = new Slider({
 | shareTwitter(opts)   | 分享到twitter（对象参数：text，href）               |
 | sharePinterest(opts) | 分享到pinterest（对象参数：url，media，description） |
 
+
+
+### entranceListener.js 出入场监听
+
+**初始化**
+

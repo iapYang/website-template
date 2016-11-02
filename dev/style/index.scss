@@ -6,28 +6,3 @@ h1{
     color: red;
     transform: translateX(10px);
 }
-
-.dv{
-    transition: background-color 0.3s ease;
-
-    &.dv1{
-        height: 100vh;
-        background-color: #53D8FB;
-    }
-    &.dv2{
-        height: 400px;
-        background-color: #66C3FF;
-    }
-    &.dv3{
-        height: 600px;
-        background-color: #DCE1E9;
-    }
-    &.dv4{
-        height: 800px;
-        background-color: #D4AFB9;
-    }
-
-    &.active{
-        background-color: #DB5375;
-    }
-}

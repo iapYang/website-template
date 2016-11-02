@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 
-import EntranceListener from './plugin/entranceListener';
+
 
 let Vue = require('vue');
 
@@ -14,27 +14,5 @@ const app = new Vue({
     store,
     components: {
         App
-    }
-});
-
-new EntranceListener({
-    el: document.getElementById('dv2'),
-    offset: 500,
-    enter: function(){
-        this.classList.add('active');
-    },
-    leave: function(){
-        this.classList.remove('active');
-    }
-});
-
-new EntranceListener({
-    el: document.getElementById('dv4'),
-    offset: 500,
-    enter: function(){
-        this.classList.add('active');
-    },
-    leave: function(){
-        this.classList.remove('active');
     }
 });

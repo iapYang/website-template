@@ -4,6 +4,7 @@ import PictureLoader from './plugin/pictureLoader';
 import Platform from './plugin/platform';
 import Slider from './plugin/slider';
 import Util from './plugin/util';
+import EntranceListener from './plugin/entranceListener';
 
 import IScroll from 'iscroll';
 
@@ -97,6 +98,30 @@ function registerEvents() {
 
             alert(i);
         });
+    });
+
+
+
+    new EntranceListener({
+        el: document.getElementById('dv2'),
+        offset: 500,
+        enter: function(){
+            this.classList.add('active');
+        },
+        leave: function(){
+            this.classList.remove('active');
+        }
+    });
+
+    new EntranceListener({
+        el: document.getElementById('dv4'),
+        offset: 500,
+        enter: function(){
+            this.classList.add('active');
+        },
+        leave: function(){
+            this.classList.remove('active');
+        }
     });
 }
 
