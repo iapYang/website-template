@@ -1,6 +1,8 @@
 let webpack = require('webpack');
+let merge = require('webpack-merge');
+let webpackConfig;
 
-let webpackConfig = {
+let baseWebpackConfig = {
     module: {
         loaders: [
             {
@@ -27,18 +29,22 @@ let webpackConfig = {
 };
 
 if(process.env.NODE_ENV === 'development'){
-    webpackConfig.watch = true;
-    webpackConfig.devtool = 'source-map';
+    webpackConfig = merge(baseWebpackConfig, {
+        watch: true,
+        devtool: 'source-map',
+    });
 }
 
 if(process.env.NODE_ENV === 'production'){
-    webpackConfig.plugins = [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-            },
-        })
-    ];
+    webpackConfig = merge(baseWebpackConfig, {
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false,
+                },
+            })
+        ],
+    });
 }
 
 
