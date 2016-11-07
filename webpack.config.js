@@ -20,12 +20,17 @@ let baseWebpackConfig = {
             },
         ],
     },
+    vue: {
+        loaders: {
+            sass: 'style!css!sass?indentedSyntax',
+            scss: 'style!css!sass',
+        }
+    },
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.js',
         },
     },
-    plugins: [],
 };
 
 if(process.env.NODE_ENV === 'development'){
