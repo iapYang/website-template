@@ -17,11 +17,9 @@ let browserSync = require('browser-sync');
 let path = require('path');
 let webpack = require('webpack-stream');
 let named = require('vinyl-named');
-
-let webpackPackage = require('webpack');
 let spawn = require('child_process').spawn;
 
-let inDev = true;
+let webpackConfig = require('./webpack.config.js');
 
 const reload = browserSync.reload;
 
@@ -90,9 +88,7 @@ gulp.task('sass', () => {
 });
 
 gulp.task('webpack-proxy', () => {
-    inDev = process.argv.length === 2;
-
-    if(inDev){ // default
+    if(process.env.NODE_ENV === 'development'){
         let task = spawn('gulp', ['webpack']);
 
         task.stdout.on('data', (data) => {
@@ -112,56 +108,19 @@ gulp.task('webpack-proxy', () => {
             if(content.includes('graceful-fs')) return;
 
             console.log(content);
-
             process.exit();
         });
-    }else{ // build
+    }
+
+    if(process.env.NODE_ENV === 'production'){
         gulp.start('webpack');
     }
 });
 
 gulp.task('webpack', () => {
-    let options = {
-        watch: inDev,
-        devtool: inDev ? 'source-map' : null,
-        module: {
-            loaders: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_module/,
-                    loader: 'babel',
-                },
-                {
-                    test: /\.vue$/,
-                    loader: 'vue',
-                },
-                {
-                    test: /\.json$/,
-                    loader: 'json',
-                },
-            ],
-        },
-        resolve: {
-            alias: {
-                'vue$': 'vue/dist/vue.js',
-            },
-        },
-        plugins: [],
-    };
-
-    if(!inDev){
-        let uglifyJs = new webpackPackage.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-            },
-        });
-
-        options.plugins.push(uglifyJs);
-    }
-
     return gulp.src(devPath.js)
     .pipe(named())
-    .pipe(webpack(options))
+    .pipe(webpack(webpackConfig))
     .pipe(gulp.dest(destPath.jsDir));
 });
 
