@@ -3,6 +3,11 @@ let merge = require('webpack-merge');
 let webpackConfig;
 
 let baseWebpackConfig = {
+    entry: './dev/script/index.js',
+    output: {
+        path: './dist',
+        filename: 'index.js',
+    },
     module: {
         loaders: [
             {
@@ -18,6 +23,10 @@ let baseWebpackConfig = {
                 test: /\.json$/,
                 loader: 'json',
             },
+            {
+                test: /\.scss$/,
+                loader: 'style!css!sass',
+            }
         ],
     },
     vue: {
@@ -35,8 +44,7 @@ let baseWebpackConfig = {
 
 if(process.env.NODE_ENV === 'development'){
     webpackConfig = merge(baseWebpackConfig, {
-        watch: true,
-        devtool: 'source-map',
+        devtool: 'eval-source-map', //'source-map',
     });
 }
 

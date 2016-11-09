@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development gulp",
+    "dev": "NODE_ENV=development webpack-dev-server --progress --colors --hot --inline --content-base ./dev",
+    "dev-old": "NODE_ENV=development gulp",
     "build": "NODE_ENV=production gulp build",
     "clean": "gulp clean",
     "test": "echo \"Error: no test specified\" && exit 1"
