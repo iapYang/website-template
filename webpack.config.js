@@ -15,8 +15,8 @@ let baseWebpackConfig = {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: /node_module/,
                 loader: 'babel',
+                exclude: /node_module/,
             },
             {
                 test: /\.vue$/,
@@ -32,7 +32,7 @@ let baseWebpackConfig = {
             },
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-                loader: 'file-loader?limit=1024&name=font/[name].[ext]'
+                loader: 'file-loader?limit=1024&name=font/[name].[ext]',
             }
         ],
     },
