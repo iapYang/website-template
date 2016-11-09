@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --progress --colors --hot --inline --content-base ./dev",
-    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development webpack-dev-server --progress --colors --hot --inline",
+    "build": "NODE_ENV=production webpack --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -23,6 +23,7 @@
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
+    "node-sass": "^3.11.2",
     "postcss-cssnext": "^2.8.0",
     "postcss-sorting": "^1.7.0",
     "sass-loader": "^4.0.2",

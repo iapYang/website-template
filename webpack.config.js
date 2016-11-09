@@ -56,6 +56,9 @@ let baseWebpackConfig = {
 if(process.env.NODE_ENV === 'development'){
     webpackConfig = merge(baseWebpackConfig, {
         devtool: 'eval-source-map', //'source-map',
+        devServer: {
+            contentBase: './dev',
+        },
     });
 }
 
