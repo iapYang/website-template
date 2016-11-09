@@ -27,10 +27,6 @@ let baseWebpackConfig = {
                 loader: 'json',
             },
             {
-                test: /\.scss$/,
-                loader: 'style!css!sass',
-            },
-            {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
                 loader: 'file-loader?limit=1024&name=font/[name].[ext]',
             }

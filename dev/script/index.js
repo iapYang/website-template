@@ -1,8 +1,5 @@
 import 'babel-polyfill';
 
-import '../style/index.scss';
-
-
 
 let Vue = require('vue');
 
