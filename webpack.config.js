@@ -48,6 +48,8 @@ if(process.env.NODE_ENV === 'development'){
     });
 }
 
+
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 if(process.env.NODE_ENV === 'production'){
     webpackConfig = merge(baseWebpackConfig, {
         plugins: [
@@ -55,6 +57,14 @@ if(process.env.NODE_ENV === 'production'){
                 compress: {
                     warnings: false,
                 },
+            }),
+            new HtmlWebpackPlugin({
+                template: './dev/index.html',
+                inject: false,
+                minify:{
+    				removeComments:true,
+    				collapseWhitespace:true,
+    			},
             })
         ],
     });

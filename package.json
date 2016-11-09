@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server --progress --colors --hot --inline --content-base ./dev",
-    "dev-old": "NODE_ENV=development gulp",
     "build": "NODE_ENV=production gulp build",
+    "dev-old": "NODE_ENV=development gulp",
     "clean": "gulp clean",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -35,6 +35,7 @@
     "gulp-sequence": "^0.4.6",
     "gulp-sourcemaps": "^2.2.0",
     "gulp-zip": "^3.2.0",
+    "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
     "postcss-cssnext": "^2.8.0",
     "postcss-sorting": "^1.7.0",
