@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server --progress --colors --hot --inline --content-base ./dev",
     "build": "NODE_ENV=production webpack",
-    "clean": "gulp clean",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
