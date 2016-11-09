@@ -18,4 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
+.app-container{
+    transform: translateX(50px);
+}
 </style>

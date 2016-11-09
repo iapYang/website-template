@@ -31,9 +31,13 @@ let baseWebpackConfig = {
     },
     vue: {
         loaders: {
-            sass: 'style!css!sass?indentedSyntax',
-            scss: 'style!css!sass',
-        }
+            sass: 'style!css!postcss!sass?indentedSyntax',
+            scss: 'style!css!postcss!sass',
+        },
+        postcss: [
+            require('postcss-cssnext')(),
+            require('postcss-sorting')()
+        ],
     },
     resolve: {
         alias: {
