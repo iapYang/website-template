@@ -19,6 +19,7 @@ export default {
 
 <style lang="scss">
 .app-container{
+    font-family: "Lato-Regular";
     transform: translateX(50px);
 }
 </style>
