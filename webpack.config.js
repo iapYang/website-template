@@ -49,7 +49,9 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
+
 if(process.env.NODE_ENV === 'production'){
     webpackConfig = merge(baseWebpackConfig, {
         plugins: [
@@ -62,9 +64,24 @@ if(process.env.NODE_ENV === 'production'){
                 template: './dev/index.html',
                 inject: false,
                 minify:{
-    				removeComments:true,
-    				collapseWhitespace:true,
+    				removeComments: true,
+    				collapseWhitespace: true,
     			},
+            }),
+            new CopyWebpackPlugin([
+                {
+                    from: './dev',
+                },
+            ], {
+                ignore: [
+                    '*.html',
+                    'style/**/*',
+                    'script/**/*',
+                    'store/**/*',
+                    'vendor/**/*',
+                    'component/**/*',
+                    'data/**/*',
+                ]
             })
         ],
     });
