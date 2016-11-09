@@ -1,5 +1,8 @@
 let webpack = require('webpack');
 let merge = require('webpack-merge');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
+
 let webpackConfig;
 
 let baseWebpackConfig = {
@@ -55,10 +58,6 @@ if(process.env.NODE_ENV === 'development'){
         devtool: 'eval-source-map', //'source-map',
     });
 }
-
-
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let CopyWebpackPlugin = require('copy-webpack-plugin');
 
 if(process.env.NODE_ENV === 'production'){
     webpackConfig = merge(baseWebpackConfig, {
