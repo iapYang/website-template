@@ -1,14 +1,20 @@
+let path = require('path');
+let glob = require('glob');
 let webpack = require('webpack');
 let merge = require('webpack-merge');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
 
-let webpackConfig;
+let jsFiles = glob.sync('./dev/script/*.js');
+let entry = {};
+let webpackConfig = {};
+
+jsFiles.forEach((file, i) => {
+    entry[path.basename(file, '.js')] = file;
+});
 
 let baseWebpackConfig = {
-    entry: {
-        index: './dev/script/index.js',
-    },
+    entry,
     output: {
         path: './dist',
         filename: '[name].js',
@@ -31,7 +37,7 @@ let baseWebpackConfig = {
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
                 loader: 'file-loader?limit=1024&name=font/[name].[ext]',
-            },
+            }
         ],
     },
     vue: {
@@ -44,6 +50,7 @@ let baseWebpackConfig = {
             require('postcss-sorting')()
         ],
     },
+    postcss: require('./postcss.config.js'),
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.js',
