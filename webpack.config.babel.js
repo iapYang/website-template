@@ -6,10 +6,12 @@ let CopyWebpackPlugin = require('copy-webpack-plugin');
 let webpackConfig;
 
 let baseWebpackConfig = {
-    entry: './dev/script/index.js',
+    entry: {
+        index: './dev/script/index.js',
+    },
     output: {
         path: './dist',
-        filename: 'index.js',
+        filename: '[name].js',
     },
     module: {
         loaders: [
@@ -29,7 +31,7 @@ let baseWebpackConfig = {
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
                 loader: 'file-loader?limit=1024&name=font/[name].[ext]',
-            }
+            },
         ],
     },
     vue: {
