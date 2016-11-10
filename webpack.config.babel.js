@@ -36,6 +36,10 @@ let baseWebpackConfig = {
                 loader: 'json',
             },
             {
+                test: /\.css$/,
+                loader: 'style!css',
+            },
+            {
                 test: /\.scss$/,
                 loader: 'style!css!postcss!sass',
             },
