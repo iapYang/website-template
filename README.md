@@ -38,6 +38,7 @@
   - mutations：对属性的直接操作（必须同步）
   - state：应用程序所有状态
   - index：初始化对象
+- router.js：路由配置
 
 
 
