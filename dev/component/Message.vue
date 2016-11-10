@@ -15,3 +15,14 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+.message{
+    h1{
+        font-family: "Lato-Regular";
+        font-size: 20px;
+        color: blue;
+        transform: translateX(50px);
+    }
+}
+</style>

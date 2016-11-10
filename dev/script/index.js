@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 
 
-
 let Vue = require('vue');
 
 import store from '../store/index';
@@ -16,3 +15,5 @@ const app = new Vue({
         App
     }
 });
+
+console.log('=====111=====');
