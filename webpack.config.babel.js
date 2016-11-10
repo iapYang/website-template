@@ -4,6 +4,7 @@ let webpack = require('webpack');
 let merge = require('webpack-merge');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
+let postcssConfig = require('./postcss.config.js');
 
 let jsFiles = glob.sync('./dev/script/*.js');
 let entry = {};
@@ -49,12 +50,9 @@ let baseWebpackConfig = {
             sass: 'style!css!postcss!sass?indentedSyntax',
             scss: 'style!css!postcss!sass',
         },
-        postcss: [
-            require('postcss-cssnext')(),
-            require('postcss-sorting')()
-        ],
+        postcss: postcssConfig.plugins,
     },
-    postcss: require('./postcss.config.js'),
+    postcss: postcssConfig,
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.js',
@@ -91,6 +89,7 @@ if(process.env.NODE_ENV === 'production'){
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false,
+                    drop_console: true,
                 },
             }),
             new CopyWebpackPlugin([
