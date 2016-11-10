@@ -31,6 +31,7 @@
     "style-loader": "^0.13.1",
     "vue": "^2.0.5",
     "vue-loader": "^9.8.1",
+    "vue-router": "^2.0.1",
     "vuex": "^2.0.0",
     "webpack": "^1.13.3",
     "webpack-merge": "^0.15.0"

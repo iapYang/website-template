@@ -2,6 +2,8 @@
     <div class="app-container">
         <message></message>
         <controller></controller>
+        
+        <router-view></router-view>
     </div>
 </template>
 

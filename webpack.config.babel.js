@@ -99,6 +99,7 @@ if(process.env.NODE_ENV === 'production'){
             ], {
                 ignore: [
                     '*.html',
+                    'router.js',
                     'style/**/*',
                     'script/**/*',
                     'store/**/*',
