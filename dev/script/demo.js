@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 
+import '../style/demo.scss';
+
 import PictureLoader from './plugin/pictureLoader';
 import Platform from './plugin/platform';
 import Slider from './plugin/slider';
