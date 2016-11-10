@@ -44,7 +44,7 @@
 
 
 ## 运行
-`npm run dev`  开发时运行，打开本地服务器 localhost:8080 实时预览
+`npm run dev`  开发时运行，自动打开本地服务器实时预览
 
 `npm run build`  发布时运行，整合相关文件
 
