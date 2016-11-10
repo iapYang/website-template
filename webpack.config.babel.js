@@ -68,20 +68,26 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 if(process.env.NODE_ENV === 'production'){
+    let htmlFiles =  glob.sync('./dev/*.html');
+    let htmlPlugins = htmlFiles.map((file, i) => {
+        return new HtmlWebpackPlugin({
+            filename: path.basename(file),
+            template: file,
+            inject: false,
+            minify:{
+                removeComments: true,
+                collapseWhitespace: true,
+            },
+        });
+    });
+
     webpackConfig = merge(baseWebpackConfig, {
         plugins: [
+            ...htmlPlugins,
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false,
                 },
-            }),
-            new HtmlWebpackPlugin({
-                template: './dev/index.html',
-                inject: false,
-                minify:{
-    				removeComments: true,
-    				collapseWhitespace: true,
-    			},
             }),
             new CopyWebpackPlugin([
                 {
