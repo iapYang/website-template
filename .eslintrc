@@ -100,7 +100,7 @@
         "no-useless-concat": "error", // 禁止没有必要的字符拼接 
 
         // 对象
-        "comma-dangle": ["error", "always"], // 多行对象字面量中要求拖尾逗号 
+        "comma-dangle": ["error", "always-multiline"], // 多行对象字面量中要求拖尾逗号 
         "no-dupe-keys": "error", // 禁止在对象字面量中出现重复的键 
         "no-prototype-builtins": "error", // 禁止直接使用 Object.prototypes 的内置属性  
         "dot-notation": "error", //强制在任何允许的时候使用点号访问属性 
