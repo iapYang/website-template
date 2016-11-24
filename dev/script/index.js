@@ -11,6 +11,8 @@ class Clock extends React.Component{
         this.state = {
             date: new Date(),
         }
+
+        this.clickHandler = this.clickHandler.bind(this);
     }
 
     componentDidMount(){
@@ -29,9 +31,14 @@ class Clock extends React.Component{
         });
     }
 
+    clickHandler() {
+        console.log(this);
+    }
+
     render(){
         return (
             <div>
+                <button onClick={this.clickHandler}>click</button>
                 <h1 className={this.props.className}>Hello, world!</h1>
                 <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
             </div>
