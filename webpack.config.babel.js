@@ -1,20 +1,21 @@
-let path = require('path');
-let glob = require('glob');
-let webpack = require('webpack');
-let merge = require('webpack-merge');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let CopyWebpackPlugin = require('copy-webpack-plugin');
-let postcssConfig = require('./postcss.config.js');
+const path = require('path');
+const glob = require('glob');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const postcssConfig = require('./postcss.config.js');
 
-let jsFiles = glob.sync('./dev/script/*.js');
-let entry = {};
+const jsFiles = glob.sync('./dev/script/*.js');
+const entry = {};
+
 let webpackConfig = {};
 
 jsFiles.forEach((file, i) => {
     entry[path.basename(file, '.js')] = file;
 });
 
-let baseWebpackConfig = {
+const baseWebpackConfig = {
     entry,
     output: {
         path: './dist',
@@ -46,7 +47,7 @@ let baseWebpackConfig = {
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
                 loader: 'file-loader?limit=1024&name=font/[name].[ext]',
-            }
+            },
         ],
     },
     vue: {
@@ -59,24 +60,24 @@ let baseWebpackConfig = {
     postcss: postcssConfig,
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.js',
+            vue$: 'vue/dist/vue.js',
         },
     },
 };
 
-if(process.env.NODE_ENV === 'development'){
+if (process.env.NODE_ENV === 'development') {
     webpackConfig = merge(baseWebpackConfig, {
-        devtool: 'eval-source-map', //'source-map',
+        devtool: 'eval-source-map',
         devServer: {
             contentBase: './dev',
         },
     });
 }
 
-if(process.env.NODE_ENV === 'production'){
-    let htmlFiles =  glob.sync('./dev/*.html');
-    let htmlPlugins = htmlFiles.map((file, i) => {
-        return new HtmlWebpackPlugin({
+if (process.env.NODE_ENV === 'production') {
+    const htmlFiles = glob.sync('./dev/*.html');
+    const htmlPlugins = htmlFiles.map((file, i) =>
+        new HtmlWebpackPlugin({
             filename: path.basename(file),
             template: file,
             inject: false,
@@ -84,8 +85,7 @@ if(process.env.NODE_ENV === 'production'){
                 removeComments: true,
                 collapseWhitespace: true,
             },
-        });
-    });
+        }));
 
     webpackConfig = merge(baseWebpackConfig, {
         plugins: [
@@ -110,9 +110,9 @@ if(process.env.NODE_ENV === 'production'){
                     'vendor/**/*',
                     'component/**/*',
                     'data/**/*',
-                    'font/**/*'
-                ]
-            })
+                    'font/**/*',
+                ],
+            }),
         ],
     });
 }

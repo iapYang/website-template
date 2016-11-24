@@ -13,6 +13,7 @@ import IScroll from 'iscroll';
 const body = document.body;
 let slider;
 
+
 PictureLoader.timeout = 1000 * 60;
 
 function generateStruct() {
@@ -74,7 +75,7 @@ function registerEvents() {
 
     Array.from(document.getElementById('slider').querySelectorAll('button')).forEach((el, i) => {
         el.addEventListener('click', e => {
-            if(slider.updating) return;
+            if (slider.updating) return;
 
             alert(i);
         });
@@ -130,5 +131,3 @@ function init() {
 
 
 window.addEventListener('load', init, false);
-
-
