@@ -1,14 +1,14 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(factory);
-	} else if (typeof exports === 'object') {
-		// CommonJS
-		module.exports = factory();
-	} else {
-		// Browser global
-		factory();
-	}
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // CommonJS
+        module.exports = factory();
+    } else {
+        // Browser global
+        factory();
+    }
 }(this, function() {
     //////////
     // Name //
@@ -33,7 +33,7 @@
         isS5: ua.match(/sm\-g900/i) !== null,
         isS6: ua.match(/sm\-g9250/i) !== null,
         isS7: (ua.match(/sm\-g930p/i) !== null) || (ua.match(/sm\-g9300/i) !== null),
-        isIE: ua.match(/(msie|trident)/i) !==null, // /(msie|trident)/i.test(navigator.userAgent),
+        isIE: ua.match(/(msie|trident)/i) !== null, // /(msie|trident)/i.test(navigator.userAgent),
         isIE11: ua.match(/Trident\/7\.0/i) !== null,
         isEdge: ua.match(/edge/i) !== null,
         isChrome: ua.match(/Chrome/gi) !== null,
@@ -51,19 +51,19 @@
 
 
 
-    Object.keys(Component).forEach(function(key){
+    Object.keys(Component).forEach(function(key) {
         // value: Component[key]
 
-        var className = key.toLowerCase().replace('is','');
+        var className = key.toLowerCase().replace('is', '');
 
-        if(className.indexOf('has') === 0){
+        if (className.indexOf('has') === 0) {
             className = className.replace('has', 'has-');
         }
 
-        if(!Component[key]){
-            if(className.indexOf('has') === 0){
+        if (!Component[key]) {
+            if (className.indexOf('has') === 0) {
                 className = className.replace('has', 'no');
-            }else{
+            } else {
                 className = 'not-' + className;
             }
         }
@@ -72,7 +72,7 @@
     });
 
 
-    if(window[COMPONENT_NAME] === undefined){
+    if (window[COMPONENT_NAME] === undefined) {
         window[COMPONENT_NAME] = Component;
     }
 

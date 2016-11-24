@@ -1,4 +1,4 @@
-import * as types from './mutation-types';
+import types from './mutation-types';
 
 export default {
     addTodo({commit}, {id, text}) {

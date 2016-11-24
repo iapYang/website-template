@@ -1,14 +1,14 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(factory);
-	} else if (typeof exports === 'object') {
-		// CommonJS
-		module.exports = factory();
-	} else {
-		// Browser global
-		factory();
-	}
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // CommonJS
+        module.exports = factory();
+    } else {
+        // Browser global
+        factory();
+    }
 }(this, function() {
     //////////
     // Name //
@@ -83,19 +83,19 @@
     Component.timeout = 1000 * 60;
     Component.useStorage = isDesktop && !isIE;
 
-    Component.load = function(src, callback){
+    Component.load = function(src, callback) {
         var image = new Image();
 
-        image.onload = function(){
+        image.onload = function() {
             callback.call(this, image);
         };
 
         checkIfInStorage({
             src: src,
-            in: function(storageObj){
+            in: function(storageObj) {
                 image.src = storageObj.source;
             },
-            not: function(){
+            not: function() {
                 image.src = src;
             }
         });
@@ -125,18 +125,18 @@
         }
     };
 
-    function checkIfInStorage(opts){
-        if(Component.useStorage){
+    function checkIfInStorage(opts) {
+        if (Component.useStorage) {
             var storageObj = JSON.parse(sessionStorage.getItem(opts.src)) || {};
             var timestamp = storageObj.timestamp;
             var liveUntil = timestamp + Component.timeout;
 
-            if (timestamp !== undefined && liveUntil > Date.now()){
+            if (timestamp !== undefined && liveUntil > Date.now()) {
                 return opts.in.call(null, storageObj);
-            }else{
+            } else {
                 return opts.not.call(null);
             }
-        }else{
+        } else {
             return opts.not.call(null);
         }
     }
@@ -146,23 +146,23 @@
         var image = new Image();
         // image.setAttribute('crossOrigin', 'anonymous');
 
-        if(item.classList.contains('loaded')){
+        if (item.classList.contains('loaded')) {
             doneHandler.call(that, item, src, image);
             return;
         }
 
         checkIfInStorage({
             src: src,
-            in: function(storageObj){
+            in: function(storageObj) {
                 // load from cache
                 image.src = storageObj.source;
 
                 doneHandler.call(that, item, src, image);
             },
-            not: function(){
+            not: function() {
                 // load from file
                 image.onload = function() {
-                    if(Component.useStorage){
+                    if (Component.useStorage) {
                         var storageObj = {};
                         var canvas = document.createElement('canvas');
                         var ctx = canvas.getContext('2d');
@@ -195,10 +195,10 @@
 
     function doneHandler(item, src, image) {
         if (item !== undefined) {
-            if(!item.classList.contains('loaded')){
-                if(item.getAttribute('data-bg') !== null){
+            if (!item.classList.contains('loaded')) {
+                if (item.getAttribute('data-bg') !== null) {
                     item.style.backgroundImage = 'url(' + src + ')';
-                }else{
+                } else {
                     item.appendChild(image);
                 }
 
@@ -221,7 +221,7 @@
     }
 
 
-    if(window[COMPONENT_NAME] === undefined){
+    if (window[COMPONENT_NAME] === undefined) {
         window[COMPONENT_NAME] = Component;
     }
 

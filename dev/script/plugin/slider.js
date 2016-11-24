@@ -1,14 +1,14 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(factory);
-	} else if (typeof exports === 'object') {
-		// CommonJS
-		module.exports = factory();
-	} else {
-		// Browser global
-		factory();
-	}
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // CommonJS
+        module.exports = factory();
+    } else {
+        // Browser global
+        factory();
+    }
 }(this, function() {
     //////////
     // Name //
@@ -41,7 +41,7 @@
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
-    function setTransform(el, val){
+    function setTransform(el, val) {
         el.style.webkitTransform = val;
         el.style.MozTransform = val;
         el.style.msTransform = val;
@@ -106,7 +106,7 @@
         // init vars
         this.wrapper = this.container.children[0];
         this.items = [].slice.call(this.wrapper.children);
-        if(this.indicator) this.indicatorElements = [].slice.call(this.indicator.children);
+        if (this.indicator) this.indicatorElements = [].slice.call(this.indicator.children);
         this.animating = false;
         this.updating = false;
         this.wrapper.style.transitionTimingFunction = this.ease;
@@ -122,7 +122,7 @@
     };
 
     Component.prototype.slidePrev = function(speed) {
-        if(this.disablePrev) return;
+        if (this.disablePrev) return;
 
         var targetIndex = getPrevIndex.call(this);
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
@@ -131,7 +131,7 @@
     };
 
     Component.prototype.slideNext = function(speed) {
-        if(this.disableNext) return;
+        if (this.disableNext) return;
 
         var targetIndex = getNextIndex.call(this);
         var calcSpeed = isNumeric(speed) ? speed : this.speed;
@@ -145,7 +145,7 @@
         slideFunc.call(this, targetIndex, null, calcSpeed);
     };
 
-    Component.prototype.prependSlide = function(dom){
+    Component.prototype.prependSlide = function(dom) {
         dom.style.position = 'absolute';
         dom.style.top = 0;
 
@@ -157,7 +157,7 @@
         calcOrder.call(this);
     };
 
-    Component.prototype.appendSlide = function(dom){
+    Component.prototype.appendSlide = function(dom) {
         dom.style.position = 'absolute';
         dom.style.top = 0;
 
@@ -168,35 +168,35 @@
         calcOrder.call(this);
     };
 
-    Component.prototype.removeSlide = function(index){
+    Component.prototype.removeSlide = function(index) {
         this.items.splice(index, 1);
         this.wrapper.removeChild(this.wrapper.children[index]);
 
-        if(this.currentIndex === this.items.length) --this.currentIndex;
+        if (this.currentIndex === this.items.length) --this.currentIndex;
 
         adjustEdge.call(this, this.currentIndex);
         calcOrder.call(this);
     };
 
-    Component.prototype.refreshPosition = function(){
+    Component.prototype.refreshPosition = function() {
         var max_height_index = 0;
         var max_height = 0;
 
-        this.items.forEach(function(el, i){
-            if(el.getBoundingClientRect().height > max_height){
+        this.items.forEach(function(el, i) {
+            if (el.getBoundingClientRect().height > max_height) {
                 max_height = el.getBoundingClientRect().height;
                 max_height_index = i;
             }
         });
 
-        this.items.forEach(function(el, i){
+        this.items.forEach(function(el, i) {
             el.style.top = 0;
             setTransform(el, 'translateY(0%)');
 
 
-            if(i === max_height_index){
+            if (i === max_height_index) {
                 el.style.position = 'relative';
-            }else{
+            } else {
                 el.style.position = 'absolute';
 
                 el.style.top = '50%';
@@ -205,33 +205,33 @@
         });
     };
 
-    function adjustEdge(index){
-        if(this.loop) return;
+    function adjustEdge(index) {
+        if (this.loop) return;
 
         this.disablePrev = index === 0;
         this.disableNext = index === this.items.length - 1;
 
-        if (this.prevBtn){
-            if(this.disablePrev){
+        if (this.prevBtn) {
+            if (this.disablePrev) {
                 this.prevBtn.classList.add('disabled');
-            }else{
+            } else {
                 this.prevBtn.classList.remove('disabled');
             }
         }
 
-        if(this.nextBtn){
-            if(this.disableNext){
+        if (this.nextBtn) {
+            if (this.disableNext) {
                 this.nextBtn.classList.add('disabled');
-            }else{
+            } else {
                 this.nextBtn.classList.remove('disabled');
             }
         }
     }
 
-    function setDisplacement(value){
-        if(useTraditionalAnimation){
+    function setDisplacement(value) {
+        if (useTraditionalAnimation) {
             this.wrapper.style.left = value;
-        }else{
+        } else {
             setTransform(this.wrapper, 'translateX(' + value + ')');
         }
     }
@@ -245,7 +245,7 @@
 
         this.refreshPosition.call(this);
 
-        if(this.indicatorElements){
+        if (this.indicatorElements) {
             this.indicatorElements[this.currentIndex].classList.add('active');
         }
     }
@@ -256,14 +256,14 @@
 
         var unHideArr = [this.currentIndex];
 
-        if(this.loop){
+        if (this.loop) {
             unHideArr = [this.currentIndex, prevIndex, nextIndex];
-        }else{
-            if(this.currentIndex === 0){
+        } else {
+            if (this.currentIndex === 0) {
                 unHideArr = [this.currentIndex, nextIndex];
-            }else if(this.currentIndex === this.items.length - 1){
+            } else if (this.currentIndex === this.items.length - 1) {
                 unHideArr = [this.currentIndex, prevIndex];
-            }else{
+            } else {
                 unHideArr = [this.currentIndex, prevIndex, nextIndex];
             }
         }
@@ -273,14 +273,14 @@
 
 
 
-        if(!this.loop && this.items.length === 2){
+        if (!this.loop && this.items.length === 2) {
             this.items[this.currentIndex].style.left = '0%';
 
-            if(this.currentIndex === 0) this.items[nextIndex].style.left = '100%';
+            if (this.currentIndex === 0) this.items[nextIndex].style.left = '100%';
             else this.items[nextIndex].style.left = '-100%';
-        }else if(this.items.length === 1){
+        } else if (this.items.length === 1) {
             this.items[this.currentIndex].style.left = '0%';
-        }else{
+        } else {
             this.items[this.currentIndex].style.left = '0%';
             this.items[prevIndex].style.left = '-100%';
             this.items[nextIndex].style.left = '100%';
@@ -288,11 +288,11 @@
     }
 
     function hideItemsExcept(exceptArr) {
-        this.items.forEach(function(el, i){
-            if (exceptArr.indexOf(i) == -1){
+        this.items.forEach(function(el, i) {
+            if (exceptArr.indexOf(i) == -1) {
                 el.style.visibility = 'hidden';
                 el.style.opacity = 0;
-            }else{
+            } else {
                 el.style.visibility = 'visible';
                 el.style.opacity = 1;
             }
@@ -308,13 +308,13 @@
 
         if (this.prevBtn) this.prevBtn.addEventListener(tapEvent, this.slidePrev.bind(this), false);
         if (this.nextBtn) this.nextBtn.addEventListener(tapEvent, this.slideNext.bind(this), false);
-        if (this.indicatorElements){
-            this.indicatorElements.forEach(function(el, i){
+        if (this.indicatorElements) {
+            this.indicatorElements.forEach(function(el, i) {
                 el.addEventListener(tapEvent, self.slideTo.bind(self, i), false);
             });
         }
 
-        if(this.dragable){
+        if (this.dragable) {
             this.container.addEventListener(downEvent, startDrag.bind(this), false);
             this.container.addEventListener(moveEvent, duringDrag.bind(this), false);
             this.container.addEventListener(upEvent, endDrag.bind(this), false);
@@ -384,14 +384,14 @@
 
         calcOrder.call(this);
 
-        if(!noTriggerEvent){
+        if (!noTriggerEvent) {
             this.onChangeEnd(this.currentIndex, prevIndex);
         }
     }
 
     function startDrag(e) {
         var interactive_el = e.srcElement || e.target || e.toElement;
-        if(interactive_el === this.prevBtn || interactive_el === this.nextBtn){
+        if (interactive_el === this.prevBtn || interactive_el === this.nextBtn) {
             return;
         }
 
@@ -414,17 +414,17 @@
 
         this.moveX = currentOffsetX - this.startOffsetX;
 
-        if(!this.canMove && Math.abs(this.moveX) > SAFE_DISTANCE){
+        if (!this.canMove && Math.abs(this.moveX) > SAFE_DISTANCE) {
             this.canMove = true;
             this.startOffsetX = currentOffsetX;
             this.moveX = 0;
         }
 
-        if(this.canMove){
-            if((this.moveX > 0 && this.disablePrev) ||
-                (this.moveX < 0 && this.disableNext)){
-                    this.moveX = this.moveX >> 1;
-                }
+        if (this.canMove) {
+            if ((this.moveX > 0 && this.disablePrev) ||
+                (this.moveX < 0 && this.disableNext)) {
+                this.moveX = this.moveX >> 1;
+            }
 
             setDisplacement.call(this, this.moveX + 'px');
         }
@@ -443,18 +443,18 @@
 
         if (Math.abs(this.moveX) > this.interactiveDistance) {
             if (this.moveX > 0) {
-                if(this.disablePrev){
+                if (this.disablePrev) {
                     noTriggerEnd = true;
-                }else{
+                } else {
                     noTriggerEnd = false;
 
                     setDisplacement.call(this, '100%');
                     targetIndex = getPrevIndex.call(this);
                 }
             } else {
-                if(this.disableNext){
+                if (this.disableNext) {
                     noTriggerEnd = true;
-                }else{
+                } else {
                     noTriggerEnd = false;
                     setDisplacement.call(this, '-100%');
                     targetIndex = getNextIndex.call(this);
@@ -464,12 +464,12 @@
             noTriggerEnd = true;
         }
 
-        if(!noTriggerEnd){
+        if (!noTriggerEnd) {
             changeIndicator.call(this, targetIndex);
 
             this.onChangeStart(this.currentIndex, targetIndex);
             adjustEdge.call(this, targetIndex);
-        }else{
+        } else {
             setDisplacement.call(this, '0%');
             targetIndex = this.currentIndex;
         }
@@ -477,15 +477,15 @@
         setTimeout(slideEnd.bind(this, targetIndex, noTriggerEnd), this.interactiveSpeed);
     }
 
-    function changeIndicator(targetIndex){
-        if(this.indicatorElements){
+    function changeIndicator(targetIndex) {
+        if (this.indicatorElements) {
             this.indicatorElements[this.currentIndex].classList.remove('active');
             this.indicatorElements[targetIndex].classList.add('active');
         }
     }
 
 
-    if(window[COMPONENT_NAME] === undefined){
+    if (window[COMPONENT_NAME] === undefined) {
         window[COMPONENT_NAME] = Component;
     }
 

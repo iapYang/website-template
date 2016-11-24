@@ -73,7 +73,7 @@ function registerEvents() {
     });
 
     Array.from(document.getElementById('slider').querySelectorAll('button')).forEach((el, i) => {
-        el.addEventListener('click', (e) => {
+        el.addEventListener('click', e => {
             if(slider.updating) return;
 
             alert(i);
@@ -130,3 +130,5 @@ function init() {
 
 
 window.addEventListener('load', init, false);
+
+
