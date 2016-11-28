@@ -25,19 +25,14 @@ class Navigation extends React.Component {
         });
     }
     render() {
-        const lis = this.state.items.map((item, i) => {
-            const className = this.state.activeIndex === i ? 'active' : '';
-
-            return <li key={i}
-                className={className}
-                onClick={() => this.clickHandler(i)}>{item}</li>;
-        });
-
-
         return (
             <div className="navigation">
                 <ul>
-                    {lis}
+                    {this.state.items.map((item, i) =>
+                        <li key={i}
+                            className={this.state.activeIndex === i ? 'active' : ''}
+                            onClick={this.clickHandler.bind(this, i)}>{item}</li>
+                    )}
                 </ul>
 
                 <h2 className="choice">
