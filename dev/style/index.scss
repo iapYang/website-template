@@ -1,0 +1,34 @@
+@import "reset";
+@import "mixin";
+
+.navigation{
+    text-align: center;
+
+    ul{
+        display: inline-block;
+
+        li{
+            color: white;
+            background-color: #729EA1;
+            display: inline-block;
+            font-size: 30px;
+            padding: 5px 20px;
+            cursor: pointer;
+
+            &.active{
+                background-color: #EC9192;
+            }
+        }
+    }
+
+    .choice{
+        margin-top: 30px;
+        font-size: 30px;
+
+        span{
+            font-size: 30px;
+            color: #DB5375;
+            background-color: #DFBE99;
+        }
+    }
+}
