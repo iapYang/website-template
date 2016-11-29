@@ -3,6 +3,8 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import classNames from 'classnames';
+
 import '../style/index.scss';
 
 class Navigation extends React.Component {
@@ -36,7 +38,7 @@ class Navigation extends React.Component {
                 </ul>
 
                 <h2 className="choice">
-                    You chose
+                    You chose&nbsp;
                     <span>
                          {this.state.items[this.state.activeIndex]}
                     </span>
@@ -46,5 +48,53 @@ class Navigation extends React.Component {
     }
 }
 
+class Editor extends React.Component {
+    constructor() {
+        super();
+
+        this.state = {
+            text: 'editor me',
+            hideInput: true,
+        };
+    }
+    handleClick() {
+        this.setState({
+            hideInput: !this.state.hideInput,
+        });
+    }
+    handleChange(event) {
+        this.setState({
+            text: event.target.value,
+        });
+    }
+    handleBlur() {
+        this.setState({
+            hideInput: true,
+        });
+    }
+    render () {
+        const inputClass = classNames({
+            input: true,
+            hidden: this.state.hideInput,
+        });
+
+        return (
+            <div className='editor'>
+                <input
+                    className={inputClass}
+                    type="text"
+                    value={this.state.text}
+                    onChange={this.handleChange.bind(this)}
+                    onBlur={this.handleBlur.bind(this)}/>
+                <span
+                    className="notice"
+                    onClick={this.handleClick.bind(this)}>{this.state.text}</span>
+            </div>
+        );
+    }
+}
+
+
 ReactDOM.render(
-    <Navigation></Navigation>, document.getElementById('app'));
+    <Editor />,
+    document.getElementById('app'));

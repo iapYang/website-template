@@ -32,3 +32,21 @@
         }
     }
 }
+
+.editor{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+
+    .input{
+        display: block;
+        margin: 0 auto;
+
+        &.hidden{
+            display: none;
+        }
+    }
+    .notice{
+        font-size: 30px;
+    }
+}
