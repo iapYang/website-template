@@ -56,6 +56,10 @@ const baseWebpackConfig = {
             scss: 'style!css!postcss!sass',
         },
         postcss: postcssConfig.plugins,
+        cssModules: {
+            localIdentName: '[path][name]---[local]---[hash:base64:5]',
+            camelCase: true,
+        },
     },
     postcss: postcssConfig,
     resolve: {
