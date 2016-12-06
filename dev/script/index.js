@@ -43,12 +43,12 @@ class Navigation extends React.Component {
         });
 
         return (
-            <div className="navigation">
+            <div className='navigation'>
                 <ul>
                     {lis}
                 </ul>
 
-                <h2 className="choice">
+                <h2 className='choice'>
                     You chose&nbsp;
                     <span>
                          {this.state.items[this.state.activeIndex]}
@@ -93,12 +93,12 @@ class Editor extends React.Component {
             <div className='editor'>
                 <input
                     className={inputClass}
-                    type="text"
+                    type='text'
                     value={this.state.text}
                     onChange={this.handleChange.bind(this)}
                     onBlur={this.handleBlur.bind(this)}/>
                 <span
-                    className="notice"
+                    className='notice'
                     onClick={this.handleClick.bind(this)}>{this.state.text}</span>
             </div>
         );
@@ -160,8 +160,8 @@ class Cart extends React.Component {
                     key={i}
                     className={itemClass}
                     onClick={this.handleClick.bind(this, item, i)}>
-                    <span className="name">{item.name}</span>
-                    <span className="price">${item.price}</span>
+                    <span className='name'>{item.name}</span>
+                    <span className='price'>${item.price}</span>
                 </li>
             );
         });
@@ -174,13 +174,13 @@ class Cart extends React.Component {
         });
 
         return (
-            <div className="cart">
-                <ul className="list">
+            <div className='cart'>
+                <ul className='list'>
                     {lis}
                 </ul>
-                <div className="total">
-                    <span className="text">total:</span>
-                    <span className="price">${totalPrice}</span>
+                <div className='total'>
+                    <span className='text'>total:</span>
+                    <span className='price'>${totalPrice}</span>
                 </div>
             </div>
         );
@@ -238,8 +238,8 @@ class Search extends React.Component {
         );
 
         return (
-            <div className="search">
-                <input type="text" onChange={this.handleChange.bind(this)}/>
+            <div className='search'>
+                <input type='text' onChange={this.handleChange.bind(this)}/>
                 <ul>
                     {lis}
                 </ul>
