@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import classNames from 'classnames';
+import update from 'immutability-helper';
 
 import '../style/index.scss';
 
@@ -94,7 +95,90 @@ class Editor extends React.Component {
     }
 }
 
+class Cart extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            items: [
+                {
+                    name: 'Web Development',
+                    price: 300,
+                    active: true,
+                },
+                {
+                    name: 'Design',
+                    price: 400,
+                    active: false,
+                },
+                {
+                    name: 'Integration',
+                    price: 250,
+                    active: false,
+                },
+                {
+                    name: 'Training',
+                    price: 220,
+                    active: false,
+                },
+            ],
+        };
+    }
+
+    handleClick(item, i) {
+        const newState = update(this.state, {
+            items: {
+                [i]: {
+                    active: {
+                        $set: !item.active,
+                    },
+                },
+            },
+        });
+
+        this.setState(newState);
+    }
+
+    render () {
+        const lis = this.state.items.map((item, i) => {
+            const itemClass = classNames({
+                active: item.active,
+            });
+
+            return (
+                <li
+                    key={i}
+                    className={itemClass}
+                    onClick={this.handleClick.bind(this, item, i)}>
+                    <span className="name">{item.name}</span>
+                    <span className="price">{item.price}</span>
+                </li>
+            );
+        });
+
+        let totalPrice = 0;
+        this.state.items.forEach(item => {
+            if (item.active) {
+                totalPrice += item.price;
+            }
+
+            return null;
+        });
+
+        return (
+            <div className="cart">
+                <ul className="list">
+                    {lis}
+                </ul>
+                <div className="total">
+                    <span className="text">total:</span>
+                    <span className="price">{totalPrice}</span>
+                </div>
+            </div>
+        );
+    }
+}
 
 ReactDOM.render(
-    <Editor />,
+    <Cart />,
     document.getElementById('app'));
