@@ -151,7 +151,7 @@ class Cart extends React.Component {
                     className={itemClass}
                     onClick={this.handleClick.bind(this, item, i)}>
                     <span className="name">{item.name}</span>
-                    <span className="price">{item.price}</span>
+                    <span className="price">${item.price}</span>
                 </li>
             );
         });
@@ -161,8 +161,6 @@ class Cart extends React.Component {
             if (item.active) {
                 totalPrice += item.price;
             }
-
-            return null;
         });
 
         return (
@@ -172,10 +170,17 @@ class Cart extends React.Component {
                 </ul>
                 <div className="total">
                     <span className="text">total:</span>
-                    <span className="price">{totalPrice}</span>
+                    <span className="price">${totalPrice}</span>
                 </div>
             </div>
         );
+    }
+}
+
+
+class Search extends React.Component {
+    render () {
+    
     }
 }
 
