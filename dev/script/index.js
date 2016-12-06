@@ -28,14 +28,24 @@ class Navigation extends React.Component {
         });
     }
     render() {
+        const lis = this.state.items.map((item, i) => {
+            const liClass = classNames({
+                active: this.state.activeIndex === i,
+            });
+
+            return (
+                <li key={i}
+                    className={liClass}
+                    onClick={this.clickHandler.bind(this, i)}>
+                    {item}
+                </li>
+            );
+        });
+
         return (
             <div className="navigation">
                 <ul>
-                    {this.state.items.map((item, i) =>
-                        <li key={i}
-                            className={this.state.activeIndex === i ? 'active' : ''}
-                            onClick={this.clickHandler.bind(this, i)}>{item}</li>
-                    )}
+                    {lis}
                 </ul>
 
                 <h2 className="choice">
@@ -177,13 +187,68 @@ class Cart extends React.Component {
     }
 }
 
-
 class Search extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            filterText: '',
+            items: [
+                {
+                    title: 'What You Need To Know About CSS Variables',
+                    poster: 'image/1.jpg',
+                },
+                {
+                    title: 'Freebie: 4 Great Looking Pricing Tables',
+                    poster: 'image/2.png',
+                },
+                {
+                    title: '20 Interesting JavaScript and CSS Libraries for February 2016',
+                    poster: 'image/3.png',
+                },
+                {
+                    title: 'Quick Tip: The Easiest Way To Make Responsive Headers',
+                    poster: 'image/4.jpg',
+                },
+                {
+                    title: 'Learn SQL In 20 Minutes',
+                    poster: 'image/5.jpg',
+                },
+                {
+                    title: 'Creating Your First Desktop App With HTML, JS and Electron',
+                    poster: 'image/6.png',
+                },
+            ],
+        };
+    }
+    handleChange(e) {
+        this.setState({
+            filterText: e.target.value,
+        });
+    }
     render () {
-    
+        const lis = this.state.items.filter(item =>
+            item.title.includes(this.state.filterText.toLowerCase())
+        ).map((item, i) =>
+            <li
+                key={i.toString()}>
+                <img src={item.poster} alt />
+                <h6>{item.title}</h6>
+            </li>
+        );
+
+        return (
+            <div className="search">
+                <input type="text" onChange={this.handleChange.bind(this)}/>
+                <ul>
+                    {lis}
+                </ul>
+            </div>
+        );
     }
 }
 
 ReactDOM.render(
-    <Cart />,
-    document.getElementById('app'));
+    <Navigation />,
+    document.getElementById('app')
+);

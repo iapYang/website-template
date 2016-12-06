@@ -97,5 +97,31 @@
 .search {
     width: 30%;
     margin: 0 auto;
-    
+
+    input{
+        width: 100%;
+        border: 5px solid black;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    ul{
+        li{
+            padding: 10px;
+            border-bottom: 1px solid gray;
+
+            img{
+                width: 20%;
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
+            }
+            h6{
+                width: 75%;
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 20px;
+            }
+        }
+    }
 }
