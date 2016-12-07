@@ -248,6 +248,13 @@ class Search extends React.Component {
     }
 }
 
+
+/* ================================================================= */
+
+
+
+
+
 ReactDOM.render(
     <Cart />,
     document.getElementById('app')
