@@ -249,6 +249,6 @@ class Search extends React.Component {
 }
 
 ReactDOM.render(
-    <Navigation />,
+    <Cart />,
     document.getElementById('app')
 );
