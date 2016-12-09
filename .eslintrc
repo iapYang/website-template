@@ -124,7 +124,7 @@
 
         // 空白
         "indent": ["error", 4, {
-            "SwitchCase": 1
+            "SwitchCase": 1,
         }], // 缩进控制4空格
         "no-mixed-spaces-and-tabs": "error", // 禁止使用 空格 和 tab 混合缩进
         "space-before-blocks": ["error", "always"], // 语句块之前的需要有空格

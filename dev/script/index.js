@@ -251,6 +251,26 @@ class Search extends React.Component {
 
 /* ================================================================= */
 
+import store from '../store';
+import {
+    addTodo,
+    toggleTodo,
+    setVisibilityFilter,
+    VisibilityFilters,
+} from '../store/actions';
+
+
+const unsubscribe = store.subscribe(() =>
+    console.log(store.getState())
+);
+
+store.dispatch(addTodo('aaaa'));
+// store.dispatch(addTodo('bbbb'));
+// store.dispatch(addTodo('cccc'));
+// store.dispatch(addTodo('dddd'));
+
+unsubscribe();
+
 
 
 
