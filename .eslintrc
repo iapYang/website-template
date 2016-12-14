@@ -24,8 +24,10 @@
         "no-prototype-builtins": "error", // 禁止直接使用 Object.prototypes 的内置属性
         "no-extend-native": "error", // 禁止扩展原生对象
         "no-new-object": "error", // 禁止使用 Object 构造函数
-        "object-shorthand": ["error", "always"], //要求对象字面量简写语法
+        "object-shorthand": ["error", "always"], // 要求对象字面量简写语法
         "quote-props": ["error", "as-needed"], // 对象属性只在需要的时候加引号
+        "object-property-newline": "error", // 对象属性必须分行书写
+        "key-spacing": "error", // 对象属性冒号前不可以有空格，冒号后必须有一个空格
 
 
         // 数组
@@ -158,6 +160,9 @@
             "before": true,
             "after": false,
         }], // 强制 yield* 表达式中  * 号前有空格，后无空格
+        "no-multiple-empty-lines": ["error", {
+            "max": 2,
+        }], // 禁止出现2个以上的空行
 
 
         // 逗号

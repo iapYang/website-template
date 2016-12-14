@@ -82,7 +82,6 @@ function registerEvents() {
     });
 
 
-
     new EntranceListener({
         el: document.getElementById('dv2'),
         offset: 500,
@@ -127,7 +126,6 @@ function init() {
         },
     });
 }
-
 
 
 window.addEventListener('load', init, false);
