@@ -3,193 +3,279 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import classNames from 'classnames';
+import update from 'immutability-helper';
 
-class Clock extends React.Component {
-    constructor(props) {
-        super(props);
+import '../style/index.scss';
+
+class Navigation extends React.Component {
+    constructor() {
+        super();
 
         this.state = {
-            date: new Date(),
-        }
-
-        this.clickHandler = this.clickHandler.bind(this);
+            items: [
+                'home',
+                'projects',
+                'services',
+                'concat',
+            ],
+            activeIndex: 0,
+        };
     }
-
-    componentDidMount() {
-        this.timmer = setInterval(() => {
-            this.tick();
-        }, 1000);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timmer);
-    }
-
-    tick() {
+    clickHandler(i) {
         this.setState({
-            date: new Date(),
+            activeIndex: i,
         });
     }
-
-    clickHandler() {
-        console.log(this);
-    }
-
     render() {
+        const lis = this.state.items.map((item, i) => {
+            const liClass = classNames({
+                active: this.state.activeIndex === i,
+            });
+
+            return (
+                <li key={i}
+                    className={liClass}
+                    onClick={this.clickHandler.bind(this, i)}>
+                    {item}
+                </li>
+            );
+        });
+
         return (
-            <div>
-                <button onClick={this.clickHandler}>click</button>
-                <h1 className={this.props.className}>Hello, world!</h1>
-                <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+            <div className='navigation'>
+                <ul>
+                    {lis}
+                </ul>
+
+                <h2 className='choice'>
+                    You chose&nbsp;
+                    <span>
+                         {this.state.items[this.state.activeIndex]}
+                    </span>
+                </h2>
             </div>
         );
     }
 }
 
+class Editor extends React.Component {
+    constructor() {
+        super();
 
-class UserGreeting extends React.Component {
-    constructor(props) {
-        super(props);
+        this.state = {
+            text: 'editor me',
+            hideInput: true,
+        };
     }
+    handleClick() {
+        this.setState({
+            hideInput: !this.state.hideInput,
+        });
+    }
+    handleChange(event) {
+        this.setState({
+            text: event.target.value,
+        });
+    }
+    handleBlur() {
+        this.setState({
+            hideInput: true,
+        });
+    }
+    render () {
+        const inputClass = classNames({
+            input: true,
+            hidden: this.state.hideInput,
+        });
 
-    render() {
         return (
-            <h1>Welcome back!</h1>
+            <div className='editor'>
+                <input
+                    className={inputClass}
+                    type='text'
+                    value={this.state.text}
+                    onChange={this.handleChange.bind(this)}
+                    onBlur={this.handleBlur.bind(this)}/>
+                <span
+                    className='notice'
+                    onClick={this.handleClick.bind(this)}>{this.state.text}</span>
+            </div>
         );
     }
 }
 
-class GuestGreeting extends React.Component {
+class Cart extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            items: [
+                {
+                    name: 'Web Development',
+                    price: 300,
+                    active: true,
+                },
+                {
+                    name: 'Design',
+                    price: 400,
+                    active: false,
+                },
+                {
+                    name: 'Integration',
+                    price: 250,
+                    active: false,
+                },
+                {
+                    name: 'Training',
+                    price: 220,
+                    active: false,
+                },
+            ],
+        };
     }
 
-    render() {
+    handleClick(item, i) {
+        const newState = update(this.state, {
+            items: {
+                [i]: {
+                    active: {
+                        $set: !item.active,
+                    },
+                },
+            },
+        });
+
+        this.setState(newState);
+    }
+
+    render () {
+        const lis = this.state.items.map((item, i) => {
+            const itemClass = classNames({
+                active: item.active,
+            });
+
+            return (
+                <li
+                    key={i}
+                    className={itemClass}
+                    onClick={this.handleClick.bind(this, item, i)}>
+                    <span className='name'>{item.name}</span>
+                    <span className='price'>${item.price}</span>
+                </li>
+            );
+        });
+
+        let totalPrice = 0;
+        this.state.items.forEach(item => {
+            if (item.active) {
+                totalPrice += item.price;
+            }
+        });
+
         return (
-            <h1>Please sign up.</h1>
+            <div className='cart'>
+                <ul className='list'>
+                    {lis}
+                </ul>
+                <div className='total'>
+                    <span className='text'>total:</span>
+                    <span className='price'>${totalPrice}</span>
+                </div>
+            </div>
         );
     }
 }
 
-class Greeting extends React.Component {
+class Search extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isLoggedIn: props.isLoggedIn,
+            filterText: '',
+            items: [
+                {
+                    title: 'What You Need To Know About CSS Variables',
+                    poster: 'image/1.jpg',
+                },
+                {
+                    title: 'Freebie: 4 Great Looking Pricing Tables',
+                    poster: 'image/2.png',
+                },
+                {
+                    title: '20 Interesting JavaScript and CSS Libraries for February 2016',
+                    poster: 'image/3.png',
+                },
+                {
+                    title: 'Quick Tip: The Easiest Way To Make Responsive Headers',
+                    poster: 'image/4.jpg',
+                },
+                {
+                    title: 'Learn SQL In 20 Minutes',
+                    poster: 'image/5.jpg',
+                },
+                {
+                    title: 'Creating Your First Desktop App With HTML, JS and Electron',
+                    poster: 'image/6.png',
+                },
+            ],
         };
     }
-
-    render() {
-        if (this.state.isLoggedIn) {
-            return <UserGreeting />
-        }
-
-        return <GuestGreeting />
-    }
-}
-
-function toCelsius(fahrenheit) {
-  return (fahrenheit - 32) * 5 / 9;
-}
-
-function toFahrenheit(celsius) {
-  return (celsius * 9 / 5) + 32;
-}
-
-class BoilingVerdict extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        if(this.props.celsius >= 100){
-            return <p>The water would boil.</p>
-        }
-
-        return <p>The water would not boil.</p>
-    }
-}
-
-const scaleNames = {
-    c: 'Celsius',
-    f: 'Fahrenheit',
-};
-
-class TemperatureInput extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: '',
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-    }
-
     handleChange(e) {
         this.setState({
-            value: e.target.value,
+            filterText: e.target.value,
         });
     }
-
-    render() {
-        const value = this.state.value;
-        const scale = this.props.scale;
-
-        return (
-            <filedset>
-                <legend>Enter temperature in {scaleNames[scale]}:</legend>
-                <input
-                    value={this.state.value}
-                    onChange={this.handleChange} />
-            </filedset>
+    render () {
+        const lis = this.state.items.filter(item =>
+            item.title.includes(this.state.filterText.toLowerCase())
+        ).map((item, i) =>
+            <li
+                key={i.toString()}>
+                <img src={item.poster} alt />
+                <h6>{item.title}</h6>
+            </li>
         );
-    }
-}
 
-class Calculator extends React.Component {
-    render() {
         return (
-            <div>
-                <TemperatureInput scale="c" />
-                <TemperatureInput scale="f" />
-            </div>
-        )
-    }
-}
-
-class FancyBorder extends React.Component {
-    render() {
-        return (
-            <div className={'FancyBorder FancyBorder-' + this.props.color}>
-                {this.props.children}
+            <div className='search'>
+                <input type='text' onChange={this.handleChange.bind(this)}/>
+                <ul>
+                    {lis}
+                </ul>
             </div>
         );
     }
 }
+
+
+/* ================================================================= */
+
+import store from '../store';
+import {
+    addTodo,
+    toggleTodo,
+    setVisibilityFilter,
+    VisibilityFilters,
+} from '../store/actions';
+
+
+const unsubscribe = store.subscribe(() =>
+    console.log(store.getState())
+);
+
+store.dispatch(addTodo('aaaa'));
+// store.dispatch(addTodo('bbbb'));
+// store.dispatch(addTodo('cccc'));
+// store.dispatch(addTodo('dddd'));
+
+unsubscribe();
+
+
+
+
 
 ReactDOM.render(
-    <div>
-        <Greeting isLoggedIn={true} />
-        <Clock className="tttaaaaa" />
-        <ul>
-            {[1, 2, 3, 4, 5].map((number) =>
-                <li key={number.toString()}>
-                    {number}
-                </li>
-            )}
-        </ul>
-        <Calculator />
-
-        <FancyBorder color="blue">
-      <h1 className="Dialog-title">
-        Welcome
-      </h1>
-      <p className="Dialog-message">
-        Thank you for visiting our spacecraft!
-      </p>
-    </FancyBorder>
-    </div>,
+    <Cart />,
     document.getElementById('app')
 );

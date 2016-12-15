@@ -1,16 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import {createStore} from 'redux';
+import todoApp from './reducers';
 
-import state from './state';
-import getters from './getters';
-import mutations from './mutations';
-import actions from './actions';
+const store = createStore(todoApp);
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-    state,
-    getters,
-    mutations,
-    actions,
-});
+export default store;

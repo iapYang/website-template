@@ -1,14 +1,14 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(factory);
-	} else if (typeof exports === 'object') {
-		// CommonJS
-		module.exports = factory();
-	} else {
-		// Browser global
-		factory();
-	}
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // CommonJS
+        module.exports = factory();
+    } else {
+        // Browser global
+        factory();
+    }
 }(this, function() {
     //////////
     // Name //
@@ -44,8 +44,8 @@
     var defaultOptions = {
         triggered: false,
         offset: 0,
-        enter: function(){},
-        leave: function(){},
+        enter: function() {},
+        leave: function() {},
     };
 
     var Component = function(opts) {
@@ -64,27 +64,27 @@
 
     Component.sourceQueue = [];
 
-    function entranceHandler(){
+    function entranceHandler() {
         var innerHeight = window.innerHeight;
 
-        Component.sourceQueue.forEach(function(item){
+        Component.sourceQueue.forEach(function(item) {
             var rect = item.el.getBoundingClientRect();
             var reached = (rect.top + item.offset) < innerHeight;
             var outed = rect.top >= innerHeight;
 
-            if(reached && !item.triggered){
+            if (reached && !item.triggered) {
                 item.triggered = true;
                 item.enter.call(item.el);
             }
 
-            if(outed && item.triggered){
+            if (outed && item.triggered) {
                 item.triggered = false;
                 item.leave.call(item.el);
             }
         });
     }
 
-    if(window[COMPONENT_NAME] === undefined){
+    if (window[COMPONENT_NAME] === undefined) {
         window[COMPONENT_NAME] = Component;
     }
 

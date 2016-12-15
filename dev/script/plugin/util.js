@@ -92,8 +92,8 @@
         return JSON.parse(str);
     };
 
-    Component.substringByWord = function(str, length){
-        if(str.length > length){
+    Component.substringByWord = function(str, length) {
+        if (str.length > length) {
             str = str.substring(0, str.lastIndexOf(' ', length));
         }
 
@@ -145,7 +145,7 @@
     // social //
     ////////////
 
-    Component.shareFacebook = function(opts){
+    Component.shareFacebook = function(opts) {
         var path = 'https://www.facebook.com/dialog/feed?' +
             'app_id=' + encodeURIComponent(opts.app_id) +
             '&link=' + encodeURIComponent(opts.link) +
@@ -157,15 +157,15 @@
         window.open(path, '_blank');
     };
 
-    Component.shareTwitter = function(opts){
+    Component.shareTwitter = function(opts) {
         var path = 'https://twitter.com/intent/tweet?' +
-        'text=' + encodeURIComponent(opts.text) +
-        '&url=' + encodeURIComponent(opts.href);
+            'text=' + encodeURIComponent(opts.text) +
+            '&url=' + encodeURIComponent(opts.href);
 
         window.open(path, '_blank');
     };
 
-    Component.sharePinterest = function(opts){
+    Component.sharePinterest = function(opts) {
         var path = 'https://pinterest.com/pin/create/link/?' +
             'url=' + encodeURIComponent(opts.url) +
             '&media=' + encodeURIComponent(opts.media) +
@@ -175,7 +175,7 @@
     };
 
 
-    if(window[COMPONENT_NAME] === undefined){
+    if (window[COMPONENT_NAME] === undefined) {
         window[COMPONENT_NAME] = Component;
     }
 
