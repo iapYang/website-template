@@ -3,6 +3,7 @@
 .sass-cache
 .tmp
 node_modules
+bower_components
 tmp
 dist
 archive
