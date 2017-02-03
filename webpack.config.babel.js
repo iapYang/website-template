@@ -49,7 +49,7 @@ const baseWebpackConfig = {
                 loader: 'file-loader?limit=1024&name=font/[name].[ext]',
             },
             {
-                test: /\.(png|gif)$/,
+                test: /\.(jpg|jpeg|png|gif)$/,
                 loader: 'url-loader?mimetype=image/png',
             },
         ],
