@@ -1,8 +1,10 @@
-import 'babel-polyfill';
-
-
-// start
+import React from 'react';
 import Platform from 'plugin/platform.js';
 
-
-// end
+export default class extends React.Component {
+    render() {
+        return (
+            <h1>123</h1>
+        );
+    }
+}
