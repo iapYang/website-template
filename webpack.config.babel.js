@@ -24,9 +24,12 @@ const baseWebpackConfig = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 loader: 'babel',
-                exclude: /node_module/,
+                // include: [
+                //     path.resolve(__dirname, 'node_module', 'paidpost-core'),
+                // ],
+                exclude: /node_module\/(?!paidpost-core)/,
             },
             {
                 test: /\.vue$/,
@@ -70,6 +73,11 @@ const baseWebpackConfig = {
         alias: {
             vue$: 'vue/dist/vue.js',
         },
+        extensions: ['', '.js', '.jsx'],
+        fallback: path.join(__dirname, 'node_modules'),
+    },
+    resolveLoader: {
+        fallback: path.join(__dirname, 'node_modules'),
     },
 };
 
