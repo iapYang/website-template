@@ -26,9 +26,6 @@ const baseWebpackConfig = {
             {
                 test: /\.(js|jsx)$/,
                 loader: 'babel',
-                // include: [
-                //     path.resolve(__dirname, 'node_module', 'paidpost-core'),
-                // ],
                 exclude: /node_module\/(?!paidpost-core)/,
             },
             {
