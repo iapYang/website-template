@@ -8,10 +8,12 @@ import Platform from './plugin/platform.js';
 
 import Demo from './components/Demo';
 
+import scss from './style/main.scss';
+
 export default class extends React.Component {
     render() {
         return (
-            <div>
+            <div className={scss.PaidPostArticle}>
                 <Demo />
             </div>
         );
