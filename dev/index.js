@@ -1,6 +1,8 @@
 import React from 'react';
 import Platform from './plugin/platform.js';
 
+import Demo from './components/Demo';
+
 // import {
 //     PaidPostArticle,
 //     BodyCopy,
@@ -9,7 +11,9 @@ import Platform from './plugin/platform.js';
 export default class extends React.Component {
     render() {
         return (
-            <h1>123</h1>
+            <div>
+                <Demo />
+            </div>
         );
     }
 }
