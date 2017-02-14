@@ -1,0 +1,315 @@
+// Shared Styles
+%LayoutContainer {
+  display: flex;
+  flex-direction: column;
+  // TODO: was align-items: center, so review change for any unintended side effects
+  align-items: stretch;
+  justify-content: center;
+
+  // Fix IE 11 flexbug: https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
+  // See also: https://github.com/philipwalton/flexbugs/issues/75
+  & > #{$content-selector} {
+    min-height: 1px;
+  }
+}
+
+@mixin layout-non-floating {
+  @include full-bleed;
+  padding: 0;
+
+  & > #{$content-selector} {
+    @include _size-class-apply-outer-margin-to-element(padding);
+  }
+
+  // Within a full-bleed LayoutContainer
+  &.full-bleed {
+    &:first-child {
+      &.with-vertical-margins {
+        margin-top: 0;
+      }
+    }
+
+    &:last-child {
+      &.with-vertical-margins {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+%layout-non-floating {
+  @include layout-non-floating;
+
+  &.with-vertical-padding {
+    @include size-class(all-desktop) {
+      @include limit-raw-vw(padding-top, vw($vertical-margin));
+      @include limit-raw-vw(padding-bottom, vw($vertical-margin));
+    }
+
+    @media (max-width: get-pspx-width(desktop px) * $vertical-margin-min/$vertical-margin) {
+      padding-top: px($vertical-margin-min);
+      padding-bottom: px($vertical-margin-min);
+    }
+  }
+
+  &.with-vertical-margins {
+    @include size-class(all-desktop) {
+      @include limit-raw-vw(margin-top, vw($vertical-margin));
+      @include limit-raw-vw(margin-bottom, vw($vertical-margin));
+    }
+
+    @media (max-width: get-pspx-width(desktop px) * $vertical-margin-min/$vertical-margin) {
+      margin-top: px($vertical-margin-min);
+      margin-bottom: px($vertical-margin-min);
+    }
+  }
+}
+
+%layout-center {
+  @extend %LayoutContainer, %layout-non-floating;
+
+  & > #{$content-selector} {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+%layout-full-bleed {
+  @extend %LayoutContainer, %layout-non-floating;
+
+  & > #{$content-selector} {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+%layout-full-screen {
+  @extend %layout-full-bleed;
+  position: relative;
+
+  // With either vertical margins or vertical padding
+  &.with-vertical-margins, &.with-vertical-padding {
+    @include size-class(all-desktop) {
+      min-height: calc(100vh - #{vw($vertical-margin) * 2} - 117px);
+    }
+
+    @media (max-width: get-pspx-width(desktop px) * 30/60) {
+      min-height: calc(100vh - #{px($vertical-margin) * 2} - 117px);
+    }
+  }
+
+  &.with-vertical-margins.with-vertical-padding {
+    @include size-class(all-desktop) {
+      min-height: calc(100vh - #{vw($vertical-margin) * 4} - 117px);
+    }
+
+    @media (max-width: get-pspx-width(desktop px) * 30/60) {
+      min-height: calc(100vh - #{px($vertical-margin) * 4} - 117px);
+    }
+  }
+}
+
+%layout-floating {
+  @extend %LayoutContainer;
+
+  @include size-class(desktop for $floating-tablet-min-width to Infinity) {
+    position: relative;
+    z-index: 3;
+
+    clear: both;
+    @include font-size(16, vw, 16) {
+      margin-top: em(9);
+      margin-bottom: em(36);
+    }
+  }
+
+  // TODO: Implement withMargins and withPadding support
+  // TODO: fix for mobile-portrait when a <h3> only-child BodyCopy is followed by a floating LayoutContainer
+  // (maybe float layout types ignore these settings except for mobile-portrait???)
+
+  @include size-class(join(mobile-portrait for, map-get($floating-layout-breakpoints, mobile))) {
+    @include layout-non-floating;
+
+    & > #{$content-selector} {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &.with-vertical-margins {
+      margin-top: px($vertical-margin-min);
+      margin-bottom: px($vertical-margin-min);
+    }
+
+    &.with-vertical-padding {
+      padding-top: px($vertical-margin-min);
+      padding-bottom: px($vertical-margin-min);
+    }
+  }
+}
+
+%layout-float-left {
+  @extend %layout-floating;
+
+  @include size-class(desktop for $floating-tablet-min-width to Infinity) {
+    float: left;
+
+    @include font-size(16, vw, 16) {
+      margin-right: em(36);
+    }
+  }
+}
+
+%layout-float-left + * {
+  clear: right;
+}
+
+%layout-float-right {
+  @extend %layout-floating;
+
+  @include size-class(desktop for $floating-tablet-min-width to Infinity) {
+    float: right;
+
+    @include font-size(16, vw, 16) {
+      margin-left: em(36);
+    }
+  }
+}
+
+%layout-float-right + * {
+  clear: left;
+}
+
+@mixin apply-layout-for-config($layout, $aspect, $size-classes) {
+  // Begin Get Column Widths
+  $container-columns: $size-classes;
+  $container-breakpoints: map-get($layout-breakpoints, $layout);
+  $floating-margin-x: ();
+
+  // Error Checking
+  @each $key, $column-width in $container-columns {
+    @if type-of($column-width) != number {
+      @error "LayoutContainer SCSS got unsupported options: " + $layout + ", " + $aspect + ", " + $key;
+    }
+  }
+  // End Get Column Widths
+
+  $desktop-and-tablet-portrait-width-selector: "& > " + $content-selector;
+  $desktop-and-tablet-portrait-width-coefficient: $outer-margin-coefficient;
+  $is-floating: false;
+
+  @if $layout == float-left or $layout == float-right {
+    $desktop-and-tablet-portrait-width-selector: "&";
+    $desktop-and-tablet-portrait-width-coefficient: 1;
+    $is-floating: true;
+    $floating-margin-x: map-get($floating-margin-x-for-aspects, $aspect);
+  }
+
+  // Begin Width Calculations
+  $mobile-portrait-width: 100%;
+  $tablet-portrait-min-width: 0;
+  $mobile-portrait-width-applied: 100%;
+
+  @include size-class(mobile-portrait) {
+    $mobile-portrait-width: span(map-get($container-columns, mobile));
+    // Wide aspect ratio elements should be full-bleed on mobile portrait
+    @if $aspect == wide or $aspect == square {
+      $mobile-portrait-width: $mobile-portrait-width + gutter() * 2;
+    }
+
+    $mobile-portrait-width-applied: $mobile-portrait-width * $outer-margin-coefficient;
+    @if $mobile-portrait-width-applied > 100% {
+      $mobile-portrait-width-applied: 100%;
+    }
+
+    $tablet-portrait-min-width: $mobile-portrait-width / 100% * get-pspx-width(tablet-portrait min px) * $outer-margin-coefficient;
+    @if $tablet-portrait-min-width > get-pspx-width(tablet-portrait min px) {
+      $tablet-portrait-min-width: get-pspx-width(tablet-portrait min px);
+    }
+  }
+
+  $desktop-min-width: 0;
+  @include size-class(tablet-portrait) {
+    $desktop-min-width: span( map-get($container-columns, tablet) ) / 100% * get-pspx-width(tablet-landscape min px) * $desktop-and-tablet-portrait-width-coefficient;
+    @if $tablet-portrait-min-width > $desktop-min-width {
+      $desktop-min-width: $tablet-portrait-min-width;
+    }
+  }
+  // End Width Calculations
+
+  // Set the container (min-)width.
+  #{$desktop-and-tablet-portrait-width-selector} {
+    // Begin Desktop Size Class
+    @include size-class(join(desktop for, map-get($container-breakpoints, desktop))) {
+      // Assign width property value
+      width: span( map-get($container-columns, desktop) ) * $desktop-and-tablet-portrait-width-coefficient;
+
+      @if $is-floating == true {
+        // Apply margin
+        @if map-get($floating-margin-x, desktop) > 0 {
+          $margin-value: span(map-get($floating-margin-x, desktop)) + gutter();
+          margin-#{if($layout == float-left, left, if($layout == float-right, right, error) )}: $margin-value * $desktop-and-tablet-portrait-width-coefficient;
+        }
+      } @else {
+        // Set a min-width for the desktop size class based on the tablet width
+        min-width: $desktop-min-width;
+      }
+    }
+    // End Desktop Size Class
+
+    // Begin Tablet Portrait Size Class
+    @include size-class(join(tablet-portrait for, map-get($container-breakpoints, tablet))) {
+      width: span( map-get($container-columns, tablet) ) * $desktop-and-tablet-portrait-width-coefficient;
+
+      @if $is-floating == true {
+        // Apply margin
+        @if map-get($floating-margin-x, desktop) > 0 {
+          $margin-value: span(map-get($floating-margin-x, tablet)) + gutter();
+          margin-#{if($layout == float-left, left, if($layout == float-right, right, error) )}: $margin-value * $desktop-and-tablet-portrait-width-coefficient;
+        }
+      } @else {
+        // Set a min-width for the tablet portrait size class based on the mobile width
+        min-width: $tablet-portrait-min-width;
+      }
+    }
+    // End Tablet Portrait Size Class
+  }
+
+  #{$content-selector} {
+    // Begin Mobile Portrait Size Class
+    @include size-class(join(mobile-portrait for, map-get($container-breakpoints, mobile))) {
+      width: $mobile-portrait-width-applied;
+    }
+    // End Mobile Portrait Size Class
+
+    $caption-mobile-portrait-width-breakpoint: ($mobile-portrait-width-applied / 100% * get-pspx-width(tablet-portrait min px)) / $outer-margin-coefficient;
+
+    @if $caption-mobile-portrait-width-breakpoint >= get-pspx-width(tablet-portrait min px) {
+      @media (max-width: $caption-mobile-portrait-width-breakpoint) {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+        width: auto;
+      }
+    }
+  }
+}
+
+// Aspect-Specific Styles
+@mixin LayoutContainer($type, $aspects) {
+  @if type-of($aspects) == map {
+    @each $aspect, $size-classes in $aspects {
+      .LayoutContainer-#{$type}-#{$aspect} {
+        @extend %layout-#{$type};
+
+        @if type-of($type) {
+          @include apply-layout-for-config($type, $aspect, $size-classes);
+        }
+      }
+    }
+  } @else {
+    .LayoutContainer-#{$type} {
+      @extend %layout-#{$type};
+    }
+  }
+}

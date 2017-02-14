@@ -1,0 +1,144 @@
+@import "~nytpi-sass-utils/size-class";
+@import "~nytpi-sass-utils/font-size";
+@import "~nytpi-sass-utils/media-vw";
+
+$blockquoteFontSize: 48;
+$blockquoteFontSizeTablet: 36;
+$blockquoteFontSizeMobile: 30;
+
+$blockquoteLineHeight: 52;
+$blockquoteLineHeightTablet: 40;
+
+
+// Note: Using @1x scale factor
+@include set-pspx-ratio(1);
+
+.PullQuote {
+  @include size-class(all-desktop) {
+    margin-bottom: em($blockquoteFontSize, $blockquoteFontSize);
+    @include size-class(compact) {
+      @include _size-class-apply-outer-margin-to-element(padding);
+      margin-bottom: em($blockquoteFontSizeMobile);
+    } 
+  }
+  blockquote {
+    margin: 0;
+    // Creates a hanging quote - revise margin-left if it doesn't work with all fonts
+    &:before {
+      content: "“";
+    }
+
+    &:after {
+      content: "”";
+    }
+    &.hanging-quotation {
+      &:before {
+        position: absolute;
+        display: inline-block;
+        width: 1em;
+        margin-left: calc(-1em + -2px);
+        text-align: right;
+      }
+    }
+
+    //font-sizes for float-left and float-right
+    @include size-class(all-desktop) {
+      @include font-size($blockquoteFontSize, vw, $blockquoteFontSize) {
+        line-height: em($blockquoteLineHeight);
+      }
+      @include size-class(tablet-portrait to mobile-portrait) {
+        @include font-size($blockquoteFontSizeTablet, vw, $blockquoteFontSizeMobile, $blockquoteFontSizeTablet) {
+          line-height: em($blockquoteLineHeightTablet);
+        }
+      }
+    }
+
+    @include size-class(compact) {
+      @include font-size($blockquoteFontSizeMobile, em, $blockquoteFontSizeMobile) {
+        line-height: em($blockquoteLineHeightTablet);
+      }
+    }
+  }
+
+  cite {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-style: normal;
+    color: #484848;
+    &:before {
+      content: "—";
+    }
+    //font-sizes for float-left and float-right
+    @include size-class(all-desktop) {
+      @include font-size(24, vw, 24) {
+        line-height: em(48);
+      }
+      @include size-class(tablet-portrait to mobile-portrait) {
+        @include font-size(24, vw, 21, 24) {
+          line-height: em(36);
+        }
+      }
+      @include size-class(compact) {
+        @include font-size(21, em, 21) {
+          line-height: em(36);
+        }
+      }
+    }
+  }
+
+  &.full-bleed, &.full-screen {
+    margin: 0 auto;
+    @include size-class(regular) {
+      width: span(8);
+      @include size-class(tablet-portrait) {
+        width: span(6);
+      }
+    }
+    @include size-class(compact) {
+      width: 100%;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+    blockquote {
+      //font-sizes for full-bleed and full-screen
+      @include size-class(all-desktop) {
+        @include font-size(48, vw, 48) {
+          line-height: em(50);
+        }
+        @include size-class(tablet-portrait to mobile-portrait) {
+          @include font-size(32, vw, 30, 32) {
+            line-height: em(36);
+          }
+        }
+      }
+      @include size-class(compact) {
+        @include font-size(30, em, 30) {
+          line-height: 36px;
+        }
+      }
+    }
+    cite {
+      //font-sizes for full-bleed and full-screen
+      @include size-class(all-desktop) {
+        @include font-size(24, vw, 24);
+        line-height: em(48);
+        @include size-class(tablet-portrait to mobile-portrait) {
+          @include font-size(24, vw, 21, 24) {
+            line-height: em(36);
+          }
+        }
+      }
+
+      @include size-class(compact) {
+        @include font-size(21);
+        line-height: 36px;
+      }
+    }
+  }
+  &.left {
+    text-align: left;
+  }
+  &.center {
+    text-align: center;
+  }
+}

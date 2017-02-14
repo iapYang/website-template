@@ -1,0 +1,8 @@
+// Shared Layout and Typography
+%LayoutContainer {
+  margin: 0 auto;
+
+  #{$content-selector} {
+    overflow: hidden;
+  }
+}

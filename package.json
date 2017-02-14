@@ -10,9 +10,6 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "paidpost-core": "github:nytpi/paidpost-core#v2.5.9"
-  },
   "devDependencies": {
     "babel-core": "^6.20.0",
     "babel-loader": "^6.2.9",

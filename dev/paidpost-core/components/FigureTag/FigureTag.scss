@@ -1,0 +1,114 @@
+@import "~nytpi-sass-utils/size-class";
+@import "~nytpi-sass-utils/font-size";
+@include set-pspx-ratio(1);
+
+$font-size: 12;
+$min-font-size: $font-size;
+$line-height: 14;
+$margin-top: 8;
+$cite-font-size: $font-size /*10*/;
+$cite-margin-top: 4;
+$letter-spacing: 25;
+
+.FigureTag {
+  margin: 0 auto;
+
+  figcaption {
+    position: relative;
+    @include size-class(all-desktop) {
+      @include font-size($font-size, vw, $min-font-size) {
+        line-height: em($line-height);
+        letter-spacing: $letter-spacing/1000 * 1em;
+
+        span {
+          display: block;
+          padding-top: em($margin-top);
+        }
+
+        cite {
+          font-style: normal;
+          color: #808080;
+          display: block;
+          text-align: right;
+          margin: 0;
+          position: absolute;
+          top: 100%;
+          padding-top: em($margin-top, $cite-font-size);
+          right: 0;
+          @include font-size($cite-font-size, em) {
+            line-height: em($line-height);
+            padding-right: em($margin-top);
+          }
+        }
+
+        * + cite {
+          padding-top: em($cite-margin-top, $cite-font-size);
+          padding-right: 0;
+          text-align: left;
+          position: static;
+        }
+      }
+    }
+  }
+
+  // TODO: Review caption implementation with ImageView
+
+  // TODO: Re-implement support for max-height optimization
+  //&.center-wide, &.center-square, &.center-narrow,
+  //&.float-left-wide, &.float-left-square,
+  //&.float-right-wide, &.float-right-square {
+  //  img {
+  //    max-height: calc(100vh - 117px);
+  //  }
+  //}
+
+  $outer-margin-coefficient: (100% - get-outer-margin() * 2) / 100%;
+  $caption-mobile-portrait-width-breakpoint: get-pspx-width(tablet-portrait min px) / $outer-margin-coefficient;
+
+  &.center-wide, &.center-square {
+    @media (max-width: $caption-mobile-portrait-width-breakpoint) {
+      padding: 0;
+      img {
+        width: get-pspx-width(tablet-portrait min px) / $caption-mobile-portrait-width-breakpoint * 100%;
+        min-width: get-pspx-width(tablet-portrait min px);
+      }
+    }
+  }
+
+  &.center-wide, &.center-square,
+  &.float-left-wide, &.float-left-square,
+  &.float-right-wide, &.float-right-square {
+    @media (max-width: $caption-mobile-portrait-width-breakpoint) {
+      figcaption {
+        padding-left: get-outer-margin();
+        padding-right: get-outer-margin();
+      }
+    }
+
+    @include size-class(mobile-portrait) {
+      img {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+  }
+
+  &.full-bleed, &.full-screen {
+    @include full-bleed;
+    padding: 0;
+  }
+
+  &.full-screen {
+    width: 100%;
+    height: 100%;
+
+    figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      padding-left: em($margin-top, $font-size);
+      padding-right: em($margin-top, $font-size);
+    }
+  }
+}

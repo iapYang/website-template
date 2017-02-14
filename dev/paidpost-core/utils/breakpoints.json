@@ -1,0 +1,15 @@
+{
+  "mobile-portrait": "(max-width: 539px)",
+  "tablet-portrait": "(min-width: 540px) and (max-width: 853px)",
+  "tablet-landscape": "(min-width: 854px) and (max-width: 1279px)",
+  "desktop": "(min-width: 1280px)",
+  "between-desktop-and-shell": "(min-width: 1280px) and (max-width: 1604px)",
+  "shell": "(min-width: 1605px)",
+  "mobile-portrait to tablet-portrait": "(max-width: 853px)",
+  "tablet-portrait to mobile-portrait": "(max-width: 853px)",
+  "desktop to tablet-landscape": "(min-width: 854px)",
+  "tablet-portrait to tablet-landscape": "(min-width: 540px) and (max-width: 1279px)",
+  "tablet-landscape to tablet-portrait": "(min-width: 540px) and (max-width: 1279px)",
+  "compact": "(max-width: 539px)",
+  "regular": "(min-width: 540px)"
+}

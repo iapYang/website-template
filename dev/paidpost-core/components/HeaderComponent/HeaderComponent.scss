@@ -1,0 +1,295 @@
+@import "~nytpi-sass-utils/size-class";
+@import "~nytpi-sass-utils/font-size";
+@import "~nytpi-sass-utils/media-vw";
+@import "~nytpi-sass-utils/index";
+
+@include set-pspx-ratio(2);
+
+$top-furniture-height: 117px;
+
+.background-image {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #000;
+}
+.header-caption{
+  font-weight: lighter;
+  font-size: 10px;
+  line-height: 12px;
+  position: absolute;
+  bottom: -15px;
+  right: 10px;
+  color: #ccc;
+}
+.post-header {
+  margin:0 0;
+  // overflow:hidden;
+  box-sizing: border-box;
+  position: relative;
+  /*Universal background setup*/
+  background-size: cover;
+  @include full-bleed;
+}
+.header-container {
+  position: absolute;
+  z-index: 12;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.video-background {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 230px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right center;
+  overflow: hidden;
+
+  video {
+    @include size-class(compact) {
+      display: none;
+    }
+  }
+}
+.scroll-icon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 48px;
+  height: 42px;
+  margin: 0 auto;
+  width: 2.75em;
+  min-width: 42px;
+  //background-image: url(../images/scroll-icon.svg);
+  // background: url('data:image/svg+xml;utf8,<svg ...> ... </svg>');
+  path {
+    fill: #ffffff;
+  }
+  @include size-class(compact) {
+    bottom: 30px;
+    height: 30px;
+    width: 30px;
+  }
+}
+.header-text {
+  color: #ffffff;
+  text-align: center;
+  box-sizing: border-box;
+  h2 {
+
+  }
+  @include size-class(regular) {
+    width: span(8 of 12);
+    min-width: 300px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    h2 {
+      width: span(6 of 12);
+      padding-top: gutter();
+    }
+  }
+  @include size-class(tablet-portrait) {
+    width: 75%;
+    padding: 24px 2% 24px 2%;
+    h2 {
+      width: 100%;
+      padding-top: gutter();
+    }
+  }
+  @include size-class(compact) {
+    width: 100%;
+    min-width: 200px;
+    padding: 25px 5% 25px 5%;
+    h2 {
+      padding-top: gutter() * 1.25;
+    }
+  }
+  /* Reenable to fade in on load*/
+  // opacity: 0;
+  // @include animation(3s fadeIn forwards);
+  // @include animation-delay(2s);
+  h1 {
+    font-weight: 700;
+    margin: 0px auto;
+    @include size-class(regular) {
+      @include font-size(104, vw, 45) {
+        line-height: em(112);
+      }
+    }
+    @include size-class(tablet-portrait) {
+      height: auto;
+      @include font-size(96, vw, auto) {
+        line-height: em(104);
+      }
+    }
+    @include size-class(compact) {
+      @include font-size(72, vw, auto) {
+        line-height: em(76);
+      }
+    }
+  }
+  h2 {
+    &,
+    * {
+      font-weight: 400;
+    }
+    margin:0 auto;
+    @include size-class(regular) {
+      width: 61%;
+      @include font-size(40, vw) {
+          line-height: em(58);
+      }
+    }
+    @include size-class(tablet-portrait) {
+      width: 100%;
+      @include font-size(36, vw) {
+          line-height: em(52);
+      }
+    }
+    @include size-class(compact) {
+      @include font-size(32, em) {
+          line-height: em(44);
+      }
+    }
+  }
+}
+// &.header-video {
+//     @include size-class(regular) {
+//         height: auto;
+//         @include height-ratio(9/16);
+//         //Temporarily give background images until Radium is supported
+//         // background-image: url("http://ad-assets.nytimes.com/paidpost/milkpep/a-fresh-look/images/bg_intro.jpg")
+//     }
+//     @include size-class(tablet-portrait) {
+//         height: auto;
+//         @include height-ratio(9/16);
+//     }
+//     @include size-class(compact) {
+//         // background-image: url("http://ad-assets.nytimes.com/paidpost/milkpep/a-fresh-look/images/bg_intro.jpg");
+//         @include height-ratio(854/640);
+//     }
+//     //Hide the video on mobile
+//     video {
+//         @include size-class(compact) {
+//             display: none;
+//         }
+//     }
+// }
+.header-full {
+  //Rough estimation of full height; may need to refine
+  @include size-class(regular) {
+    @include full-height-max-aspect-ratio(16/9, $top-furniture-height);
+    // height: calc(100vh - #{$top-furniture-height});
+    // min-height: 388px;
+  }
+  @include size-class(compact) {
+    height: calc(100vh - #{$top-furniture-height});
+    max-height: 388px;
+  }
+
+}
+.header-partial {
+  /* Indesign files don't specify, assuming full height on mobile*/
+  @include size-class(regular) {
+    @include height-ratio(388/1280);
+    min-height: 388px;
+  }
+  @include size-class(compact) {
+    height: calc(100vh - #{$top-furniture-height});
+    max-height: 388px;
+  }
+}
+.header-bottom {
+  @include size-class(regular) {
+    @include full-height-max-aspect-ratio(16/9, $top-furniture-height);
+    // height: calc(100vh - #{$top-furniture-height});
+    // min-height: 388px;
+  }
+  @include size-class(compact) {
+    height: calc(100vh - #{$top-furniture-height});
+    max-height: 388px;
+  }
+  .header-container {
+    align-items: flex-end;
+    @include size-class(compact) {
+      width: 105.1724137931%;
+      margin-left: -5.1724137931%;
+      margin-right: -5.1724137931%;
+    }
+    .scroll-icon {
+      height: 32px;
+      width: 32px;
+      path {
+        fill: black;
+      }
+      @include size-class(regular) {
+          bottom: 28px;
+      }
+      @include size-class(tablet-portrait){
+          bottom:23px;
+      }
+      @include size-class(compact){
+          bottom:18px;
+      }
+    }
+    .header-text {
+      background-color: white;
+      color: black;
+      @include size-class(regular) {
+        width: 60%;
+        padding: 48px 7.65625% 48px 7.65625%;
+        h2 {
+            padding-top: gutter() * 1.25;
+        }
+      }
+      @include size-class(tablet-portrait) {
+        width: 90.10417%;
+        padding: 47px 7.65625% 43px 7.65625%;
+        h2 {
+            margin-top: 20px;
+        }
+        &:after {
+            margin-top: 26px;
+        }
+      }
+      @include size-class(compact) {
+        width: 100%;
+        padding: 40px 9.375% 40px 9.375%;
+        &:after {
+            width: 42%;
+            margin-top: 28px;
+        }
+      }
+    }
+    //Change the bottom padding if we have a scroll icon
+    .scroll-icon ~ .header-text {
+      @include size-class(regular) {
+          padding-bottom: 80px;
+      }
+      @include size-class(tablet-portrait) {
+          padding-bottom: 72px;
+      }
+      @include size-class(compact){
+          padding-bottom:66px;
+      }
+    }
+  }
+}

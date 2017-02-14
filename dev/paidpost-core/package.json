@@ -1,0 +1,129 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "paidpost-core@github:nytpi/paidpost-core#v2.5.9",
+        "scope": null,
+        "escapedName": "paidpost-core",
+        "name": "paidpost-core",
+        "rawSpec": "github:nytpi/paidpost-core#v2.5.9",
+        "spec": "github:nytpi/paidpost-core#v2.5.9",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:nytpi/paidpost-core.git#v2.5.9",
+          "sshUrl": "git+ssh://git@github.com/nytpi/paidpost-core.git#v2.5.9",
+          "httpsUrl": "git+https://github.com/nytpi/paidpost-core.git#v2.5.9",
+          "gitUrl": "git://github.com/nytpi/paidpost-core.git#v2.5.9",
+          "shortcut": "github:nytpi/paidpost-core#v2.5.9",
+          "directUrl": "https://raw.githubusercontent.com/nytpi/paidpost-core/v2.5.9/package.json"
+        }
+      },
+      "/Users/work/github/website-template"
+    ]
+  ],
+  "_from": "nytpi/paidpost-core#v2.5.9",
+  "_id": "paidpost-core@2.5.9",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/paidpost-core",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "paidpost-core@github:nytpi/paidpost-core#v2.5.9",
+    "scope": null,
+    "escapedName": "paidpost-core",
+    "name": "paidpost-core",
+    "rawSpec": "github:nytpi/paidpost-core#v2.5.9",
+    "spec": "github:nytpi/paidpost-core#v2.5.9",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:nytpi/paidpost-core.git#v2.5.9",
+      "sshUrl": "git+ssh://git@github.com/nytpi/paidpost-core.git#v2.5.9",
+      "httpsUrl": "git+https://github.com/nytpi/paidpost-core.git#v2.5.9",
+      "gitUrl": "git://github.com/nytpi/paidpost-core.git#v2.5.9",
+      "shortcut": "github:nytpi/paidpost-core#v2.5.9",
+      "directUrl": "https://raw.githubusercontent.com/nytpi/paidpost-core/v2.5.9/package.json"
+    }
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/nytpi/paidpost-core.git#df8e198011c3df67b3419431d1e017a6416236af",
+  "_shasum": "b3d135d041fc04e353c88771d46e377e41cfc7c0",
+  "_shrinkwrap": null,
+  "_spec": "paidpost-core@github:nytpi/paidpost-core#v2.5.9",
+  "_where": "/Users/work/github/website-template",
+  "author": {
+    "name": "T Brand Studio"
+  },
+  "bugs": {
+    "url": "https://github.com/nytpi/paidpost-core/issues"
+  },
+  "contributors": [
+    {
+      "name": "Joseph Kohlmann",
+      "email": "joseph.kohlmann@nytimes.com"
+    },
+    {
+      "name": "Haldane Henry",
+      "email": "haldane.henry@nytimes.com"
+    }
+  ],
+  "dependencies": {
+    "JKSizeClassEventHandler": "github:nytpi/JKSizeClassEventHandler",
+    "aphrodite": "^1.1.0",
+    "classnames": "^2.2.5",
+    "ismobilejs": "^0.4.0",
+    "jquery": "2.1.4",
+    "normalize.css": "^5.0.0",
+    "nytpi-sass-utils": "github:nytpi/nytpi-sass-utils#v2.3.1",
+    "raw-loader": "^0.5.1",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "slick-carousel": "^1.6.0"
+  },
+  "description": "Essential components for NYTPI Paid Posts. Based on React, Aphrodite, Sass, and more.",
+  "devDependencies": {
+    "np": "^2.10.1",
+    "scaffolding-next": "github:nytpi/scaffolding-next#v4.3.3"
+  },
+  "gitHead": "df8e198011c3df67b3419431d1e017a6416236af",
+  "homepage": "https://github.com/nytpi/paidpost-core#readme",
+  "keywords": [
+    "component",
+    "component-demo",
+    "paidpost",
+    "react",
+    "webpack"
+  ],
+  "license": "ISC",
+  "main": "index.jsx",
+  "name": "paidpost-core",
+  "optionalDependencies": {
+    "JKSizeClassEventHandler": "github:nytpi/JKSizeClassEventHandler",
+    "aphrodite": "^1.1.0",
+    "classnames": "^2.2.5",
+    "ismobilejs": "^0.4.0",
+    "jquery": "2.1.4",
+    "raw-loader": "^0.5.1",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
+  },
+  "private": true,
+  "readme": "# paidpost-core (ignore below pending review)\n\n### Clone the paidpost-core Repository\n\n```bash\n# Clone this repo to <your componentname>\n$ git clone https://github.com/nytpi/paidpost-core.git <your componentname>\n$ cd <your componentname>\n# Make this repo your own\n$ rm -rf .git\n$ git init\n$ git remote add origin <your repo>\ngit add .\ngit commit -m \"Initial Commit\"\ngit push origin master\n# Install NPM dependencies\nnpm install\nnpm run guide\n```\n\nIf all is well it's time to start building...\n\nSo start by renaming samplecomponent and other related files based on your component's name. You will have to close the preview task and `npm run guide` once you change filenames.\n\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nytpi/paidpost-core.git"
+  },
+  "scripts": {
+    "build": "scaffolding",
+    "clean": "rimraf build && rimraf .tmp",
+    "guide": "styleguidist-bootstrap",
+    "guide-build": "styleguidist-bootstrap build",
+    "lint": "eslint ./ --ext .js --ext .jsx",
+    "lint-css": "stylelint ./**/**/*.scss"
+  },
+  "version": "2.5.9"
+}

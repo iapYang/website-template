@@ -1,0 +1,59 @@
+language: node_js
+node_js:
+  - "6.3"
+before_install:
+  - export PATH=$PATH:$HOME/bin/
+  # Install git-lfs if it's not already installed
+  - if ! [[ $(which git-lfs) ]]; then mkdir -p $HOME/bin && wget https://github.com/github/git-lfs/releases/download/v1.4.4/git-lfs-linux-amd64-1.4.4.tar.gz && tar xvfz git-lfs-linux-amd64-1.4.4.tar.gz && mv git-lfs-1.4.4/git-lfs $HOME/bin/git-lfs; fi
+  - echo -e "machine github.com\n  login $GITHUB_TOKEN" >> ~/.netrc
+  # - export SCAFFOLDING_NEXT_COMMIT_HASH=`git rev-parse --verify HEAD`
+before_script:
+  # Enter the $HOME/$TEST_PROJECT working copy
+  # - mkdir -p $HOME/$TEST_PROJECT
+  - cd $HOME/$TEST_PROJECT
+  # Clone $TEST_PROJECT if the directory is empty
+  - if ! [[ $(ls -A .) ]]; then git clone https://github.com/nytpi/$TEST_PROJECT.git . && git config push.default current; else git reset --hard && git pull; fi
+  # Initialize / Update Git LFS
+  - git lfs pull
+  # Replace the scaffolding-next devDependency commitish (probably a version tag) with scaffolding-next's current commit hash
+  - sed -i "s~\("$TRAVIS_REPO_SLUG"\)[^\"']*~\1#"$TRAVIS_COMMIT"~" package.json
+  # If the node_modules folder already exists, then just `npm install scaffolding-next`; if it doesn't, install all dependencies
+  # Use Bash string operators (http://stackoverflow.com/a/3162500) to install just the repo name (based on $TRAVIS_REPO_SLUG)
+  - if [[ -d node_modules ]]; then npm install && npm install ${TRAVIS_REPO_SLUG##*/}; else npm install; fi
+  # Install Percy
+  - if [[ $USE_PERCY ]]; then gem install percy-cli; fi
+# Skip installation (we need to install $TEST_PROJECT instead!)
+install: true
+env:
+  global:
+    - PERCY_PROJECT="$TRAVIS_REPO_SLUG"
+    - TEST_PROJECT="demo-paidpost-core"
+    - SERVER_COMMAND="scaffolding --env.hot --env.devServer --env.devServerClientPort=3002"
+    - DEV_COMMAND="scaffolding"
+    - PROD_COMMAND="$DEV_COMMAND -p"
+    - PREVIEW_COMMAND="preview"
+    - STYLEGUIDE_COMMAND="styleguidist-bootstrap build"
+script:
+  # Note: we're already within the demo-paidpost-core folder by now
+  - $DEV_COMMAND --env.preset=nyt5
+  # Run the Preview Script
+  - $PREVIEW_COMMAND
+  # Run Dev Server Command
+  # - $SERVER_COMMAND --env.preset=nyt5
+  # Run Production Build Command
+  - $PROD_COMMAND --env.preset=nyt5
+  # Run Styleguide Command
+  - $STYLEGUIDE_COMMAND
+  # Run nyt5_legacy Commands
+  - $DEV_COMMAND --env.preset=nyt5_legacy
+  # - $SERVER_COMMAND --env.preset=nyt5_legacy && rm -rf
+  - $PROD_COMMAND --env.preset=nyt5_legacy
+  # Remove production build folders (useless for visual diffs)
+  - rm -rf build/*-production
+after_script:
+  # Take Percy Snapshots
+  - if [[ $USE_PERCY ]]; then percy snapshot --enable_javascript --widths "320,768,1280" build/; fi
+cache:
+  directories:
+    - $HOME/$TEST_PROJECT
+    - $HOME/bin

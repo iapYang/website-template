@@ -1,0 +1,99 @@
+@import "~nytpi-sass-utils/size-class";
+@import "~nytpi-sass-utils/font-size";
+
+.vhs {
+  :global {
+    /* Designed for VHS Version 2.89.0 */
+    .vhs-media-action-overlay.vhs-homepage-cover {
+      $scale-factor: 1.0;
+      $additional-margin: 38px * ($scale-factor - 1.0) / 2;
+      padding-bottom: 20px;
+
+      @include size-class(all-desktop) {
+        //@include font-size(32 * $scale-factor, vw, 32) {
+        //	padding-bottom: calc(20px + #{em(76 * ($scale-factor - 1.0))});
+        //}
+      }
+
+      .vhs-updated-homepage-cover {
+        .vhs-cover-duration-headline-summary {
+          @include size-class(all-desktop) {
+            @include font-size(20 * $scale-factor, vw, 20) {
+              margin-left: em(20 * $scale-factor);
+            }
+          }
+
+          /* Change metadata container typeface */
+          .vhs-video-title, .vhs-video-length, .vhs-video-summary {
+            font-family: 'Source Sans Pro', sans-serif;
+            /* Note: paidpost-v2.2.1.css loads Source Sans Pro weights 200, 300, and 400 */
+            font-weight: 400;
+          }
+
+          /* Hide video duration */
+          .vhs-video-length {
+            display: none;
+          }
+
+          /* Remove headline margin-top since duration is now hidden */
+          .vhs-video-title {
+            margin-top: 0;
+            //font-size: 24px * $scale-factor;
+            //line-height: 26px * $scale-factor;
+
+            @include size-class(all-desktop) {
+              @include font-size(48 * $scale-factor, vw, 48) {
+                line-height: em(52 * $scale-factor);
+              }
+            }
+          }
+        }
+
+        .vhs-cover-play-icon {
+          align-self: center;
+          min-width: 38px;
+          min-height: 38px;
+          flex: 0 0 auto;
+          //margin-right: $additional-margin;
+          //height: 38px/* * $scale-factor*/;
+          //padding: 38px * ($scale-factor - 1.0) / 2 0;
+
+          .vhs-play-circle {
+            //transform: scale($scale-factor);
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            //@include size-class(desktop) {
+            //	@include limit-raw-vw(width, vw(38 * 2));
+            //	@include limit-raw-vw(height, vw(38 * 2));
+            //
+            //	circle {
+            //		@include limit-raw-vw(cx, vw(19px * 2 / 1px));
+            //		@include limit-raw-vw(cy, vw(19px * 2 / 1px));
+            //		@include limit-raw-vw(r, vw(17.5px * 2 / 1px));
+            //	}
+            //
+            //}
+          }
+
+          .vhs-play-triangle {
+            width: 100%;
+            height: 100%;
+          }
+
+          @include size-class(all-desktop) {
+            @include font-size(32 * $scale-factor, vw, 32) {
+              width: em(76 * $scale-factor);
+              height: em(76 * $scale-factor);
+              //margin-right: em(76 * ($scale-factor - 1.0) / 2);
+            }
+          }
+        }
+      }
+    }
+  }
+}

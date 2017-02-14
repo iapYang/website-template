@@ -1,0 +1,90 @@
+$LayoutContainer-margin-y: 60;
+
+$floating-columns: (
+  wide: (
+    desktop: 5,
+    tablet: 4,
+    mobile: 4
+  ),
+  square: (
+    desktop: 4,
+    tablet: 3,
+    mobile: 4
+  ),
+  narrow: (
+    desktop: 3,
+    tablet: 3,
+    mobile: 3
+  )
+);
+
+$LayoutContainerColumns: (
+  center: (
+    wide: (
+      desktop: 10,
+      tablet: 7,
+      mobile: 4
+    ),
+    square: (
+      desktop: 8,
+      tablet: 6,
+      mobile: 4
+    ),
+    narrow: (
+      desktop: 6,
+      tablet: 4,
+      mobile: 3
+    )
+  ),
+  float-left: $floating-columns,
+  float-right: $floating-columns,
+  full-bleed: (),
+  full-screen: ()
+);
+
+$non-floating-layout-breakpoints: (
+  desktop: desktop to tablet-landscape,
+  tablet: tablet-portrait,
+  mobile: mobile-portrait
+);
+
+//$floating-tablet-min-width: (get-pspx-width(tablet-landscape min px) + get-pspx-width(tablet-portrait min px)) / 2;
+
+$floating-tablet-min-width: get-pspx-width(tablet-portrait min px);
+
+$floating-layout-breakpoints: (
+  desktop: desktop to tablet-landscape,
+  tablet: get-pspx-width(tablet-landscape min px) to $floating-tablet-min-width,
+  mobile: 0 to ($floating-tablet-min-width - 1)
+);
+
+$layout-breakpoints: (
+  center: $non-floating-layout-breakpoints,
+  full-bleed: $non-floating-layout-breakpoints,
+  full-screen: $non-floating-layout-breakpoints,
+  float-left: $non-floating-layout-breakpoints,//$floating-layout-breakpoints,
+  float-right: $non-floating-layout-breakpoints//$floating-layout-breakpoints
+);
+
+$floating-margin-x-for-aspects: (
+  wide: (
+    desktop: 1,
+    tablet: 0,
+    mobile: 0
+  ),
+  square: (
+    desktop: 2,
+    tablet: 0,
+    mobile: 0
+  ),
+  narrow: (
+    desktop: 2,
+    tablet: 0,
+    mobile: 0
+  )
+);
+
+$content-selector: ".content";
+
+$vertical-margin: 60;
+$vertical-margin-min: 30;

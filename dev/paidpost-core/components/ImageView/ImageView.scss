@@ -1,0 +1,25 @@
+@import "~nytpi-sass-utils/size-class";
+@import "~nytpi-sass-utils/font-size";
+@include set-pspx-ratio(1);
+
+$following-margin-top: 16;
+
+.ImageView {
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+.ImageView + .ImageView {
+  @include size-class(mobile-portrait to tablet-landscape) {
+    margin-top: px($following-margin-top);
+  }
+
+  @include size-class(desktop) {
+    @include limit-raw-vw(margin-top, vw($following-margin-top));
+  }
+}

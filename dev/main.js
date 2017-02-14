@@ -18,12 +18,13 @@ ReactDOM.render(
         <div className="header"
             style={{
                 position: 'fixed',
-                maxWidth: 1605,
-                height: 118,
-                backgroundColor: 'gray',
                 left: 0,
                 top: 0,
                 right: 0,
+                zIndex: 99999,
+                maxWidth: 1605,
+                height: 118,
+                backgroundColor: 'gray',
                 margin: '0 auto',
                 boxShadow: '-1px 0 4px 0 #e2e2e2',
                 borderRight: '1px solid #e2e2e2',

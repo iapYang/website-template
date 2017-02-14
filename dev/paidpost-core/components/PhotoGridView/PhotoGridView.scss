@@ -1,0 +1,245 @@
+@import "~nytpi-sass-utils/index";
+@import "~nytpi-sass-utils/size-class";
+@import "~nytpi-sass-utils/font-size";
+
+@include set-pspx-ratio(1);
+
+$base-font-size: 16;
+$min-font-size: null;
+
+%PhotoGridView-flex {
+  @include size-class(desktop to tablet-portrait) {
+    & > .content {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      @include font-size($base-font-size, vw, $min-font-size);
+
+      & > * {
+        flex: 0 1 auto;
+        margin: 0;
+
+        figcaption {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @include size-class(mobile-portrait) {
+    & > figcaption {
+      display: none;
+    }
+  }
+}
+
+%PhotoGridView-float {
+  @include size-class(desktop to tablet-portrait) {
+    & > .content {
+      float: left;
+      width: 100%;
+
+      & > * {
+        figcaption {
+          display: none;
+        }
+      }
+    }
+
+    & > figcaption {
+      clear: both;
+    }
+  }
+}
+
+.PhotoGridView-2 {
+  @extend %PhotoGridView-flex;
+
+  @include size-class(desktop to tablet-portrait) {
+    & > .content > * {
+      // flexbug #8
+      flex-grow: 0;
+      flex-shrink: 1;
+      flex-basis: calc(50% - #{em(8, $base-font-size)});
+    }
+
+    &.alternate {
+      & > .content {
+        & > *:first-child {
+          // flexbug #8
+          flex-grow: 0;
+          flex-shrink: 1;
+          flex-basis: calc(70% - #{em(8, $base-font-size)});
+        }
+
+        & > *:last-child {
+          // flexbug #8
+          flex-grow: 0;
+          flex-shrink: 1;
+          flex-basis: calc(30% - #{em(8, $base-font-size)});
+        }
+      }
+
+
+      &.flip > .content {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+}
+
+.PhotoGridView-3 {
+  @extend %PhotoGridView-flex;
+
+  @include size-class(desktop to tablet-portrait) {
+    &:not(.alternate) {
+      & > .content {
+        & > *:nth-child(2) {
+          margin: 0 em(16, $base-font-size);
+        }
+      }
+    }
+
+    &.alternate {
+      & > .content {
+        align-items: stretch;
+
+        & > .middle {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          margin-left: em(16, $base-font-size);
+        }
+      }
+
+      &.flip > .content {
+        flex-direction: row-reverse;
+
+        & > .middle {
+          margin-left: 0;
+          margin-right: em(16, $base-font-size);
+        }
+      }
+    }
+  }
+}
+
+.PhotoGridView-4 {
+  @extend %PhotoGridView-flex;
+
+  &:not(.alternate) {
+    @include size-class(desktop to tablet-portrait) {
+      &:not(.column) {
+        & > .content > * {
+          &:last-child {
+            margin-left: em(16, $base-font-size);
+          }
+
+          & > *:last-child {
+            margin-top: em(16, $base-font-size);
+          }
+        }
+
+        &.flip > .content {
+          flex-direction: row-reverse;
+
+          & > *:last-child {
+            margin-left: 0;
+            margin-right: em(16, $base-font-size);
+          }
+        }
+      }
+
+      &.column {
+        & > .content {
+          flex-direction: column;
+
+          & > * {
+            display: flex;
+            flex-direction: row;
+
+            &:last-child {
+              margin-top: em(16, $base-font-size);
+            }
+
+            & > *:last-child {
+              margin-left: em(16, $base-font-size);
+            }
+          }
+        }
+
+        &.flip > .content > * {
+          flex-direction: row-reverse;
+
+          & > *:last-child {
+            margin-left: 0;
+            margin-right: em(16, $base-font-size);
+          }
+        }
+      }
+    }
+  }
+
+  &.alternate {
+    @include size-class(desktop to tablet-portrait) {
+      & > .content {
+        align-items: stretch;
+      }
+
+      & > .content > .middle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 em(16, $base-font-size);
+      }
+
+      &:not(.column) {
+
+      }
+
+      &.column {
+
+      }
+    }
+  }
+
+  //@include size-class(desktop to tablet-portrait) {
+  //  & > .content {
+  //    float: left;
+  //    width: 100%;
+  //  }
+  //
+  //  & > .content > * {
+  //    overflow: hidden;
+  //    width: calc(50% - 8px);
+  //    height: calc(50% - 8px);
+  //    float: left;
+  //
+  //    figcaption {
+  //      display: none;
+  //    }
+  //
+  //    &:nth-child(even) {
+  //      margin-left: 16px;
+  //    }
+  //
+  //    &:nth-child(n + 3) {
+  //      margin-top: 16px;
+  //    }
+  //
+  //    &:nth-child(3) {
+  //      clear: left;
+  //    }
+  //
+  //    &:nth-child(n + 4) {
+  //      clear: none;
+  //    }
+  //  }
+  //
+  //  & > figcaption {
+  //    clear: both;
+  //  }
+  //}
+}
