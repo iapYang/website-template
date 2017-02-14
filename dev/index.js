@@ -14,9 +14,7 @@ export default class extends React.Component {
     render() {
         return (
             <PaidPostArticle className={scss.PaidPostArticle}>
-                <BodyCopy>
-                    <Demo />
-                </BodyCopy>
+                <Demo />
             </PaidPostArticle>
         );
     }
