@@ -70,6 +70,11 @@ const baseWebpackConfig = {
         alias: {
             vue$: 'vue/dist/vue.js',
         },
+        extensions: ['', '.js', '.jsx'],
+        fallback: path.join(__dirname, 'node_modules'),
+    },
+    resolveLoader: {
+        fallback: path.join(__dirname, 'node_modules'),
     },
 };
 
