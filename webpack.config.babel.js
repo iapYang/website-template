@@ -42,7 +42,7 @@ const baseWebpackConfig = {
             },
             {
                 test: /\.scss$/,
-                loader: 'style!css!postcss!sass',
+                loader: 'style!css?modules&localIdentName=[name]-[local]--[hash:base64:5]!postcss!sass',
             },
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,

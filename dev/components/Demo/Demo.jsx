@@ -5,8 +5,6 @@ import scss from './Demo.scss';
 
 class Demo extends Component {
     render() {
-        console.log('==========', scss);
-
         return (
             <div className={classnames(
                 scss.Demo
