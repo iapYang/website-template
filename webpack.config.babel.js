@@ -26,7 +26,7 @@ const baseWebpackConfig = {
             {
                 test: /\.(js|jsx)$/,
                 loader: 'babel',
-                exclude: /node_module\/(?!paidpost-core)/,
+                exclude: /node_module/,
             },
             {
                 test: /\.vue$/,
