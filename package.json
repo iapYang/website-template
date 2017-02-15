@@ -37,6 +37,18 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2",
-    "webpack-merge": "^1.0.2"
+    "webpack-merge": "^1.0.2",
+    "np": "^2.10.1",
+    "scaffolding-next": "github:nytpi/scaffolding-next#v4.3.3"
+  },
+  "dependencies": {
+    "JKSizeClassEventHandler": "github:nytpi/JKSizeClassEventHandler",
+    "aphrodite": "^1.1.0",
+    "ismobilejs": "^0.4.0",
+    "jquery": "2.1.4",
+    "normalize.css": "^5.0.0",
+    "nytpi-sass-utils": "github:nytpi/nytpi-sass-utils#v2.3.1",
+    "raw-loader": "^0.5.1",
+    "slick-carousel": "^1.6.0"
   }
 }
