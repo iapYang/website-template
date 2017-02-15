@@ -12,7 +12,7 @@ class Demo extends Component {
                 scss.Demo
             )}>
                 <h1>hello</h1>
-                <img src={require(`../../${data.cover}`)} />
+                <img src={`../../${data.cover}`} />
             </div>
         );
     }
