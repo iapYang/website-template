@@ -1,6 +1,7 @@
 .DS_Store
 .svn
 .sass-cache
+.vscode
 .tmp
 node_modules
 bower_components
@@ -9,5 +10,3 @@ dist
 archive
 archive.zip
 *.log
-
-dev/vendors
