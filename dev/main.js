@@ -6,7 +6,7 @@ import Index from './index.js';
 import './style/_reset.scss';
 
 ReactDOM.render(
-    <div className="container"
+    <article id="story"
         style={{
             maxWidth: 1605,
             margin: '0 auto',
@@ -46,6 +46,6 @@ ReactDOM.render(
                     fontSize: 30,
                 }}>footer</div>
         </div>
-    </div>,
+    </article>,
     document.getElementById('app')
 );
