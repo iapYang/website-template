@@ -5,3 +5,4 @@
 
 - index.js中'./paidpost-core’引用改为’paidpost-core’
 
+

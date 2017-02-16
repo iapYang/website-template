@@ -1,0 +1,18 @@
+@import "~nytpi-sass-utils";
+@import "~nytpi-sass-utils/size-class";
+@import "~nytpi-sass-utils/font-size";
+
+@import "./style/reset";
+
+@include set-pspx-ratio(1);
+
+/////////////////////////////
+// Write your styles here! //
+/////////////////////////////
+
+// Make sure this is the last line of the file.
+@include set-pspx-ratio(2);
+
+.PaidPostArticle {
+    padding: 0;
+}

@@ -8,7 +8,7 @@ import {
 
 import Demo from './components/Demo';
 
-import scss from './style/main.scss';
+import scss from './index.scss';
 
 export default class extends React.Component {
     render() {
