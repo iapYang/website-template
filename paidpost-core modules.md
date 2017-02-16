@@ -315,3 +315,14 @@
 | source   | object  | 视频资源，需要'video/webm'和'video/mp4'两个属性值 |
 | duration | number  | ？                                    |
 
+```react
+<VideoPlayer
+  id="background-video-container"
+  poster={require(`../../${props.data.post}`)}
+  source={props.data.source}
+  controls={false}
+  autoplay={true}
+  loop={true}
+  nativePoster={true}
+/>
+```

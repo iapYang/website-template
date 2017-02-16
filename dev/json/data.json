@@ -1,3 +1,7 @@
 {
-    "cover": "images/1.jpg"
+    "cover": "images/1.jpg",
+    "source": {
+        "video/webm": "https://video1.nytimes.com/paidpost/ibm/bee2b/header_v3.webm",
+        "video/mp4": "https://video1.nytimes.com/paidpost/ibm/bee2b/header_v3.mp4"
+    }
 }

@@ -5,6 +5,9 @@ import scss from './Demo.scss';
 
 import data from '../../json/data.json';
 
+import {
+    BodyCopy,
+} from '../../paidpost-core';
 
 function require(str) {
     return str;
