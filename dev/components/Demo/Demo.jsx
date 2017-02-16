@@ -5,6 +5,11 @@ import scss from './Demo.scss';
 
 import data from '../../json/data.json';
 
+
+function require(str) {
+    return str;
+}
+
 class Demo extends Component {
     render() {
         return (
@@ -12,7 +17,7 @@ class Demo extends Component {
                 scss.Demo
             )}>
                 <h1>hello</h1>
-                <img src={`../../${data.cover}`} />
+                <img src={require(`../../${data.cover}`)} />
             </div>
         );
     }
