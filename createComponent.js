@@ -25,12 +25,14 @@ const jsxContent =
 import classnames from 'classnames';
 
 import scss from './${name}.scss';
+import reset from '../../style/reset.scss';
 
 class ${name} extends Component {
     render() {
         return (
             <div className={classnames(
-                scss.${name}
+                scss.${name},
+                reset.root
             )}>
             </div>
         );

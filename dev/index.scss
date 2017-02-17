@@ -2,13 +2,21 @@
 @import "~nytpi-sass-utils/size-class";
 @import "~nytpi-sass-utils/font-size";
 
-@import "./style/reset";
-
 @include set-pspx-ratio(1);
 
 /////////////////////////////
 // Write your styles here! //
 /////////////////////////////
+
+html{
+    /* Prevent font scaling in landscape while allowing user zoom */
+    -webkit-text-size-adjust: 100%;
+
+    /* fix font family display error on different browsers */
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
 
 .PaidPostArticle {
     padding: 0;
