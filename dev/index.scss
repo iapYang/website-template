@@ -12,6 +12,10 @@ article[id='story']{
     picture{
         overflow: hidden !important;
     }
+
+    div[data-slick-index]{
+        outline: none;
+    }
 }
 
 html{
