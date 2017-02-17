@@ -8,6 +8,12 @@
 // Write your styles here! //
 /////////////////////////////
 
+article[id='story']{
+    picture{
+        overflow: hidden !important;
+    }
+}
+
 html{
     /* Prevent font scaling in landscape while allowing user zoom */
     -webkit-text-size-adjust: 100%;
