@@ -22,35 +22,47 @@ const baseWebpackConfig = {
         filename: '[name].js',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel',
+                use: [
+                    'babel-loader',
+                ],
                 exclude: /node_module/,
             },
             {
                 test: /\.vue$/,
-                loader: 'vue',
-            },
-            {
-                test: /\.json$/,
-                loader: 'json',
+                use: [
+                    'vue-loader',
+                ],
             },
             {
                 test: /\.css$/,
-                loader: 'style!css',
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
             },
             {
                 test: /\.scss$/,
-                loader: 'style!css!postcss!sass',
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader',
+                ],
             },
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-                loader: 'file-loader?limit=1024&name=font/[name].[ext]',
+                use: [
+                    'file-loader?limit=1024&name=font/[name].[ext]',
+                ],
             },
             {
                 test: /\.(jpg|jpeg|png|gif)$/,
-                loader: 'url-loader?mimetype=image/png',
+                use: [
+                    'url-loader?mimetype=image/png',
+                ],
             },
         ],
     },
@@ -70,8 +82,11 @@ const baseWebpackConfig = {
         alias: {
             vue$: 'vue/dist/vue.js',
         },
-        extensions: ['', '.js', '.jsx'],
-        fallback: path.join(__dirname, 'node_modules'),
+        extensions: ['.js', '.jsx'],
+        modules: [
+            'node_modules',
+        ],
+        // fallback: path.join(__dirname, 'node_modules'),
     },
     resolveLoader: {
         fallback: path.join(__dirname, 'node_modules'),
