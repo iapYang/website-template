@@ -33,20 +33,7 @@ const baseWebpackConfig = {
             {
                 test: /\.vue$/,
                 use: [
-                    {
-                        loader: 'vue-loader',
-                        options: {
-                            loaders: {
-                                sass: 'style-loader!css-loader!postcss-loader!sass-loader?indentedSyntax',
-                                scss: 'style-loader!css-loader!postcss-loader!sass-loader',
-                            },
-                            postcss: postcssConfig.plugins,
-                            cssModules: {
-                                localIdentName: '[path][name]---[local]---[hash:base64:5]',
-                                camelCase: true,
-                            },
-                        },
-                    },
+                    'vue-loader',
                 ],
             },
             {
@@ -61,12 +48,7 @@ const baseWebpackConfig = {
                 use: [
                     'style-loader',
                     'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: postcssConfig.plugins,
-                        },
-                    },
+                    'postcss-loader',
                     'sass-loader',
                 ],
             },
@@ -93,6 +75,24 @@ const baseWebpackConfig = {
             'node_modules',
         ],
     },
+    plugins: [
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: postcssConfig.plugins,
+                vue: {
+                    postcss: postcssConfig.plugins,
+                    loaders: {
+                        sass: 'style-loader!css-loader!postcss-loader!sass-loader?indentedSyntax',
+                        scss: 'style-loader!css-loader!postcss-loader!sass-loader',
+                    },
+                    cssModules: {
+                        localIdentName: '[path][name]---[local]---[hash:base64:5]',
+                        camelCase: true,
+                    },
+                },
+            },
+        }),
+    ],
 };
 
 if (process.env.NODE_ENV === 'development') {
