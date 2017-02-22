@@ -18,7 +18,7 @@ jsFiles.forEach((file, i) => {
 const baseWebpackConfig = {
     entry,
     output: {
-        path: './dist',
+        path: path.join(__dirname, 'dist'),
         filename: '[name].js',
     },
     module: {
@@ -33,7 +33,20 @@ const baseWebpackConfig = {
             {
                 test: /\.vue$/,
                 use: [
-                    'vue-loader',
+                    {
+                        loader: 'vue-loader',
+                        options: {
+                            loaders: {
+                                sass: 'style-loader!css-loader!postcss-loader!sass-loader?indentedSyntax',
+                                scss: 'style-loader!css-loader!postcss-loader!sass-loader',
+                            },
+                            postcss: postcssConfig.plugins,
+                            cssModules: {
+                                localIdentName: '[path][name]---[local]---[hash:base64:5]',
+                                camelCase: true,
+                            },
+                        },
+                    },
                 ],
             },
             {
@@ -48,7 +61,12 @@ const baseWebpackConfig = {
                 use: [
                     'style-loader',
                     'css-loader',
-                    'postcss-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: postcssConfig.plugins,
+                        },
+                    },
                     'sass-loader',
                 ],
             },
@@ -66,18 +84,6 @@ const baseWebpackConfig = {
             },
         ],
     },
-    vue: {
-        loaders: {
-            sass: 'style!css!postcss!sass?indentedSyntax',
-            scss: 'style!css!postcss!sass',
-        },
-        postcss: postcssConfig.plugins,
-        cssModules: {
-            localIdentName: '[path][name]---[local]---[hash:base64:5]',
-            camelCase: true,
-        },
-    },
-    postcss: postcssConfig,
     resolve: {
         alias: {
             vue$: 'vue/dist/vue.js',
