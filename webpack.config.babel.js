@@ -24,6 +24,12 @@ const baseWebpackConfig = {
     module: {
         rules: [
             {
+                test: /\.html$/,
+                use: [
+                    'html-loader',
+                ],
+            },
+            {
                 test: /\.(js|jsx)$/,
                 use: [
                     'babel-loader',
