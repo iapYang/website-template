@@ -1,6 +1,8 @@
 module.exports = {
     plugins: [
-        require('postcss-cssnext')(),
+        require('postcss-cssnext')({
+            warnForDuplicates: false,
+        }),
         require('postcss-sorting')(),
     ],
 };
