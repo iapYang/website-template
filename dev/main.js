@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Index from './index.js';
-import './style/_reset.scss';
+import './style/reset.scss';
 
 ReactDOM.render(
     <article id="story"

@@ -6,13 +6,13 @@ import reset from '../../style/reset.scss';
 
 import data from '../../json/data.json';
 
-import {
-    BodyCopy,
-} from '../../paidpost-core';
+// import {
+//     BodyCopy,
+// } from '../../paidpost-core';
 
-function require(str) {
-    return str;
-}
+// function require(str) {
+//     return str;
+// }
 
 class Demo extends Component {
     render() {
