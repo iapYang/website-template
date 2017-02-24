@@ -8,7 +8,7 @@ import './style/reset.scss';
 ReactDOM.render(
     <article id="story"
         style={{
-            maxWidth: 1605,
+            maxWidth: 414,
             margin: '0 auto',
             boxShadow: '-1px 0 4px 0 #e2e2e2',
             borderRight: '1px solid #e2e2e2',
@@ -22,7 +22,7 @@ ReactDOM.render(
                 top: 0,
                 right: 0,
                 zIndex: 99999,
-                maxWidth: 1605,
+                maxWidth: 414,
                 height: 118,
                 backgroundColor: 'gray',
                 margin: '0 auto',

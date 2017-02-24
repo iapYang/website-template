@@ -6,16 +6,6 @@ import reset from '../../style/reset.scss';
 
 import data from '../../json/data.json';
 
-console.log('======hhh====', scss);
-
-// import {
-//     BodyCopy,
-// } from '../../paidpost-core';
-
-// function require(str) {
-//     return str;
-// }
-
 class Demo extends Component {
     render() {
         return (
@@ -23,8 +13,14 @@ class Demo extends Component {
                 scss.Demo,
                 reset.root
             )}>
-                <h1>hello</h1>
-                <img src={require(`../../${data.cover}`)} />
+                <img className={classnames(
+                        scss.bg,
+                        scss['bg-fix']
+                    )} src={require(`../../images/bg.jpg`)}/>
+                <img className={classnames(
+                        scss.bg,
+                        scss['bg-normal']
+                    )} src={require(`../../images/bg.jpg`)}/>
             </div>
         );
     }

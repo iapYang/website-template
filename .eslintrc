@@ -43,7 +43,9 @@
 
 
         // 字符串
-        "quotes": ["error", "single"], // 字符串开头和结束使用单引号
+        "quotes": ["error", "single", {
+            "allowTemplateLiterals": true
+        }], // 字符串开头和结束使用单引号
         "prefer-template": "error", // 使用模板而非字符串连接
         "template-curly-spacing": ["error", "never"], // 强制模板字符串中花括号内不能出现空格
         "no-path-concat": "error", // 当使用 _dirname 和 _filename 时不允许字符串拼接
