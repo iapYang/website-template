@@ -6,6 +6,8 @@ import reset from '../../style/reset.scss';
 
 import data from '../../json/data.json';
 
+console.log('======hhh====', scss);
+
 // import {
 //     BodyCopy,
 // } from '../../paidpost-core';

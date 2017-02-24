@@ -53,7 +53,7 @@ const baseWebpackConfig = {
                 test: /\.scss$/,
                 use: [
                     'style-loader',
-                    'css-loader',
+                    'css-loader?modules&localIdentName=[name]-[local]--[hash:base64:5]',
                     'postcss-loader',
                     'sass-loader',
                 ],
@@ -141,14 +141,10 @@ if (process.env.NODE_ENV === 'production') {
             ], {
                 ignore: [
                     '*.html',
-                    'router.js',
+                    'components/**/*',
+                    'json/**/*',
+                    'plugin/**/*',
                     'style/**/*',
-                    'script/**/*',
-                    'store/**/*',
-                    'vendor/**/*',
-                    'component/**/*',
-                    'data/**/*',
-                    'font/**/*',
                 ],
             }),
         ],
