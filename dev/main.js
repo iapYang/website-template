@@ -23,7 +23,7 @@ ReactDOM.render(
                 right: 0,
                 zIndex: 99999,
                 maxWidth: 414,
-                height: 118,
+                height: 50,
                 backgroundColor: 'gray',
                 margin: '0 auto',
                 boxShadow: '-1px 0 4px 0 #e2e2e2',
@@ -34,7 +34,7 @@ ReactDOM.render(
 
         <div className="wrapper"
             style={{
-                marginTop: 118,
+                marginTop: 50,
             }}>
 
             <Index />

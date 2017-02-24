@@ -18,7 +18,7 @@ class Demo extends Component {
     }
 
     componentDidMount() {
-        const HEAD_HEIGHT = 118;
+        const HEAD_HEIGHT = 50;
 
         const contents = this.contentList.children;
         const lastContent = contents[contents.length - 1];
