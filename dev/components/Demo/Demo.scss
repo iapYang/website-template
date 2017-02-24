@@ -1,13 +1,43 @@
 .Demo{
 	.bg{
-
+		background-image: url('../../images/bg.jpg');
+		background-position: 0 0;
+    	background-size: 420%;
+		padding-top: 100%;
 	}
 
 	.bg-fix{
+		position: fixed;
+		display: none;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 2;
 
+		max-width: 414px;
 	}
 
 	.bg-normal{
-		
+
 	}
+
+	.content-list{
+		.content{
+			font-size: 20px;
+			padding: 15px;
+
+			&:nth-child(1){
+				background-color: #CDEAC0;
+			}
+			&:nth-child(2){
+				background-color: #EFE9AE;
+			}
+			&:nth-child(3){
+				background-color: #FEC3A6;
+			}
+			&:nth-child(4){
+				background-color: #FF928B;
+			}
+		}
+	}
+
 }
