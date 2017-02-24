@@ -30,25 +30,13 @@ class Demo extends Component {
             const EDGE = this.bgFix.clientHeight + HEAD_HEIGHT;
             const FLAG_REACH_END = lastContent.getBoundingClientRect().top <= EDGE;
 
-            if (!FLAG_IN_FIX) {
-                this.setState({
-                    needFix: false,
-                });
-            } else {
-                this.setState({
-                    needFix: true,
-                });
-            }
+            this.setState({
+                needFix: FLAG_IN_FIX,
+            });
 
-            if (FLAG_REACH_END) {
-                this.setState({
-                    reachEnd: true,
-                });
-            } else {
-                this.setState({
-                    reachEnd: false,
-                });
-            }
+            this.setState({
+                reachEnd: FLAG_REACH_END,
+            });
 
             if (FLAG_IN_FIX) {
                 let target = -1;
