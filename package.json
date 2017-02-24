@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --hot --inline --open",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --hot --inline --open --host 0.0.0.0",
     "build": "cross-env NODE_ENV=production webpack --progress --colors",
     "create": "node createComponent",
     "test": "echo \"Error: no test specified\" && exit 1",

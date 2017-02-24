@@ -1,23 +1,64 @@
 .Demo{
+	position: relative;
+
 	.bg{
+		width: 100%;
+		height: 300px;
 		background-image: url('../../images/bg.jpg');
 		background-position: 0 0;
     	background-size: 420%;
-		padding-top: 100%;
+		background-repeat: no-repeat;
+		transition: background-size 1s ease, background-position 1s ease;
+
+		&.pos0 {
+	        background-position: 0 0;
+	        background-size: 420%;
+	    }
+
+	    &.pos1 {
+	        background-position: 95% 1%;
+	        background-size: 230%;
+	    }
+
+	    &.pos2 {
+	        background-position: 20% 30%;
+	        background-size: 260%;
+	    }
+
+	    &.pos3 {
+	        background-position: 0 60%;
+	        background-size: 400%;
+	    }
+
+		&.active {
+			opacity: 1;
+		}
+
+		&.hidden {
+			opacity: 0.0001;
+		}
 	}
 
 	.bg-fix{
 		position: fixed;
-		display: none;
+		top: 118px;
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 2;
+		opacity: 0.0001;
 
 		max-width: 414px;
 	}
 
 	.bg-normal{
 
+	}
+
+	.bg-end{
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		opacity: 0.0001;
 	}
 
 	.content-list{
