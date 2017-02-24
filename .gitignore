@@ -2,6 +2,7 @@
 .svn
 .sass-cache
 .tmp
+.vscode
 node_modules
 bower_components
 tmp
