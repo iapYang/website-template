@@ -107,6 +107,8 @@ if (process.env.NODE_ENV === 'development') {
         devtool: 'eval-source-map',
         devServer: {
             contentBase: './dev',
+            host: 'localhost',
+            port: 9000,
         },
     });
 }
