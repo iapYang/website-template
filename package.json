@@ -4,9 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --hot --inline --open",
-        "build": "cross-env NODE_ENV=production webpack --progress --colors",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "webpack-dev-server --progress --colors --hot --inline --open --config ./conf/webpack.dev.config.js",
+        "build": "webpack --progress --colors --config ./conf/webpack.prod.config.js",
         "check": "ncu",
         "update-json": "ncu -a",
         "update-package": "npm update"

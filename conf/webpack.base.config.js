@@ -1,24 +1,19 @@
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
-const merge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const postcssConfig = require('./postcss.config.js');
 
 const jsFiles = glob.sync('./dev/script/*.js');
 const entry = {};
 
-let webpackConfig = {};
-
 jsFiles.forEach((file, i) => {
     entry[path.basename(file, '.js')] = file;
 });
 
-const baseWebpackConfig = {
+module.exports = {
     entry,
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(process.cwd(), 'dist'),
         filename: '[name].js',
     },
     module: {
@@ -55,7 +50,7 @@ const baseWebpackConfig = {
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
                 use: [{
-                    loader: 'file-loader', // ?limit=1024&name=font/[name].[ext]
+                    loader: 'file-loader',
                     options: {
                         limit: 1024,
                         name: 'font/[name].[ext]',
@@ -65,7 +60,7 @@ const baseWebpackConfig = {
             {
                 test: /\.(jpg|jpeg|png|gif)$/,
                 use: [{
-                    loader: 'url-loader', // ?mimetype=image/png
+                    loader: 'url-loader',
                     options: {
                         mimetype: 'image/png',
                     },
@@ -101,61 +96,3 @@ const baseWebpackConfig = {
         }),
     ],
 };
-
-if (process.env.NODE_ENV === 'development') {
-    webpackConfig = merge(baseWebpackConfig, {
-        devtool: 'eval-source-map',
-        devServer: {
-            contentBase: './dev',
-            host: 'localhost',
-            port: 9000,
-        },
-    });
-}
-
-if (process.env.NODE_ENV === 'production') {
-    const htmlFiles = glob.sync('./dev/*.html');
-    const htmlPlugins = htmlFiles.map((file, i) =>
-        new HtmlWebpackPlugin({
-            filename: path.basename(file),
-            template: file,
-            inject: false,
-            minify:{
-                removeComments: true,
-                collapseWhitespace: true,
-            },
-        }));
-
-    webpackConfig = merge(baseWebpackConfig, {
-        plugins: [
-            ...htmlPlugins,
-            new webpack.optimize.UglifyJsPlugin({
-                sourceMap: true,
-                compress: {
-                    warnings: false,
-                    drop_console: true,
-                },
-            }),
-            new CopyWebpackPlugin([
-                {
-                    from: './dev',
-                },
-            ], {
-                ignore: [
-                    '*.html',
-                    'router.js',
-                    'style/**/*',
-                    'script/**/*',
-                    'store/**/*',
-                    'vendor/**/*',
-                    'component/**/*',
-                    'data/**/*',
-                    'font/**/*',
-                ],
-            }),
-        ],
-    });
-}
-
-
-module.exports = webpackConfig;
