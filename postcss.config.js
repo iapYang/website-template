@@ -3,6 +3,5 @@ module.exports = {
         require('postcss-cssnext')({
             warnForDuplicates: false,
         }),
-        require('postcss-sorting')(),
     ],
 };

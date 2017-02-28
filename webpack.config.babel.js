@@ -54,15 +54,22 @@ const baseWebpackConfig = {
             },
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-                use: [
-                    'file-loader?limit=1024&name=font/[name].[ext]',
-                ],
+                use: [{
+                    loader: 'file-loader', // ?limit=1024&name=font/[name].[ext]
+                    options: {
+                        limit: 1024,
+                        name: 'font/[name].[ext]',
+                    },
+                }],
             },
             {
                 test: /\.(jpg|jpeg|png|gif)$/,
-                use: [
-                    'url-loader?mimetype=image/png',
-                ],
+                use: [{
+                    loader: 'url-loader', // ?mimetype=image/png
+                    options: {
+                        mimetype: 'image/png',
+                    },
+                }],
             },
         ],
     },
