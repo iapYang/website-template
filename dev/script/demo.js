@@ -8,7 +8,7 @@ import Slider from './plugin/slider';
 import Util from './plugin/util';
 import EntranceListener from './plugin/entranceListener';
 
-import IScroll from 'iscroll';
+// import IScroll from 'iscroll';
 
 const body = document.body;
 let slider;
@@ -38,9 +38,9 @@ function generateStruct() {
     });
 
     Array.from(document.getElementsByClassName('scroll-wrapper')).forEach((el, i) => {
-        window.iscroll = new IScroll(el, {
-
-        });
+        // window.iscroll = new IScroll(el, {
+        //
+        // });
     });
 }
 
