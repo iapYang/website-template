@@ -7,14 +7,16 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex';
+import {
+    mapActions,
+} from 'vuex';
 
 export default {
     data() {
         return {
             id: '',
             text: '',
-        }
+        };
     },
     computed: {},
     ready() {},
@@ -23,13 +25,13 @@ export default {
         ...mapActions([
             'addTodo',
         ]),
-        clickHandler(){
+        clickHandler() {
             this.addTodo({
                 id: this.id,
                 text: this.text,
             });
-        }
+        },
     },
     components: {},
-}
+};
 </script>

@@ -2,7 +2,7 @@
     <div class="app-container">
         <message></message>
         <controller></controller>
-        
+
         <router-view></router-view>
     </div>
 </template>
@@ -15,8 +15,8 @@ export default {
     components: {
         Message,
         Controller,
-    }
-}
+    },
+};
 </script>
 
 <style lang="scss">

@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import {mapGetters} from 'vuex';
 
 export default {
     computed: {
         ...mapGetters([
             'todoCount',
-        ])
+        ]),
     },
-}
+};
 </script>
 
 <style lang="scss">
