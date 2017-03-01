@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack-dev-server --progress --hot --config ./conf/webpack.dev.config.js",
+        "dev": "webpack-dev-server --progress --config ./conf/webpack.dev.config.js",
         "build": "webpack --progress --config ./conf/webpack.prod.config.js",
         "check": "ncu",
         "update-json": "ncu -a",

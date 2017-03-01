@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 
 const baseWebpackConfig = require('./webpack.base.config.js');
 
@@ -9,5 +10,9 @@ module.exports = merge(baseWebpackConfig, {
         host: 'localhost',
         port: 9000,
         open: true,
+        hot: true,
     },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+    ],
 });
