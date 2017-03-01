@@ -22,7 +22,13 @@ module.exports = {
                 test: /\.js(x)?$/,
                 use: [
                     'babel-loader',
-                    'eslint-loader',
+                    {
+                        loader: 'eslint-loader',
+                        options: {
+                            failOnWarning: true,
+                            failOnError: true,
+                        },
+                    },
                 ],
                 exclude: /node_module/,
             },
