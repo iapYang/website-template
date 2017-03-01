@@ -40,7 +40,6 @@ module.exports = merge(baseWebpackConfig, {
                 'style/**/*',
                 'script/**/*',
                 'store/**/*',
-                'vendor/**/*',
                 'component/**/*',
                 'data/**/*',
                 'font/**/*',
