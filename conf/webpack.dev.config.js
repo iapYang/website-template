@@ -8,5 +8,6 @@ module.exports = merge(baseWebpackConfig, {
         contentBase: './dev',
         host: 'localhost',
         port: 9000,
+        open: true,
     },
 });

@@ -4,8 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack-dev-server --progress --colors --hot --inline --open --config ./conf/webpack.dev.config.js",
-        "build": "webpack --progress --colors --config ./conf/webpack.prod.config.js",
+        "dev": "webpack-dev-server --progress --hot --config ./conf/webpack.dev.config.js",
+        "build": "webpack --progress --config ./conf/webpack.prod.config.js",
         "check": "ncu",
         "update-json": "ncu -a",
         "update-package": "npm update"
