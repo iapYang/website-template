@@ -22,6 +22,7 @@ module.exports = {
                 test: /\.js(x)?$/,
                 use: [
                     'babel-loader',
+                    'eslint-loader',
                 ],
                 exclude: /node_module/,
             },
@@ -91,6 +92,9 @@ module.exports = {
                         localIdentName: '[path][name]---[local]---[hash:base64:5]',
                         camelCase: true,
                     },
+                },
+                eslint: {
+                    configFile: path.join(process.cwd(), '.eslintrc'),
                 },
             },
         }),
