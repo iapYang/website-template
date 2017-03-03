@@ -85,24 +85,32 @@ function registerEvents() {
     new EntranceListener({
         el: document.getElementById('dv2'),
         offset: 500,
-        enter() {
-            this.classList.add('active');
+        onTopEnterBottom() {
+            console.log('==========onTopEnterBottom');
+            // this.classList.add('active');
         },
-        leave() {
-            this.classList.remove('active');
+        onTopLeaveBottom() {
+            console.log('==========onTopLeaveBottom');
+            // this.classList.remove('active');
+        },
+        onBottomEnterTop() {
+            console.log('==========onBottomEnterTop');
+        },
+        onBottomLeaveTop() {
+            console.log('==========onBottomLeaveTop');
         },
     });
 
-    new EntranceListener({
-        el: document.getElementById('dv4'),
-        offset: 500,
-        enter() {
-            this.classList.add('active');
-        },
-        leave() {
-            this.classList.remove('active');
-        },
-    });
+    // new EntranceListener({
+    //     el: document.getElementById('dv4'),
+    //     offset: 500,
+    //     enter() {
+    //         this.classList.add('active');
+    //     },
+    //     leave() {
+    //         this.classList.remove('active');
+    //     },
+    // });
 }
 
 function init() {

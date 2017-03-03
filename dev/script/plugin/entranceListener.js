@@ -42,21 +42,22 @@
     ///////////////
 
     var defaultOptions = {
-        triggered: false,
-        offset: 0,
-        enter: function() {},
-        leave: function() {},
+        // triggered: false,
+        // offset: 0,
+        // enter: function() {},
+        // leave: function() {},
+        flagTopReachBottom: false,
+        flagBottomReachTop: false,
+        onTopEnterBottom: function() {},
+        onTopLeaveBottom: function() {},
+        onBottomEnterTop: function() {},
+        onBottomLeaveTop: function() {},
     };
 
     var Component = function(opts) {
         var options = merge({}, defaultOptions, opts);
 
-        Component.sourceQueue.push({
-            el: options.el,
-            offset: options.offset,
-            enter: options.enter,
-            leave: options.leave,
-        });
+        Component.sourceQueue.push(options);
 
         window.addEventListener('scroll', entranceHandler);
         window.addEventListener('resize', entranceHandler);
@@ -68,18 +69,49 @@
         var innerHeight = window.innerHeight;
 
         Component.sourceQueue.forEach(function(item) {
-            var rect = item.el.getBoundingClientRect();
-            var reached = (rect.top + item.offset) < innerHeight;
-            var outed = rect.top >= innerHeight;
+            // var rect = item.el.getBoundingClientRect();
+            // var reached = (rect.top + item.offset) < innerHeight;
+            // var outed = rect.top >= innerHeight;
+            //
+            // if (reached && !item.triggered) {
+            //     item.triggered = true;
+            //     item.enter.call(item.el);
+            // }
+            //
+            // if (outed && item.triggered) {
+            //     item.triggered = false;
+            //     item.leave.call(item.el);
+            // }
 
-            if (reached && !item.triggered) {
-                item.triggered = true;
-                item.enter.call(item.el);
+            // console.log('==========',item);
+
+
+            var rect = item.el.getBoundingClientRect();
+
+            var flagTopHigherThanBottom = rect.top <= innerHeight;
+            var flagTopLowerThanBottom = rect.top > innerHeight;
+
+            var flagBottomHigherThanTop = rect.bottom < 0;
+            var flagBottomLowerThanTop = rect.bottom >= 0;
+
+            if(flagTopHigherThanBottom && !item.flagTopReachBottom) {
+                item.flagTopReachBottom = true;
+                item.onTopEnterBottom.call(item.el);
             }
 
-            if (outed && item.triggered) {
-                item.triggered = false;
-                item.leave.call(item.el);
+            if(flagTopLowerThanBottom && item.flagTopReachBottom) {
+                item.flagTopReachBottom = false;
+                item.onTopLeaveBottom.call(item.el);
+            }
+
+            if(flagBottomHigherThanTop && item.flagBottomReachTop) {
+                item.flagBottomReachTop = false;
+                item.onBottomLeaveTop.call(item.el);
+            }
+
+            if(flagBottomLowerThanTop && !item.flagBottomReachTop) {
+                item.flagBottomReachTop = true;
+                item.onBottomEnterTop.call(item.el);
             }
         });
     }

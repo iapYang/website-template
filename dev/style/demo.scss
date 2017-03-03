@@ -96,6 +96,8 @@ $colors: red, yellow, blue, green, purple, orange, pink, gray;
 }
 
 .dv{
+    font-size: 30px;
+    text-align: center;
     transition: background-color 0.3s ease;
 
     &.dv1{
@@ -104,6 +106,7 @@ $colors: red, yellow, blue, green, purple, orange, pink, gray;
     }
     &.dv2{
         height: 400px;
+        line-height: 400px;
         background-color: #66C3FF;
     }
     &.dv3{
