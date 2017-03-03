@@ -86,31 +86,39 @@ function registerEvents() {
         el: document.getElementById('dv2'),
         offset: 500,
         onTopEnterBottom() {
-            console.log('==========onTopEnterBottom');
+            console.log('==========onTopEnterBottom1');
             // this.classList.add('active');
         },
         onTopLeaveBottom() {
-            console.log('==========onTopLeaveBottom');
+            console.log('==========onTopLeaveBottom1');
             // this.classList.remove('active');
         },
         onBottomEnterTop() {
-            console.log('==========onBottomEnterTop');
+            console.log('==========onBottomEnterTop1');
         },
         onBottomLeaveTop() {
-            console.log('==========onBottomLeaveTop');
+            console.log('==========onBottomLeaveTop1');
         },
     });
 
-    // new EntranceListener({
-    //     el: document.getElementById('dv4'),
-    //     offset: 500,
-    //     enter() {
-    //         this.classList.add('active');
-    //     },
-    //     leave() {
-    //         this.classList.remove('active');
-    //     },
-    // });
+    new EntranceListener({
+        el: document.getElementById('dv4'),
+        offset: 500,
+        onTopEnterBottom() {
+            console.log('==========onTopEnterBottom2');
+            // this.classList.add('active');
+        },
+        onTopLeaveBottom() {
+            console.log('==========onTopLeaveBottom2');
+            // this.classList.remove('active');
+        },
+        onBottomEnterTop() {
+            console.log('==========onBottomEnterTop2');
+        },
+        onBottomLeaveTop() {
+            console.log('==========onBottomLeaveTop2');
+        },
+    });
 }
 
 function init() {
