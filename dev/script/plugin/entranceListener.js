@@ -46,8 +46,15 @@
         // offset: 0,
         // enter: function() {},
         // leave: function() {},
+
         flagTopReachBottom: false,
         flagBottomReachTop: false,
+
+        offsetTopEnterBottom: 0,
+        offsetTopLeaveBottom: 0,
+        offsetBottomEnterTop: 0,
+        offsetBottomLeaveTop: 0,
+
         onTopEnterBottom: function() {},
         onTopLeaveBottom: function() {},
         onBottomEnterTop: function() {},
