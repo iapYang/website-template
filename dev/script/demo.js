@@ -110,6 +110,7 @@ function init() {
         el: document.getElementById('dv2'),
         offsetTopEnterBottom: 500,
         offsetTopLeaveBottom: 100,
+        offsetBottomReachTop: -100,
         onTopEnterBottom() {
             console.log('==========onTopEnterBottom1');
             // this.classList.add('active');

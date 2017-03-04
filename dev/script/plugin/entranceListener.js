@@ -52,8 +52,7 @@
 
         offsetTopEnterBottom: 0,
         offsetTopLeaveBottom: 0,
-        offsetBottomEnterTop: 0,
-        offsetBottomLeaveTop: 0,
+        offsetBottomReachTop: 0,
 
         onTopEnterBottom: function() {},
         onTopLeaveBottom: function() {},
@@ -101,18 +100,18 @@
     }
 
     function adjustElBottomScreenTop(item, rect, innerHeight) {
-        var flagBottomHigherThanTop = rect.bottom < 0;
-        var flagBottomLowerThanTop = rect.bottom >= 0;
+        var flagBottomHigherThanTop = (rect.bottom + item.offsetBottomReachTop) < 0;
+        var flagBottomLowerThanTop = (rect.bottom + item.offsetBottomReachTop) >= 0;
 
         // bottom leave top
-        if(flagBottomHigherThanTop && item.flagBottomReachTop) {
-            item.flagBottomReachTop = false;
+        if(flagBottomHigherThanTop && !item.flagBottomReachTop) {
+            item.flagBottomReachTop = true;
             item.onBottomLeaveTop.call(item.el);
         }
 
         // bottom enter top
-        if(flagBottomLowerThanTop && !item.flagBottomReachTop) {
-            item.flagBottomReachTop = true;
+        if(flagBottomLowerThanTop && item.flagBottomReachTop) {
+            item.flagBottomReachTop = false;
             item.onBottomEnterTop.call(item.el);
         }
     }
