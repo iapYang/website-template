@@ -42,11 +42,6 @@
     ///////////////
 
     var defaultOptions = {
-        // triggered: false,
-        // offset: 0,
-        // enter: function() {},
-        // leave: function() {},
-
         flagTopReachBottom: false,
         flagBottomReachTop: false,
 
