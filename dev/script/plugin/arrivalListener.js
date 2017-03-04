@@ -12,9 +12,9 @@
 }(this, function() {
     //////////
     // Name //
-    //////////
+    //////////·
 
-    var COMPONENT_NAME = 'EntranceListener';
+    var COMPONENT_NAME = 'ArrivalListener';
 
     //////////
     // Tool //

@@ -272,16 +272,14 @@ let slider = new Slider({
 
 
 
-### entranceListener.js 出入场监听
+### arrivalListener.js 出入场监听
 
-> 向下滚动，元素入场到达指定位置时触发enter回调
->
-> 向上滚动，元素出场时触发leave回调
+> 🚧 WIP
 
 **初始化**
 
 ```javascript
-new EntranceListener({
+new ArrivalListener({
   // options
 });
 ```
@@ -298,4 +296,3 @@ new EntranceListener({
 | onTopLeaveBottom     | function   | null | 元素顶部离开屏幕底部时触发  |
 | onBottomEnterTop     | function   | null | 元素底部进入屏幕顶部时触发  |
 | onBottomLeaveTop     | function   | null | 元素底部离开屏幕顶部时触发  |
-

@@ -6,7 +6,7 @@ import PictureLoader from './plugin/pictureLoader';
 import Platform from './plugin/platform';
 import Slider from './plugin/slider';
 import Util from './plugin/util';
-import EntranceListener from './plugin/entranceListener';
+import ArrivalListener from './plugin/arrivalListener';
 
 // import IScroll from 'iscroll';
 
@@ -106,7 +106,7 @@ function init() {
 
 
 
-    new EntranceListener({
+    new ArrivalListener({
         el: document.getElementById('dv2'),
         offsetTopEnterBottom: 500,
         offsetTopLeaveBottom: 100,
@@ -127,7 +127,7 @@ function init() {
         },
     });
 
-    new EntranceListener({
+    new ArrivalListener({
         el: document.getElementById('dv4'),
         // offsetTopEnterBottom: 500,
         // offsetTopLeaveBottom: 100,
