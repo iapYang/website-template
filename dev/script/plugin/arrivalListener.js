@@ -12,7 +12,7 @@
 }(this, function() {
     //////////
     // Name //
-    //////////·
+    //////////
 
     var COMPONENT_NAME = 'ArrivalListener';
 
