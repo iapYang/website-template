@@ -80,45 +80,6 @@ function registerEvents() {
             alert(i);
         });
     });
-
-
-    new EntranceListener({
-        el: document.getElementById('dv2'),
-        offset: 500,
-        onTopEnterBottom() {
-            console.log('==========onTopEnterBottom1');
-            // this.classList.add('active');
-        },
-        onTopLeaveBottom() {
-            console.log('==========onTopLeaveBottom1');
-            // this.classList.remove('active');
-        },
-        onBottomEnterTop() {
-            console.log('==========onBottomEnterTop1');
-        },
-        onBottomLeaveTop() {
-            console.log('==========onBottomLeaveTop1');
-        },
-    });
-
-    new EntranceListener({
-        el: document.getElementById('dv4'),
-        offset: 500,
-        onTopEnterBottom() {
-            console.log('==========onTopEnterBottom2');
-            // this.classList.add('active');
-        },
-        onTopLeaveBottom() {
-            console.log('==========onTopLeaveBottom2');
-            // this.classList.remove('active');
-        },
-        onBottomEnterTop() {
-            console.log('==========onBottomEnterTop2');
-        },
-        onBottomLeaveTop() {
-            console.log('==========onBottomLeaveTop2');
-        },
-    });
 }
 
 function init() {
@@ -141,6 +102,48 @@ function init() {
         end: () => {
         },
     });
+
+
+
+
+    new EntranceListener({
+        el: document.getElementById('dv2'),
+        offsetTopEnterBottom: 500,
+        offsetTopLeaveBottom: 100,
+        onTopEnterBottom() {
+            console.log('==========onTopEnterBottom1');
+            // this.classList.add('active');
+        },
+        onTopLeaveBottom() {
+            console.log('==========onTopLeaveBottom1');
+            // this.classList.remove('active');
+        },
+        onBottomEnterTop() {
+            console.log('==========onBottomEnterTop1');
+        },
+        onBottomLeaveTop() {
+            console.log('==========onBottomLeaveTop1');
+        },
+    });
+
+    // new EntranceListener({
+    //     el: document.getElementById('dv4'),
+    //     offset: 500,
+    //     onTopEnterBottom() {
+    //         console.log('==========onTopEnterBottom2');
+    //         // this.classList.add('active');
+    //     },
+    //     onTopLeaveBottom() {
+    //         console.log('==========onTopLeaveBottom2');
+    //         // this.classList.remove('active');
+    //     },
+    //     onBottomEnterTop() {
+    //         console.log('==========onBottomEnterTop2');
+    //     },
+    //     onBottomLeaveTop() {
+    //         console.log('==========onBottomLeaveTop2');
+    //     },
+    // });
 }
 
 
