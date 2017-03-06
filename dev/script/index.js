@@ -6,7 +6,7 @@ import router from '../router';
 import store from '../store/index';
 import App from '../component/App.vue';
 
-import Platform from './plugin/platform.js';
+import Platform from './plugin/Platform';
 
 
 

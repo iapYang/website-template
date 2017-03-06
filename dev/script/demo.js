@@ -2,11 +2,11 @@ import 'babel-polyfill';
 
 import '../style/demo.scss';
 
-import PictureLoader from './plugin/pictureLoader';
-import Platform from './plugin/platform';
-import Slider from './plugin/slider';
-import Util from './plugin/util';
-import ArrivalListener from './plugin/arrivalListener';
+import PictureLoader from './plugin/PictureLoader';
+import Platform from './plugin/Platform';
+import Slider from './plugin/Slider';
+import Util from './plugin/Util';
+import ArrivalListener from './plugin/ArrivalListener';
 
 // import IScroll from 'iscroll';
 
