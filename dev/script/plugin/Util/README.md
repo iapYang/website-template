@@ -57,3 +57,10 @@
 | shareTwitter(opts)   | 分享到twitter（对象参数：text，href）               |
 | sharePinterest(opts) | 分享到pinterest（对象参数：url，media，description） |
 
+
+
+## Performance类
+
+| 名称                   | 描述                       |
+| -------------------- | ------------------------ |
+| throttle (fn,  wait) | 在指定的wait（ms）时间内，只能触发一次fn |

@@ -151,3 +151,12 @@ function init() {
 
 
 window.addEventListener('load', init, false);
+
+
+window.addEventListener('resize', Util.throttle(() => {
+    console.log('==========');
+}, 200));
+
+// window.addEventListener('resize', () => {
+//     console.log('==========');
+// });
