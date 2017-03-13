@@ -25,7 +25,25 @@ export default {
 
 @include font-face("Lato-Regular");
 
-.app-container{
-    background-color: red;
+:root{
+    --color1: red;
+    --color2: blue;
 }
+
+@media (max-width: 1000px) {
+    :root{
+        --color1: green;
+    }
+}
+
+.app-container{
+    background-color: var(--color1);
+
+    &:hover{
+        background-color: var(--color2);
+    }
+}
+
+
+
 </style>
