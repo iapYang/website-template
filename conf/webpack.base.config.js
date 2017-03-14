@@ -3,6 +3,8 @@ const glob = require('glob');
 const webpack = require('webpack');
 const postcssConfig = require('./postcss.config.js');
 
+const fontPath = path.resolve(process.cwd(), 'dev/font');
+
 const jsFiles = glob.sync('./dev/script/*.js');
 const entry = {};
 const eslingLoader = {
@@ -65,6 +67,9 @@ module.exports = {
                         name: 'font/[name].[ext]',
                     },
                 }],
+                include: [
+                    fontPath,
+                ],
             },
             {
                 test: /\.(jpg|jpeg|png|gif)$/,
@@ -72,6 +77,16 @@ module.exports = {
                     loader: 'url-loader',
                     options: {
                         mimetype: 'image/png',
+                    },
+                }],
+            },
+            {
+                test: /\.svg/,
+                use: [{
+                    loader: 'svg-url-loader',
+                    options: {
+                        limit: 10240,
+                        noquotes: true,
                     },
                 }],
             },

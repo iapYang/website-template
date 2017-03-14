@@ -1,5 +1,7 @@
 <template lang="html">
     <div class="app-container">
+        <img src="../image/stuff.svg" alt="">
+
         <message></message>
         <controller></controller>
 
@@ -41,6 +43,10 @@ export default {
 
     &:hover{
         background-color: var(--color2);
+    }
+
+    img{
+        width: 200px;
     }
 }
 
