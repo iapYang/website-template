@@ -7,7 +7,7 @@ const fontPath = path.resolve(process.cwd(), 'dev/font');
 
 const jsFiles = glob.sync('./dev/script/*.js');
 const entry = {};
-const eslingLoader = {
+const eslintLoader = {
     loader: 'eslint-loader',
     options: {
         failOnWarning: true,
@@ -31,7 +31,7 @@ module.exports = {
                 test: /\.js(x)?$/,
                 use: [
                     'babel-loader',
-                    eslingLoader,
+                    eslintLoader,
                 ],
                 exclude: /node_module/,
             },
@@ -39,7 +39,7 @@ module.exports = {
                 test: /\.vue$/,
                 use: [
                     'vue-loader',
-                    eslingLoader,
+                    eslintLoader,
                 ],
             },
             {
