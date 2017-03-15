@@ -163,18 +163,3 @@ window.addEventListener('resize', Util.throttle(() => {
 // });
 
 // console.log('==========', Sensitive.check('aa ass'));
-
-
-class Test {
-    static aaa = 1;
-    static bbb = 2;
-
-    age = 18;
-}
-
-const ttt = new Test();
-
-// console.log('==========', ttt);
-// console.log('==========', Object.getOwnPropertyNames(Test));
-
-console.log('==========', Platform);
