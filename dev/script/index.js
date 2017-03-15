@@ -7,7 +7,7 @@ import store from '../store/index';
 import App from '../component/App.vue';
 
 import Platform from './plugin/Platform';
-
+import Sensitive from './plugin/Sensitive';
 
 
 const app = new Vue({
