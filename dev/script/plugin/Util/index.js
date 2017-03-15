@@ -1,4 +1,4 @@
-class Util {
+export default class {
 
     /////////
     // Dom //
@@ -161,5 +161,3 @@ class Util {
         }
     }
 }
-
-export default Util;

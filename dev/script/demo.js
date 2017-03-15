@@ -162,4 +162,14 @@ window.addEventListener('resize', Util.throttle(() => {
 //     console.log('==========');
 // });
 
-console.log('==========', Sensitive.check('aa ass'));
+// console.log('==========', Sensitive.check('aa ass'));
+
+class Test {
+    static a = 'asdfasdfasdf';
+
+    static b = this.a;
+}
+
+
+
+console.log('==========', Util.parseDom);
