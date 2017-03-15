@@ -7,6 +7,7 @@ import Platform from './plugin/Platform';
 import Slider from './plugin/Slider';
 import Util from './plugin/Util';
 import ArrivalListener from './plugin/ArrivalListener';
+import Sensitive from './plugin/Sensitive';
 
 // import IScroll from 'iscroll';
 
@@ -160,3 +161,5 @@ window.addEventListener('resize', Util.throttle(() => {
 // window.addEventListener('resize', () => {
 //     console.log('==========');
 // });
+
+console.log('==========', Sensitive.check('aa ass'));
