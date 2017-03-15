@@ -1,57 +1,17 @@
-(function(root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(factory);
-    } else if (typeof exports === 'object') {
-        // CommonJS
-        module.exports = factory();
-    } else {
-        // Browser global
-        factory();
-    }
-}(this, function() {
-    //////////
-    // Name //
-    //////////
-
-    var COMPONENT_NAME = 'Util';
-
-    var Component = {};
-
-    ////////////
-    // Object //
-    ////////////
-
-    Component.merge = function() {
-        var obj = {},
-            i = 0,
-            il = arguments.length,
-            key;
-
-        for (; i < il; ++i) {
-            for (key in arguments[i]) {
-                if (arguments[i].hasOwnProperty(key)) {
-                    obj[key] = arguments[i][key];
-                }
-            }
-        }
-
-        return obj;
-    };
-
+class Util {
 
     /////////
     // Dom //
     /////////
 
-    Component.parseDom = function(str) {
+    static parseDom(str) {
         var div = document.createElement('div');
         div.innerHTML = str;
 
         return div.children[0];
     };
 
-    Component.closest = function(el, selector) {
+    static closest(el, selector) {
         var matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
 
         while (el) {
@@ -64,7 +24,7 @@
         return null;
     };
 
-    Component.inViewWhole = function(el) {
+    static inViewWhole(el) {
         var elemTop = el.getBoundingClientRect().top;
         var elemBottom = el.getBoundingClientRect().bottom;
 
@@ -74,7 +34,7 @@
         return isVisible;
     };
 
-    Component.inViewPartial = function(el) {
+    static inViewPartial(el) {
         var elemTop = el.getBoundingClientRect().top;
         var elemBottom = el.getBoundingClientRect().bottom;
 
@@ -88,11 +48,7 @@
     // String //
     ////////////
 
-    Component.strToJson = function(str) {
-        return JSON.parse(str);
-    };
-
-    Component.substringByWord = function(str, length) {
+    static substringByWord(str, length) {
         if (str.length > length) {
             str = str.substring(0, str.lastIndexOf(' ', length));
         }
@@ -105,11 +61,11 @@
     // Array //
     ///////////
 
-    Component.indexOf = function(el, collection) {
+    static indexOf(el, collection) {
         return [].indexOf.call(collection, el);
     };
 
-    Component.sortObjArrByKey = function(arr, key) {
+    static sortObjArrByKey(arr, key) {
         return arr.sort(function(a, b) {
             var x = a[key];
             var y = b[key];
@@ -123,7 +79,7 @@
     // Event //
     ///////////
 
-    Component.triggerEvent = function(el, eventName, data) {
+    static triggerEvent(el, eventName, data) {
         var event;
 
         data = data || {};
@@ -145,7 +101,7 @@
     // social //
     ////////////
 
-    Component.shareFacebook = function(opts) {
+    static shareFacebook(opts) {
         var path = 'https://www.facebook.com/dialog/feed?' +
             'app_id=' + encodeURIComponent(opts.app_id) +
             '&link=' + encodeURIComponent(opts.link) +
@@ -157,7 +113,7 @@
         window.open(path, '_blank');
     };
 
-    Component.shareTwitter = function(opts) {
+    static shareTwitter(opts) {
         var path = 'https://twitter.com/intent/tweet?' +
             'text=' + encodeURIComponent(opts.text) +
             '&url=' + encodeURIComponent(opts.href);
@@ -165,7 +121,7 @@
         window.open(path, '_blank');
     };
 
-    Component.sharePinterest = function(opts) {
+    static sharePinterest(opts) {
         var path = 'https://pinterest.com/pin/create/link/?' +
             'url=' + encodeURIComponent(opts.url) +
             '&media=' + encodeURIComponent(opts.media) +
@@ -175,16 +131,11 @@
     };
 
 
-    if (window[COMPONENT_NAME] === undefined) {
-        window[COMPONENT_NAME] = Component;
-    }
-
-
     /////////////////
     // performance //
     /////////////////
 
-    Component.throttle = function(func, wait) {
+    static throttle(func, wait) {
         var ctx, args, rtn, timeoutID; // caching
         var last = 0;
 
@@ -209,6 +160,6 @@
             args = null;
         }
     }
+}
 
-    return Component;
-}));
+export default Util;
