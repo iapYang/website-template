@@ -144,7 +144,7 @@
     function startLoad(src, item) {
         var that = this;
         var image = new Image();
-        // image.setAttribute('crossOrigin', 'anonymous');
+        image.setAttribute('crossOrigin', 'anonymous');
 
         if (item && item.classList.contains('loaded')) {
             doneHandler.call(that, item, src, image);
@@ -171,6 +171,7 @@
                         canvas.height = image.height;
                         ctx.drawImage(image, 0, 0);
 
+                        console.log('==========', canvas);
                         storageObj.source = canvas.toDataURL('image/png');
                         storageObj.timestamp = Date.now();
 
