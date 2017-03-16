@@ -127,27 +127,27 @@ function init() {
             console.log('==========onBottomLeaveTop1');
         },
     });
-
-    new ArrivalListener({
-        el: document.getElementById('dv4'),
-        // offsetTopEnterBottom: 500,
-        // offsetTopLeaveBottom: 100,
-        // offsetBottomReachTop: -100,
-        onTopEnterBottom() {
-            console.log('==========onTopEnterBottom2');
-            // this.classList.add('active');
-        },
-        onTopLeaveBottom() {
-            console.log('==========onTopLeaveBottom2');
-            // this.classList.remove('active');
-        },
-        onBottomEnterTop() {
-            console.log('==========onBottomEnterTop2');
-        },
-        onBottomLeaveTop() {
-            console.log('==========onBottomLeaveTop2');
-        },
-    });
+    //
+    // new ArrivalListener({
+    //     el: document.getElementById('dv4'),
+    //     // offsetTopEnterBottom: 500,
+    //     // offsetTopLeaveBottom: 100,
+    //     // offsetBottomReachTop: -100,
+    //     onTopEnterBottom() {
+    //         console.log('==========onTopEnterBottom2');
+    //         // this.classList.add('active');
+    //     },
+    //     onTopLeaveBottom() {
+    //         console.log('==========onTopLeaveBottom2');
+    //         // this.classList.remove('active');
+    //     },
+    //     onBottomEnterTop() {
+    //         console.log('==========onBottomEnterTop2');
+    //     },
+    //     onBottomLeaveTop() {
+    //         console.log('==========onBottomLeaveTop2');
+    //     },
+    // });
 }
 
 
@@ -163,3 +163,9 @@ window.addEventListener('resize', Util.throttle(() => {
 // });
 
 // console.log('==========', Sensitive.check('aa ass'));
+
+
+// const aaa = new ArrivalListener({
+//     flagTopReachBottom: true,
+// });
+// console.log('==========', aaa);
