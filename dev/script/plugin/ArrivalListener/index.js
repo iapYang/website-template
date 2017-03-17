@@ -1,4 +1,4 @@
-class Component {
+export default class {
     flagTopReachBottom = false;
     flagBottomReachTop = false;
 
@@ -62,5 +62,3 @@ class Component {
         }
     }
 }
-
-export default Component;
