@@ -10,20 +10,14 @@ export default class {
     }
 
     load() {
-        const {source} = this.getRealSource();
+        const source = this.getSource();
 
         return new Promise((resolve, reject) => {
             const image = new Image();
-            image.setAttribute('crossOrigin', 'anonymous');
+            image.crossOrigin = 'anonymous';
 
-            image.onload = () => {
-                resolve(image);
-            }
-
-            image.onerror = () => {
-                reject(image);
-            }
-
+            image.onload = resolve;
+            image.onerror = reject;
             image.src = source;
 
             this.image = image;
@@ -47,9 +41,7 @@ export default class {
     }
 
     save() {
-        const {inStorage} = this.getRealSource();
-
-        if(inStorage) return;
+        if(!this.needStore) return;
 
         const storageObj = {};
         const canvas = document.createElement('canvas');
@@ -69,21 +61,13 @@ export default class {
         }
     }
 
-    getRealSource() {
+    getSource() {
         const storageObj = JSON.parse(sessionStorage.getItem(this.src)) || {};
         const timestamp = storageObj.timestamp;
         const liveUntil = timestamp + this.timeout;
 
-        if (timestamp !== undefined && liveUntil > Date.now()) {
-            return {
-                inStorage: true,
-                source: storageObj.source,
-            };
-        } else {
-            return {
-                inStorage: false,
-                source: this.src,
-            }
-        }
+        this.needStore = timestamp === undefined || liveUntil < Date.now();
+
+        return !this.needStore ? storageObj.source : this.src;
     }
 }

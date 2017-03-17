@@ -1,5 +1,13 @@
 import Picture from './Picture.js';
 
+Promise.prototype.finally = function (callback) {
+  let P = this.constructor;
+  return this.then(
+    value  => P.resolve(callback()).then(() => value),
+    reason => P.resolve(callback()).then(() => { throw reason })
+  );
+};
+
 const ua = window.navigator.userAgent.toLowerCase();
 const isMobile = ua.match(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile/i) !== null && ua.match(/Mobile/i) !== null;
 const isiPad = ua.match(/ipad/i) !== null;
@@ -63,20 +71,17 @@ class Component {
 
         for(const picture of this.pictureList) {
             picture.load()
-            .then((image) => {
+            .then(() => {
                 // success
-
-                this.loadOneHandler();
-
                 if(Component.useStorage) {
                     picture.save();
                 }
 
                 picture.setContent();
-
-            }, (image) => {
+            }, () => {
                 // fail
-
+            })
+            .finally(() => {
                 this.loadOneHandler();
             });
         }
