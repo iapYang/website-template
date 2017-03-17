@@ -47,7 +47,7 @@ function generateStruct() {
 
 function registerEvents() {
     body.addEventListener('touchmove', () => {
-        event.preventDefault();
+        // event.preventDefault();
     });
 
     document.getElementById('btn-go').addEventListener('click', () => {

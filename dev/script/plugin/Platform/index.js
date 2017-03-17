@@ -29,25 +29,25 @@ class Component {
 }
 
 
-for(const key of Object.getOwnPropertyNames(Component)) {
-    if(['length', 'name', 'prototype'].includes(key)) continue;
-
-    let className = key.toLowerCase().replace('is', '');
-
-    if (className.includes('has')) {
-        className = className.replace('has', 'has-');
-    }
-
-    if (!Component[key]) {
-        if (className.includes('has')) {
-            className = className.replace('has', 'no');
-        } else {
-            className = 'not-' + className;
-        }
-    }
-
-    html.classList.add(className);
-}
+// for(const key of Object.getOwnPropertyNames(Component)) {
+//     if(['length', 'name', 'prototype'].includes(key)) continue;
+//
+//     let className = key.toLowerCase().replace('is', '');
+//
+//     if (className.includes('has')) {
+//         className = className.replace('has', 'has-');
+//     }
+//
+//     if (!Component[key]) {
+//         if (className.includes('has')) {
+//             className = className.replace('has', 'no');
+//         } else {
+//             className = 'not-' + className;
+//         }
+//     }
+//
+//     html.classList.add(className);
+// }
 
 
 export default Component;

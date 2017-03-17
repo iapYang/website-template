@@ -20,7 +20,7 @@ const isDesktop = !(isMobile || isTablet);
 class Component {
     static dataName = 'data-source';
     static flagBg = 'data-bg';
-    static timeout = 1000 * 60;
+    static survivalTime = 1000 * 60 * 1;
     static useStorage = isDesktop && !isIE;
 
     className = 'preload';
@@ -42,7 +42,6 @@ class Component {
 
                 const picture = new Picture({
                     src,
-                    timeout: Component.timeout,
                     container,
                     useBg,
                 });
@@ -53,7 +52,6 @@ class Component {
             for(const src of this.sourceQueue) {
                 const picture = new Picture({
                     src,
-                    timeout: Component.timeout,
                 });
 
                 this.pictureList.push(picture);
@@ -74,16 +72,14 @@ class Component {
             .then(() => {
                 // success
                 if(Component.useStorage) {
-                    picture.save();
+                    picture.save(Component.survivalTime);
                 }
 
                 picture.setContent();
             }, () => {
                 // fail
             })
-            .finally(() => {
-                this.loadOneHandler();
-            });
+            .finally(this.loadOneHandler);
         }
     }
 
@@ -103,14 +99,23 @@ class Component {
 }
 
 
-
-
-var ccc = new Component({
+new Component({
     loadOne() {
-        // console.log('==========loadOne');
+        console.log('==========loadOne');
     },
     loadAll(totalCount) {
-        // console.log('==========loadAll');
+        console.log('==========loadAll');
     }
-});
-ccc.load();
+}).load();
+
+new Component({
+    sourceQueue: [
+        'image/1.jpg',
+    ],
+    loadOne() {
+        console.log('==========loadOne');
+    },
+    loadAll(totalCount) {
+        console.log('==========loadAll');
+    }
+}).load();

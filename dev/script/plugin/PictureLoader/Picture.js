@@ -40,10 +40,9 @@ export default class {
         this.container.classList.add('loaded');
     }
 
-    save() {
+    save(survivalTime) {
         if(!this.needStore) return;
 
-        const storageObj = {};
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
@@ -51,8 +50,10 @@ export default class {
         canvas.height = this.image.height;
         ctx.drawImage(this.image, 0, 0);
 
-        storageObj.timestamp = Date.now();
-        storageObj.source = canvas.toDataURL('image/png');
+        const storageObj = {
+            expiration: Date.now() + survivalTime,
+            source: canvas.toDataURL('image/png'),
+        };
 
         try {
             sessionStorage.setItem(this.src, JSON.stringify(storageObj));
@@ -63,10 +64,9 @@ export default class {
 
     getSource() {
         const storageObj = JSON.parse(sessionStorage.getItem(this.src)) || {};
-        const timestamp = storageObj.timestamp;
-        const liveUntil = timestamp + this.timeout;
+        const expiration = storageObj.expiration;
 
-        this.needStore = timestamp === undefined || liveUntil < Date.now();
+        this.needStore = expiration === undefined || expiration < Date.now();
 
         return !this.needStore ? storageObj.source : this.src;
     }
