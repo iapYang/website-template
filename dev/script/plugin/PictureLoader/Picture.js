@@ -24,20 +24,13 @@ export default class {
         });
     }
 
-    setContent() {
-        if(this.container === undefined) return;
+    getSource() {
+        const storageObj = JSON.parse(sessionStorage.getItem(this.src)) || {};
+        const expiration = storageObj.expiration;
 
-        if(this.useBg) {
-            this.container.style.backgroundImage = 'url(' + this.src + ')';
-        } else {
-            this.container.appendChild(this.image);
-        }
+        this.needStore = expiration === undefined || expiration < Date.now();
 
-        this.addLoadedClass();
-    }
-
-    addLoadedClass() {
-        this.container.classList.add('loaded');
+        return !this.needStore ? storageObj.source : this.src;
     }
 
     save(survivalTime) {
@@ -62,12 +55,15 @@ export default class {
         }
     }
 
-    getSource() {
-        const storageObj = JSON.parse(sessionStorage.getItem(this.src)) || {};
-        const expiration = storageObj.expiration;
+    setContent() {
+        if(this.container === undefined) return;
 
-        this.needStore = expiration === undefined || expiration < Date.now();
+        if(this.useBg) {
+            this.container.style.backgroundImage = 'url(' + this.src + ')';
+        } else {
+            this.container.appendChild(this.image);
+        }
 
-        return !this.needStore ? storageObj.source : this.src;
+        this.container.classList.add('loaded');
     }
 }
