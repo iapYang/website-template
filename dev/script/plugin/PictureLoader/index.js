@@ -1,3 +1,67 @@
+const ua = window.navigator.userAgent.toLowerCase();
+const isMobile = ua.match(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile/i) !== null && ua.match(/Mobile/i) !== null;
+const isiPad = ua.match(/ipad/i) !== null;
+const isAndroid = ua.match(/android/i) !== null;
+const isAndroidPad = isAndroid && !isMobile;
+const isTablet = isiPad || isAndroidPad;
+const isIE = /(msie|trident)/i.test(navigator.userAgent);
+const isDesktop = !(isMobile || isTablet);
+
+class Component {
+    static dataName = 'data-source';
+    static timeout = 1000 * 60;
+    static useStorage = isDesktop && !isIE;
+
+    className = 'preload';
+    loadOne = function() {};
+    loadAll = function() {};
+
+    constructor(options) {
+        for(const key in options) {
+            this[key] = options[key];
+        }
+
+        if(this.sourceQueue === undefined) {
+            this.items = [...document.getElementsByClassName(this.className)];
+            this.totalCount = this.items.length;
+        } else {
+            this.totalCount = this.sourceQueue.length;
+        }
+
+        this.loadCount = 0;
+    }
+
+    load() {
+        if(this.totalCount === 0) {
+            this.loadAllHandler();
+            return;
+        }
+    }
+
+    loadAllHandler() {
+        this.loadAll(this.totalCount);
+    }
+}
+
+
+
+
+var ccc = new Component({
+    className: 'aa',
+    loadOne() {
+        console.log('==========loadOne');
+    },
+    loadAll(totalCount) {
+        console.log('==========loadAll');
+    }
+});
+ccc.load();
+
+
+
+
+
+
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -82,24 +146,6 @@
 
     Component.timeout = 1000 * 60;
     Component.useStorage = isDesktop && !isIE;
-
-    Component.load = function(src, callback) {
-        var image = new Image();
-
-        image.onload = function() {
-            callback.call(this, image);
-        };
-
-        checkIfInStorage({
-            src: src,
-            in: function(storageObj) {
-                image.src = storageObj.source;
-            },
-            not: function() {
-                image.src = src;
-            }
-        });
-    };
 
     Component.prototype.load = function(opts) {
         var options = merge({}, loadOptions, opts);
@@ -205,7 +251,7 @@
         }
 
 
-        ++this.loadCount;
+        this.loadCount += 1;
 
         this.done(image, this.loadCount, this.totalCount);
 
