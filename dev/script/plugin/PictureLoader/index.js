@@ -79,7 +79,9 @@ class Component {
             }, () => {
                 // fail
             })
-            .finally(this.loadOneHandler);
+            .finally(() => {
+                this.loadOneHandler();
+            });
         }
     }
 

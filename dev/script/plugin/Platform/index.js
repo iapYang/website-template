@@ -28,26 +28,23 @@ class Component {
     static isIOS = Component.isiPad || Component.isiPhone
 }
 
+for(const key of Object.keys(Component)) {
+    let className = key.toLowerCase().replace('is', '');
 
-// for(const key of Object.getOwnPropertyNames(Component)) {
-//     if(['length', 'name', 'prototype'].includes(key)) continue;
-//
-//     let className = key.toLowerCase().replace('is', '');
-//
-//     if (className.includes('has')) {
-//         className = className.replace('has', 'has-');
-//     }
-//
-//     if (!Component[key]) {
-//         if (className.includes('has')) {
-//             className = className.replace('has', 'no');
-//         } else {
-//             className = 'not-' + className;
-//         }
-//     }
-//
-//     html.classList.add(className);
-// }
+    if (className.includes('has')) {
+        className = className.replace('has', 'has-');
+    }
+
+    if (!Component[key]) {
+        if (className.includes('has')) {
+            className = className.replace('has', 'no');
+        } else {
+            className = 'not-' + className;
+        }
+    }
+
+    html.classList.add(className);
+}
 
 
 export default Component;
