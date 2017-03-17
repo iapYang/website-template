@@ -1,24 +1,17 @@
-const defaultOptions = {
-    flagTopReachBottom: false,
-    flagBottomReachTop: false,
-
-    offsetTopEnterBottom: 0,
-    offsetTopLeaveBottom: 0,
-    offsetBottomReachTop: 0,
-
-    onTopEnterBottom: function() {},
-    onTopLeaveBottom: function() {},
-    onBottomEnterTop: function() {},
-    onBottomLeaveTop: function() {},
-};
-
 class Component {
-    constructor(opts) {
-        const options = {
-            ...defaultOptions,
-            ...opts,
-        };
+    flagTopReachBottom = false;
+    flagBottomReachTop = false;
 
+    offsetTopEnterBottom = 0;
+    offsetTopLeaveBottom = 0;
+    offsetBottomReachTop = 0;
+
+    onTopEnterBottom = function() {};
+    onTopLeaveBottom = function() {};
+    onBottomEnterTop = function() {};
+    onBottomLeaveTop = function() {};
+
+    constructor(options) {
         for(const key in options) {
             this[key] = options[key];
         }

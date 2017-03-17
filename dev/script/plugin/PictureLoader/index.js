@@ -171,7 +171,6 @@
                         canvas.height = image.height;
                         ctx.drawImage(image, 0, 0);
 
-                        console.log('==========', canvas);
                         storageObj.source = canvas.toDataURL('image/png');
                         storageObj.timestamp = Date.now();
 
