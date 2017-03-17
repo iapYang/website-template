@@ -114,14 +114,14 @@
         }
 
         if (this.sourceQueue !== undefined) {
-            this.sourceQueue.forEach(function(src, i) {
+            for(const src of this.sourceQueue) {
                 startLoad.call(that, src);
-            });
+            }
         } else {
-            this.items.forEach(function(item, i) {
-                var src = item.getAttribute(dataName);
+            for(const item of this.items) {
+                const src = item.getAttribute(dataName);
                 startLoad.call(that, src, item);
-            });
+            }
         }
     };
 
@@ -161,7 +161,7 @@
             },
             not: function() {
                 // load from file
-                image.onload = function() {
+                image.onload = () => {
                     if (Component.useStorage) {
                         var storageObj = {};
                         var canvas = document.createElement('canvas');
@@ -183,7 +183,7 @@
 
                     doneHandler.call(that, item, src, image);
                 };
-                image.onerror = function() {
+                image.onerror = () => {
                     item.classList.add('loaded');
                     doneHandler.call(that, item, src, image);
                 };
