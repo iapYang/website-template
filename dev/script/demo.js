@@ -2,20 +2,20 @@ import 'babel-polyfill';
 
 import '../style/demo.scss';
 
-import PictureLoader from './plugin/PictureLoader';
+// import PictureLoader from './plugin/PictureLoader/old.js';
 import Platform from './plugin/Platform';
 import Slider from './plugin/Slider';
 import Util from './plugin/Util';
 import ArrivalListener from './plugin/ArrivalListener';
 import Sensitive from './plugin/Sensitive';
 
+import ttt from './plugin/PictureLoader';
+
 // import IScroll from 'iscroll';
 
 const body = document.body;
 let slider;
 
-
-PictureLoader.timeout = 1000 * 60;
 
 function generateStruct() {
     window.slider = slider = new Slider({
@@ -87,22 +87,22 @@ function init() {
     generateStruct();
     registerEvents();
 
-    new PictureLoader({
-        className: 'preload',
-    }).load({
-        done: (image, count, total) => {
-            // console.log('==========', image, (count / total * 100) + '%');
-
-            if (Platform.isIE) {
-                setTimeout(() => {
-                    image.removeAttribute('width', '');
-                    image.removeAttribute('height', '');
-                }, 10);
-            }
-        },
-        end: () => {
-        },
-    });
+    // new PictureLoader({
+    //     className: 'preload',
+    // }).load({
+    //     done: (image, count, total) => {
+    //         // console.log('==========', image, (count / total * 100) + '%');
+    //
+    //         if (Platform.isIE) {
+    //             setTimeout(() => {
+    //                 image.removeAttribute('width', '');
+    //                 image.removeAttribute('height', '');
+    //             }, 10);
+    //         }
+    //     },
+    //     end: () => {
+    //     },
+    // });
 
 
 
