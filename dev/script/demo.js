@@ -2,14 +2,12 @@ import 'babel-polyfill';
 
 import '../style/demo.scss';
 
-// import PictureLoader from './plugin/PictureLoader/old.js';
+import PictureLoader from './plugin/PictureLoader';
 import Platform from './plugin/Platform';
 import Slider from './plugin/Slider';
 import Util from './plugin/Util';
 import ArrivalListener from './plugin/ArrivalListener';
 import Sensitive from './plugin/Sensitive';
-
-import ttt from './plugin/PictureLoader';
 
 // import IScroll from 'iscroll';
 
@@ -74,7 +72,7 @@ function registerEvents() {
         slider.removeSlide(value);
     });
 
-    Array.from(document.getElementById('slider').querySelectorAll('button')).forEach((el, i) => {
+    [...document.getElementById('slider').querySelectorAll('button')].forEach((el, i) => {
         el.addEventListener('click', e => {
             if (slider.updating) return;
 
@@ -87,22 +85,34 @@ function init() {
     generateStruct();
     registerEvents();
 
-    // new PictureLoader({
-    //     className: 'preload',
-    // }).load({
-    //     done: (image, count, total) => {
-    //         // console.log('==========', image, (count / total * 100) + '%');
-    //
-    //         if (Platform.isIE) {
-    //             setTimeout(() => {
-    //                 image.removeAttribute('width', '');
-    //                 image.removeAttribute('height', '');
-    //             }, 10);
-    //         }
-    //     },
-    //     end: () => {
-    //     },
-    // });
+    new PictureLoader({
+        className: 'preload',
+        loadOne: (count, total) => {
+            console.log('==========', count / total * 100);
+
+            // if (Platform.isIE) {
+            //     setTimeout(() => {
+            //         image.removeAttribute('width', '');
+            //         image.removeAttribute('height', '');
+            //     }, 10);
+            // }
+        },
+        loadAll: total => {
+            console.log('==========end');
+        },
+    }).load();
+
+    new PictureLoader({
+        sourceQueue: [
+            'image/1.jpg',
+        ],
+        loadOne() {
+            console.log('==========222 loadOne');
+        },
+        loadAll(totalCount) {
+            console.log('==========222 loadAll');
+        },
+    }).load();
 
 
 

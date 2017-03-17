@@ -80,44 +80,20 @@ class Component {
                 // fail
             })
             .finally(() => {
-                this.loadOneHandler();
+                this.loadHandler();
             });
         }
     }
 
-    loadOneHandler() {
+    loadHandler() {
         this.loadCount += 1;
 
         this.loadOne(this.loadCount, this.totalCount);
 
         if (this.loadCount === this.totalCount) {
-            this.loadAllHandler();
+            this.loadAll(this.totalCount);
         }
-    }
-
-    loadAllHandler() {
-        this.loadAll(this.totalCount);
     }
 }
 
-
-new Component({
-    loadOne() {
-        console.log('==========loadOne');
-    },
-    loadAll(totalCount) {
-        console.log('==========loadAll');
-    }
-}).load();
-
-new Component({
-    sourceQueue: [
-        'image/1.jpg',
-    ],
-    loadOne() {
-        console.log('==========loadOne');
-    },
-    loadAll(totalCount) {
-        console.log('==========loadAll');
-    }
-}).load();
+export default Component;
