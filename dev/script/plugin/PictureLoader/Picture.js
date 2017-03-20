@@ -30,7 +30,7 @@ export default class {
 
         this.needStore = expiration === undefined || expiration < Date.now();
 
-        return !this.needStore ? storageObj.source : this.src;
+        return this.needStore ? this.src : storageObj.source;
     }
 
     save(survivalTime) {
