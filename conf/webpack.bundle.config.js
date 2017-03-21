@@ -1,14 +1,21 @@
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 
 const baseWebpackConfig = require('./webpack.base.config.js');
 
+const jsFiles = glob.sync('./dev/src/*.js');
+const entry = {};
+jsFiles.forEach((file, i) => {
+    entry[path.basename(file, '.js')] = file;
+});
+
 module.exports = merge(baseWebpackConfig, {
-    entry: path.resolve(__dirname, '../dev/src/index.js'),
+    entry,
     output: {
         path: path.join(process.cwd(), 'bundle'),
-        filename: 'bundle.js',
+        filename: '[name].min.js',
         libraryTarget: 'umd',
     },
     plugins: [
