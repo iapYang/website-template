@@ -41,6 +41,8 @@ module.exports = merge(baseWebpackConfig, {
                 'script/**/*',
                 'store/**/*',
                 'component/**/*',
+                'src/**/*',
+                'example/**/*',
                 'data/**/*',
                 'font/**/*',
             ],
