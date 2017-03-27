@@ -1,7 +1,11 @@
-# Sensitive 敏感词检测
+# Sensitive
 
-## 静态方法
+check whether there are sensitive words in the given string.
 
-| 名称         | 描述            |
-| ---------- | ------------- |
-| check(str) | 检验str中是否含有敏感词 |
+
+
+## static method
+
+| name       | description                              |
+| ---------- | ---------------------------------------- |
+| check(str) | return `true` if there are sensitive words in str, otherwise will return `false`. |
