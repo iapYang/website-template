@@ -1,4 +1,4 @@
-# PictureLoader 图片加载器
+# PictureLoader
 
 使用了本地存储，加载图片时会先去检查sessionStorage中是否存在未过期的资源，若有，则直接从本地加载；否则，请求在线资源。
 
@@ -57,18 +57,10 @@ loader.load({
 
 
 
-## **静态属性（timeout更名为survivalTime）**
+## **static property**
 
-| 名称         | 类型          | 默认值                       | 描述       |
-| ---------- | ----------- | ------------------------- | -------- |
-| timeout    | number (ms) | 60000                     | 缓存周期     |
-| useStorage | boolean     | 除IE以外的桌面浏览器为true，其余为false | 是否使用本地存储 |
-
-
-
-## **静态方法（已删除，需要时再补）**
-
-| 名称                  | 描述                                     |
-| ------------------- | -------------------------------------- |
-| load(src, callback) | 加载指定的图片，完成后执行回调。参数：图片路径，回调函数。回调参数：图片对象 |
+| name         | type        | default value                            | description                         |
+| ------------ | ----------- | ---------------------------------------- | ----------------------------------- |
+| survivalTime | number (ms) | 60000                                    | survival time of cache              |
+| useStorage   | boolean     | `true` on desktop browser except IE. Other platform will be `false` | whether use sesstion storage or not |
 
