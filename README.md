@@ -1,46 +1,5 @@
 # website-template
 
-## 结构
-
-```
-website-template/
-	|
-	|——config/
-	|	|——postcss.config.js
-	|	|——webpack.base.config.js
-	|	|——webpack.dev.config.js
-	|	|——webpack.prod.config.js
-	|	|__ ***
-	|
-	|——dev/
-	|	|——component/ 可复用组件代码处
-	|	|	|——***/ 可复用组件的子组件
-	|	|	|——***.vue 可复用组件的子组件
-	|	|——font/
-	|	|——image/
-	|	|	|——ignore/ 被require的资源，图片小于10kB
-	|	|——example/ 实例代码
-	|	|——src/ 可复用化组件
-	|	|	|——***.vue 可复用化组件
-	|	|	|——***.js 输出文件
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-```
-
 ## 环境
 
 - 框架：vue
@@ -48,10 +7,6 @@ website-template/
 - 脚本：es6
 - 语法检测：ESLint
 - 打包：webpack
-
-
-
-
 
 ## 目录结构
 
@@ -64,17 +19,40 @@ website-template/
 - store：状态管理
 - router.js：路由配置
 
+```
+ website-template/    
+    |——config/    
+    |   |——postcss.config.js    
+    |   |——webpack.base.config.js    
+    |   |——webpack.dev.config.js    
+    |   |——webpack.prod.config.js    
+    |   |——webpack.bundle.config.js    
+    |   |——deploy.js    
+    |   |__ ***    
+    |——dev/    
+    |   |——component/ 全部组件    
+    |   |   |——common/ 全局复用组件    
+    |   |   |——layout/ 布局组件    
+    |   |   |——***/ 其它组件    
+    |   |   |——src/ 配合bundle命令输出编译后js组件    
+    |   |   |   |——***.vue 可复用化组件    
+    |   |   |   |——***.js 输出文件    
+    |   |   |——App.vue 出口输出组件    
+    |   |——font/ 字体资源    
+    |   |——image/ 图片资源    
+    |   |   |——ignore/ 被require的资源，图片小于10kB    
+    |   |——script/ 第三方插件库    
+    |   |——store/ vuex配置目录    
+    |   |——style/ 样式目录    
+    |   |——*.html    
+    |   |——router.js 路由配置目录    
+    |   |——favico.ico    
+    |——.babelrc babel配置文件    
+    |——.eslintignore eslint忽略列表    
+    |——.eslintrc eslint配置文件    
+    |——.gitignore    
+    |——.package.json 项目配置目录    
+    |——README.md 说明文档    
+    |__***/**
+```
 
-
-
-
-## npm/yarn script
-`dev`  开发时运行，自动打开本地服务器实时预览
-
-`build`  发布时运行，整合相关文件
-
-
-
-## eslint
-
-🚧 WIP
