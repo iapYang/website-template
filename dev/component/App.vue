@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Message from './Message.vue';
-import Controller from './Controller.vue';
+import Message from './layout/Message.vue';
+import Controller from './layout/Controller.vue';
 
 export default {
     components: {
