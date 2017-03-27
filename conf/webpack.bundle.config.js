@@ -5,7 +5,8 @@ const merge = require('webpack-merge');
 
 const baseWebpackConfig = require('./webpack.base.config.js');
 
-const jsFiles = glob.sync('./dev/src/*.js');
+const jsFiles = glob.sync('./dev/component/src/*.js');
+
 const entry = {};
 jsFiles.forEach((file, i) => {
     entry[path.basename(file, '.js')] = file;
