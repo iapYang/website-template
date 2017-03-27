@@ -6,6 +6,7 @@ module.exports = {
             features: {
                 calc: false,
             },
+            browsers: ['> 5%'],
         }),
     ],
 };
