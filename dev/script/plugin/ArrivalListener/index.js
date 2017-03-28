@@ -12,7 +12,6 @@ export default class {
     onBottomLeaveTop = function() {};
     onEnterArea = function() {};
     onLeaveArea = function() {};
-    onUpdate = function() {};
 
     constructor(options) {
         for(const key in options) {
@@ -63,11 +62,6 @@ export default class {
             this.flagBottomReachTop = false;
             this.onBottomEnterTop.call(this.el);
             this.onEnterArea.call(this.el);
-        }
-
-        // update
-        if(flagTopHigherThanBottom && flagBottomLowerThanTop) {
-            this.onUpdate.call(this.el);
         }
     }
 }
