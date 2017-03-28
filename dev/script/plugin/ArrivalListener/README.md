@@ -26,3 +26,5 @@ new ArrivalListener({
 | onTopLeaveBottom     | function   | null | trigger when element's top leave viewport's bottom |
 | onBottomEnterTop     | function   | null | trigger when element's bottom enter viewport's top |
 | onBottomLeaveTop     | function   | null | trigger when element's bottom leave viewport's top |
+| onEnterArea          | function   | null | trigger when element enter scope area    |
+| onLeaveArea          | function   | null | trigger when element leave scope area    |
