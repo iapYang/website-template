@@ -136,6 +136,12 @@ function init() {
         onBottomLeaveTop() {
             console.log('==========onBottomLeaveTop1');
         },
+        onEnterArea() {
+            console.log('==========onEnterArea');
+        },
+        onLeaveArea() {
+            console.log('==========onLeaveArea');
+        },
     });
 
     // new ArrivalListener({
