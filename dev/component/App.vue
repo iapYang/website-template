@@ -6,6 +6,7 @@
         <controller></controller>
 
         <router-view></router-view>
+        <loading spinner="circles"></loading>
     </div>
 </template>
 
@@ -13,10 +14,13 @@
 import Message from './layout/Message.vue';
 import Controller from './layout/Controller.vue';
 
+import Loading from 'vue-simple-loading';
+
 export default {
     components: {
         Message,
         Controller,
+        Loading,
     },
 };
 </script>
