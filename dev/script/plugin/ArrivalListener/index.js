@@ -12,6 +12,7 @@ export default class {
     onBottomLeaveTop = function() {};
     onEnterArea = function() {};
     onLeaveArea = function() {};
+    onUpdate = function() {};
 
     constructor(options) {
         for(const key in options) {
@@ -26,13 +27,15 @@ export default class {
         const innerHeight = window.innerHeight;
         const rect = this.el.getBoundingClientRect();
 
-        this.adjustElTopScreenBottom(innerHeight, rect);
-        this.adjustElBottomScreenTop(innerHeight, rect);
+        this.adjustEdge(innerHeight, rect);
     }
 
-    adjustElTopScreenBottom(innerHeight, rect) {
+    adjustEdge(innerHeight, rect) {
         const flagTopHigherThanBottom = (rect.top + this.offsetTopEnterBottom) <= innerHeight;
         const flagTopLowerThanBottom = (rect.top + this.offsetTopLeaveBottom) > innerHeight;
+
+        const flagBottomHigherThanTop = (rect.bottom + this.offsetBottomReachTop) < 0;
+        const flagBottomLowerThanTop = (rect.bottom + this.offsetBottomReachTop) >= 0;
 
         // top enter bottom
         if(flagTopHigherThanBottom && !this.flagTopReachBottom) {
@@ -47,11 +50,6 @@ export default class {
             this.onTopLeaveBottom.call(this.el);
             this.onLeaveArea.call(this.el);
         }
-    }
-
-    adjustElBottomScreenTop(innerHeight, rect) {
-        const flagBottomHigherThanTop = (rect.bottom + this.offsetBottomReachTop) < 0;
-        const flagBottomLowerThanTop = (rect.bottom + this.offsetBottomReachTop) >= 0;
 
         // bottom leave top
         if(flagBottomHigherThanTop && !this.flagBottomReachTop) {
@@ -65,6 +63,11 @@ export default class {
             this.flagBottomReachTop = false;
             this.onBottomEnterTop.call(this.el);
             this.onEnterArea.call(this.el);
+        }
+
+        // update
+        if(flagTopHigherThanBottom && flagBottomLowerThanTop) {
+            this.onUpdate.call(this.el);
         }
     }
 }

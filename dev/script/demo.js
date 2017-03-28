@@ -142,6 +142,9 @@ function init() {
         onLeaveArea() {
             console.log('==========onLeaveArea');
         },
+        onUpdate() {
+            console.log('==========onUpdate');
+        },
     });
 
     // new ArrivalListener({
