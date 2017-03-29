@@ -12,7 +12,12 @@
     "update-json": "ncu -a",
     "update-package": "npm update"
   },
-  "author": "",
+    "author": {
+    "name": "iapyang",
+    "email": "yklorse@gmail.com"
+  },
+  "keywords": [],
+  "repository": {},
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.23.1",
