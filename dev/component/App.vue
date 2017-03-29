@@ -7,6 +7,9 @@
 
         <router-view></router-view>
         <loading spinner="circles"></loading>
+        <div class="video-container">
+            <vue-video :options="videoOptions"></vue-video>
+        </div>
     </div>
 </template>
 
@@ -15,12 +18,22 @@ import Message from './layout/Message.vue';
 import Controller from './layout/Controller.vue';
 
 import Loading from 'vue-simple-loading';
+import VueVideo from 'vue-video-module';
 
 export default {
+    data() {
+        return {
+            videoOptions: {
+                src: 'http://vjs.zencdn.net/v/oceans.mp4',
+                fullscreen: true,
+            },
+        };
+    },
     components: {
         Message,
         Controller,
         Loading,
+        VueVideo,
     },
 };
 </script>
@@ -51,6 +64,10 @@ export default {
 
     img{
         width: 200px;
+    }
+
+    .video-container {
+        max-width: 600px;
     }
 }
 
