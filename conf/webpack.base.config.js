@@ -85,6 +85,7 @@ module.exports = {
                     options: {
                         limit: 10240,
                         name: 'image/[name].[ext]',
+                        emitFile: false,
                     },
                 }],
                 include: svgRegex,
