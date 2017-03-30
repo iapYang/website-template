@@ -68,9 +68,7 @@ module.exports = {
                         name: 'font/[name].[ext]',
                     },
                 }],
-                include: [
-                    fontPath,
-                ],
+                exclude: /(image+\/)([a-z0-9=&./]+)(\.svg)$/,
             },
             {
                 test: /\.(jpg|jpeg|png|gif)$/,
@@ -82,7 +80,7 @@ module.exports = {
                 }],
             },
             {
-                test: /\.svg/,
+                test: /\.svg$/,
                 use: [{
                     loader: 'svg-url-loader',
                     options: {
@@ -90,9 +88,7 @@ module.exports = {
                         noquotes: true,
                     },
                 }],
-                include: [
-                    picPath,
-                ],
+                include: /(image+\/)([a-z0-9=&./]+)(\.svg)$/,
             },
         ],
     },
