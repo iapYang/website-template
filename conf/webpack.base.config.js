@@ -3,8 +3,7 @@ const glob = require('glob');
 const webpack = require('webpack');
 const postcssConfig = require('./postcss.config.js');
 
-const fontPath = path.resolve(process.cwd(), 'dev/font');
-const picPath = path.resolve(process.cwd(), 'dev/image');
+const svgRegex = /(image+\/)([a-z0-9=&./]+)(\.svg)$/;
 
 const jsFiles = glob.sync('./dev/script/*.js');
 const entry = {};
@@ -68,7 +67,7 @@ module.exports = {
                         name: 'font/[name].[ext]',
                     },
                 }],
-                exclude: /(image+\/)([a-z0-9=&./]+)(\.svg)$/,
+                exclude: svgRegex,
             },
             {
                 test: /\.(jpg|jpeg|png|gif)$/,
@@ -88,7 +87,7 @@ module.exports = {
                         noquotes: true,
                     },
                 }],
-                include: /(image+\/)([a-z0-9=&./]+)(\.svg)$/,
+                include: svgRegex,
             },
         ],
     },
