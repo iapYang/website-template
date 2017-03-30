@@ -81,10 +81,10 @@ module.exports = {
             {
                 test: /\.svg$/,
                 use: [{
-                    loader: 'svg-url-loader',
+                    loader: 'file-loader',
                     options: {
                         limit: 10240,
-                        noquotes: true,
+                        name: 'image/[name].[ext]',
                     },
                 }],
                 include: svgRegex,
