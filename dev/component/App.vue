@@ -1,6 +1,7 @@
 <template lang="html">
     <div class="app-container">
         <img src="../image/stuff.svg" alt="">
+        <img src="../image/1.jpg" alt="">
         <div class="bg"></div>
 
         <message></message>
