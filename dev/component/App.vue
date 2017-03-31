@@ -1,6 +1,8 @@
 <template lang="html">
     <div class="app-container">
         <img src="../image/stuff.svg" alt="">
+        <img src="../image/1.jpg" alt="">
+        <div class="bg"></div>
 
         <message></message>
         <controller></controller>
@@ -47,6 +49,12 @@ export default {
 :root{
     --color1: red;
     --color2: blue;
+}
+
+.bg {
+    width: 40px;
+    height: 40px;
+    background-image: url('../image/stuff.svg');
 }
 
 @media (max-width: 1000px) {
