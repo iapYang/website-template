@@ -63,7 +63,7 @@ class Component {
 
     load() {
         if(this.totalCount === 0) {
-            this.loadAllHandler();
+            this.loadAll(this.totalCount);
             return;
         }
 
