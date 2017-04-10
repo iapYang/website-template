@@ -58,7 +58,7 @@ class Component {
             }
         }
 
-        this.totalCount = this.pictureList.length;
+        this.totalCount = this.pictureList.length; 
     }
 
     load() {
