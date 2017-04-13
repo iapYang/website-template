@@ -20,6 +20,8 @@ export default class {
 
         window.addEventListener('scroll', this.entranceHandler.bind(this));
         window.addEventListener('resize', this.entranceHandler.bind(this));
+
+        this.entranceHandler();
     }
 
     entranceHandler() {
