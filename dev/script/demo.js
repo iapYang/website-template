@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import '../style/demo.scss';
 
 import PictureLoader from './plugin/PictureLoader';
-import Platform from './plugin/Platform';
+import Platform from 'joshua-platform';
 import Slider from './plugin/Slider';
 import Util from './plugin/Util';
 import ArrivalListener from './plugin/ArrivalListener';

@@ -2024,7 +2024,7 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
-fsevents@^1.0.0:
+fsevents@^1.0.0, fsevents@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.1.1.tgz#f19fd28f43eeaf761680e519a203c4d0b3d31aff"
   dependencies:
@@ -2616,9 +2616,9 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-joshua-platform@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/joshua-platform/-/joshua-platform-2.0.1.tgz#64aedf05b8e86a66ecf1591fb65743f7750f9f45"
+joshua-platform@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/joshua-platform/-/joshua-platform-2.0.2.tgz#cc76761497d52cdcf1a35fa93e3ba64385d9c78c"
 
 js-base64@^2.1.9:
   version "2.1.9"
