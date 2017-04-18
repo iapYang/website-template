@@ -2616,9 +2616,9 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-joshua-platform@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/joshua-platform/-/joshua-platform-1.0.1.tgz#8ecaa92492b403dde51187d7b3dead15aca85cac"
+joshua-platform@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/joshua-platform/-/joshua-platform-2.0.1.tgz#64aedf05b8e86a66ecf1591fb65743f7750f9f45"
 
 js-base64@^2.1.9:
   version "2.1.9"
