@@ -6,8 +6,10 @@ import router from '../router';
 import store from '../store/index';
 import App from '../component/App.vue';
 
-import Platform from './plugin/Platform';
+import Platform from 'joshua-platform';
 import Sensitive from './plugin/Sensitive';
+
+window.Platform = Platform;
 
 
 const app = new Vue({

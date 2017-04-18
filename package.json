@@ -44,6 +44,7 @@
     "webpack-merge": "^3.0.0"
   },
   "dependencies": {
+    "joshua-platform": "^1.0.1",
     "vue": "^2.2.1",
     "vue-router": "^2.3.0",
     "vuex": "^2.2.1"
