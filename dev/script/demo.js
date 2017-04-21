@@ -136,11 +136,11 @@ function init() {
         onBottomLeaveTop() {
             console.log('==========onBottomLeaveTop1');
         },
-        onEnterArea() {
-            console.log('==========onEnterArea');
+        onBottomEnterBottom() {
+            console.log('==========onBottomEnterBottom1');
         },
-        onLeaveArea() {
-            console.log('==========onLeaveArea');
+        onBottomLeaveBottom() {
+            console.log('==========onBottomLeaveBottom1');
         },
     });
 

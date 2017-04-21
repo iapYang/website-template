@@ -1,15 +1,20 @@
 export default class {
     flagTopReachBottom = false;
     flagBottomReachTop = false;
+    flagBottomReachBottom = false;
 
     offsetTopEnterBottom = 0;
     offsetTopLeaveBottom = 0;
     offsetBottomReachTop = 0;
+    // offsetBottomEnterBottom = 0;
+    // offsetBottomLeaveBottom = 0;
 
     onTopEnterBottom = function() {};
     onTopLeaveBottom = function() {};
     onBottomEnterTop = function() {};
     onBottomLeaveTop = function() {};
+    onBottomEnterBottom = function() {};
+    onBottomLeaveBottom = function() {};
 
     constructor(options) {
         for(const key in options) {
@@ -33,8 +38,11 @@ export default class {
         const flagTopHigherThanBottom = (rect.top + this.offsetTopEnterBottom) <= innerHeight;
         const flagTopLowerThanBottom = (rect.top + this.offsetTopLeaveBottom) > innerHeight;
 
-        const flagBottomHigherThanTop = (rect.bottom + this.offsetBottomReachTop) < 0;
-        const flagBottomLowerThanTop = (rect.bottom + this.offsetBottomReachTop) >= 0;
+        const flagBottomHigherThanTop = (rect.bottom + this.offsetBottomReachTop) <= 0;
+        const flagBottomLowerThanTop = (rect.bottom + this.offsetBottomReachTop) > 0;
+
+        const flagBottomHigherThanBottom = rect.bottom <= innerHeight;
+        const flagBottomLowerThanBottom = rect.bottom > innerHeight;
 
         // top enter bottom
         if(flagTopHigherThanBottom && !this.flagTopReachBottom) {
@@ -58,6 +66,18 @@ export default class {
         if(flagBottomLowerThanTop && this.flagBottomReachTop) {
             this.flagBottomReachTop = false;
             this.onBottomEnterTop.call(this.el);
+        }
+
+        // bottom enter bottom
+        if(flagBottomHigherThanBottom && !this.flagBottomReachBottom) {
+            this.flagBottomReachBottom = true;
+            this.onBottomEnterBottom.call(this.el);
+        }
+
+        // bottom leave bottom
+        if(flagBottomLowerThanBottom && this.flagBottomReachBottom) {
+            this.flagBottomReachBottom = false;
+            this.onBottomLeaveBottom.call(this.el);
         }
     }
 }
