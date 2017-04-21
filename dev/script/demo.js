@@ -120,8 +120,10 @@ function init() {
     new ArrivalListener({
         el: document.getElementById('dv2'),
         offsetTopEnterBottom: 500,
-        // offsetTopLeaveBottom: 100,
+        offsetTopLeaveBottom: 100,
         offsetBottomReachTop: -100,
+        offsetBottomEnterBottom: 200,
+        offsetBottomLeaveBottom: 100,
         onTopEnterBottom() {
             console.log('==========onTopEnterBottom1');
             this.classList.add('active');

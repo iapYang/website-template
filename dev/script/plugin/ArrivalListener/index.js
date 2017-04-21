@@ -6,8 +6,8 @@ export default class {
     offsetTopEnterBottom = 0;
     offsetTopLeaveBottom = 0;
     offsetBottomReachTop = 0;
-    // offsetBottomEnterBottom = 0;
-    // offsetBottomLeaveBottom = 0;
+    offsetBottomEnterBottom = 0;
+    offsetBottomLeaveBottom = 0;
 
     onTopEnterBottom = function() {};
     onTopLeaveBottom = function() {};
@@ -41,8 +41,8 @@ export default class {
         const flagBottomHigherThanTop = (rect.bottom + this.offsetBottomReachTop) <= 0;
         const flagBottomLowerThanTop = (rect.bottom + this.offsetBottomReachTop) > 0;
 
-        const flagBottomHigherThanBottom = rect.bottom <= innerHeight;
-        const flagBottomLowerThanBottom = rect.bottom > innerHeight;
+        const flagBottomHigherThanBottom = (rect.bottom + this.offsetBottomEnterBottom) <= innerHeight;
+        const flagBottomLowerThanBottom = (rect.bottom + this.offsetBottomLeaveBottom) > innerHeight;
 
         // top enter bottom
         if(flagTopHigherThanBottom && !this.flagTopReachBottom) {
