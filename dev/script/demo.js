@@ -4,9 +4,9 @@ import '../style/demo.scss';
 
 import PictureLoader from './plugin/PictureLoader';
 import Platform from 'joshua-platform';
+import ArrivalListener from 'joshua-arrival-listener';
 import Slider from './plugin/Slider';
 import Util from './plugin/Util';
-import ArrivalListener from './plugin/ArrivalListener';
 import Sensitive from './plugin/Sensitive';
 
 // import IScroll from 'iscroll';
