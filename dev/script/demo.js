@@ -4,7 +4,6 @@ import '../style/demo.scss';
 
 import PictureLoader from './plugin/PictureLoader';
 import Platform from 'joshua-platform';
-import ArrivalListener from 'joshua-arrival-listener';
 import Slider from './plugin/Slider';
 import Util from './plugin/Util';
 import Sensitive from './plugin/Sensitive';
@@ -113,54 +112,6 @@ function init() {
             console.log('==========222 loadAll');
         },
     }).load();
-
-
-
-
-    new ArrivalListener({
-        el: document.getElementById('dv2'),
-        offsetTopEnterBottom: 500,
-        offsetTopLeaveBottom: 100,
-        offsetBottomReachTop: -100,
-        offsetBottomEnterBottom: 200,
-        offsetBottomLeaveBottom: 100,
-        onTopEnterBottom() {
-            console.log('==========onTopEnterBottom1');
-            this.classList.add('active');
-        },
-        onTopLeaveBottom() {
-            console.log('==========onTopLeaveBottom1');
-            this.classList.remove('active');
-        },
-        onBottomEnterTop() {
-            console.log('==========onBottomEnterTop1');
-        },
-        onBottomLeaveTop() {
-            console.log('==========onBottomLeaveTop1');
-        },
-        onBottomEnterBottom() {
-            console.log('==========onBottomEnterBottom1');
-        },
-        onBottomLeaveBottom() {
-            console.log('==========onBottomLeaveBottom1');
-        },
-    });
-
-    // new ArrivalListener({
-    //     el: document.getElementById('dv4'),
-    //     onTopEnterBottom() {
-    //         console.log('==========onTopEnterBottom2');
-    //     },
-    //     onTopLeaveBottom() {
-    //         console.log('==========onTopLeaveBottom2');
-    //     },
-    //     onBottomEnterTop() {
-    //         console.log('==========onBottomEnterTop2');
-    //     },
-    //     onBottomLeaveTop() {
-    //         console.log('==========onBottomLeaveTop2');
-    //     },
-    // });
 }
 
 
