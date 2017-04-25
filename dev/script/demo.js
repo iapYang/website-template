@@ -127,9 +127,3 @@ window.addEventListener('resize', Util.throttle(() => {
 // });
 
 // console.log('==========', Sensitive.check('aa ass'));
-
-
-// const aaa = new ArrivalListener({
-//     flagTopReachBottom: true,
-// });
-// console.log('==========', aaa);
